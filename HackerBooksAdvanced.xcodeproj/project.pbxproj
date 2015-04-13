@@ -12,6 +12,7 @@
 		59E0401F1ADC2782007EF337 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59E0401E1ADC2782007EF337 /* Images.xcassets */; };
 		59E040221ADC2782007EF337 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59E040201ADC2782007EF337 /* LaunchScreen.xib */; };
 		59E0402E1ADC2782007EF337 /* HackerBooksAdvancedTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E0402D1ADC2782007EF337 /* HackerBooksAdvancedTests.m */; };
+		59E0403A1ADC29F6007EF337 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 59E040381ADC29F6007EF337 /* Model.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,7 @@
 		59E040271ADC2782007EF337 /* HackerBooksAdvancedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HackerBooksAdvancedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		59E0402C1ADC2782007EF337 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		59E0402D1ADC2782007EF337 /* HackerBooksAdvancedTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HackerBooksAdvancedTests.m; sourceTree = "<group>"; };
+		59E040391ADC29F6007EF337 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 			children = (
 				59E0401B1ADC2782007EF337 /* AppDelegate.h */,
 				59E0401C1ADC2782007EF337 /* AppDelegate.m */,
+				59E040371ADC29E4007EF337 /* Model */,
 				59E0401E1ADC2782007EF337 /* Images.xcassets */,
 				59E040201ADC2782007EF337 /* LaunchScreen.xib */,
 				59E040171ADC2781007EF337 /* Supporting Files */,
@@ -109,6 +112,14 @@
 				59E0402C1ADC2782007EF337 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		59E040371ADC29E4007EF337 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				59E040381ADC29F6007EF337 /* Model.xcdatamodeld */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,6 +223,7 @@
 			files = (
 				59E0401D1ADC2782007EF337 /* AppDelegate.m in Sources */,
 				59E0401A1ADC2781007EF337 /* main.m in Sources */,
+				59E0403A1ADC29F6007EF337 /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,6 +416,19 @@
 			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		59E040381ADC29F6007EF337 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				59E040391ADC29F6007EF337 /* Model.xcdatamodel */,
+			);
+			currentVersion = 59E040391ADC29F6007EF337 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 59E0400C1ADC2781007EF337 /* Project object */;
 }
