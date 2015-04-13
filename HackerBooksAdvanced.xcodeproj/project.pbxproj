@@ -13,6 +13,22 @@
 		59E040221ADC2782007EF337 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59E040201ADC2782007EF337 /* LaunchScreen.xib */; };
 		59E0402E1ADC2782007EF337 /* HackerBooksAdvancedTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E0402D1ADC2782007EF337 /* HackerBooksAdvancedTests.m */; };
 		59E0403A1ADC29F6007EF337 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 59E040381ADC29F6007EF337 /* Model.xcdatamodeld */; };
+		59E0404B1ADC3093007EF337 /* _FLGAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E0403C1ADC3093007EF337 /* _FLGAnnotation.m */; };
+		59E0404C1ADC3093007EF337 /* _FLGAuthor.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E0403E1ADC3093007EF337 /* _FLGAuthor.m */; };
+		59E0404D1ADC3093007EF337 /* _FLGBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E040401ADC3093007EF337 /* _FLGBook.m */; };
+		59E0404E1ADC3093007EF337 /* _FLGCover.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E040421ADC3093007EF337 /* _FLGCover.m */; };
+		59E0404F1ADC3093007EF337 /* _FLGLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E040441ADC3093007EF337 /* _FLGLocation.m */; };
+		59E040501ADC3093007EF337 /* _FLGPdf.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E040461ADC3093007EF337 /* _FLGPdf.m */; };
+		59E040511ADC3093007EF337 /* _FLGPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E040481ADC3093007EF337 /* _FLGPhoto.m */; };
+		59E040521ADC3093007EF337 /* _FLGTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E0404A1ADC3093007EF337 /* _FLGTag.m */; };
+		59E040641ADC30AF007EF337 /* FLGAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E040551ADC30AF007EF337 /* FLGAnnotation.m */; };
+		59E040651ADC30AF007EF337 /* FLGAuthor.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E040571ADC30AF007EF337 /* FLGAuthor.m */; };
+		59E040661ADC30B0007EF337 /* FLGBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E040591ADC30AF007EF337 /* FLGBook.m */; };
+		59E040671ADC30B0007EF337 /* FLGCover.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E0405B1ADC30AF007EF337 /* FLGCover.m */; };
+		59E040681ADC30B0007EF337 /* FLGLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E0405D1ADC30AF007EF337 /* FLGLocation.m */; };
+		59E040691ADC30B0007EF337 /* FLGPdf.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E0405F1ADC30AF007EF337 /* FLGPdf.m */; };
+		59E0406A1ADC30B0007EF337 /* FLGPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E040611ADC30AF007EF337 /* FLGPhoto.m */; };
+		59E0406B1ADC30B0007EF337 /* FLGTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E040631ADC30AF007EF337 /* FLGTag.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +53,38 @@
 		59E0402C1ADC2782007EF337 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		59E0402D1ADC2782007EF337 /* HackerBooksAdvancedTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HackerBooksAdvancedTests.m; sourceTree = "<group>"; };
 		59E040391ADC29F6007EF337 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		59E0403B1ADC3093007EF337 /* _FLGAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FLGAnnotation.h; sourceTree = "<group>"; };
+		59E0403C1ADC3093007EF337 /* _FLGAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FLGAnnotation.m; sourceTree = "<group>"; };
+		59E0403D1ADC3093007EF337 /* _FLGAuthor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FLGAuthor.h; sourceTree = "<group>"; };
+		59E0403E1ADC3093007EF337 /* _FLGAuthor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FLGAuthor.m; sourceTree = "<group>"; };
+		59E0403F1ADC3093007EF337 /* _FLGBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FLGBook.h; sourceTree = "<group>"; };
+		59E040401ADC3093007EF337 /* _FLGBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FLGBook.m; sourceTree = "<group>"; };
+		59E040411ADC3093007EF337 /* _FLGCover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FLGCover.h; sourceTree = "<group>"; };
+		59E040421ADC3093007EF337 /* _FLGCover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FLGCover.m; sourceTree = "<group>"; };
+		59E040431ADC3093007EF337 /* _FLGLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FLGLocation.h; sourceTree = "<group>"; };
+		59E040441ADC3093007EF337 /* _FLGLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FLGLocation.m; sourceTree = "<group>"; };
+		59E040451ADC3093007EF337 /* _FLGPdf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FLGPdf.h; sourceTree = "<group>"; };
+		59E040461ADC3093007EF337 /* _FLGPdf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FLGPdf.m; sourceTree = "<group>"; };
+		59E040471ADC3093007EF337 /* _FLGPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FLGPhoto.h; sourceTree = "<group>"; };
+		59E040481ADC3093007EF337 /* _FLGPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FLGPhoto.m; sourceTree = "<group>"; };
+		59E040491ADC3093007EF337 /* _FLGTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FLGTag.h; sourceTree = "<group>"; };
+		59E0404A1ADC3093007EF337 /* _FLGTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FLGTag.m; sourceTree = "<group>"; };
+		59E040541ADC30AF007EF337 /* FLGAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLGAnnotation.h; sourceTree = "<group>"; };
+		59E040551ADC30AF007EF337 /* FLGAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLGAnnotation.m; sourceTree = "<group>"; };
+		59E040561ADC30AF007EF337 /* FLGAuthor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLGAuthor.h; sourceTree = "<group>"; };
+		59E040571ADC30AF007EF337 /* FLGAuthor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLGAuthor.m; sourceTree = "<group>"; };
+		59E040581ADC30AF007EF337 /* FLGBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLGBook.h; sourceTree = "<group>"; };
+		59E040591ADC30AF007EF337 /* FLGBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLGBook.m; sourceTree = "<group>"; };
+		59E0405A1ADC30AF007EF337 /* FLGCover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLGCover.h; sourceTree = "<group>"; };
+		59E0405B1ADC30AF007EF337 /* FLGCover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLGCover.m; sourceTree = "<group>"; };
+		59E0405C1ADC30AF007EF337 /* FLGLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLGLocation.h; sourceTree = "<group>"; };
+		59E0405D1ADC30AF007EF337 /* FLGLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLGLocation.m; sourceTree = "<group>"; };
+		59E0405E1ADC30AF007EF337 /* FLGPdf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLGPdf.h; sourceTree = "<group>"; };
+		59E0405F1ADC30AF007EF337 /* FLGPdf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLGPdf.m; sourceTree = "<group>"; };
+		59E040601ADC30AF007EF337 /* FLGPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLGPhoto.h; sourceTree = "<group>"; };
+		59E040611ADC30AF007EF337 /* FLGPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLGPhoto.m; sourceTree = "<group>"; };
+		59E040621ADC30AF007EF337 /* FLGTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLGTag.h; sourceTree = "<group>"; };
+		59E040631ADC30AF007EF337 /* FLGTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLGTag.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,8 +166,48 @@
 			isa = PBXGroup;
 			children = (
 				59E040381ADC29F6007EF337 /* Model.xcdatamodeld */,
+				59E040531ADC3099007EF337 /* Machine */,
+				59E040541ADC30AF007EF337 /* FLGAnnotation.h */,
+				59E040551ADC30AF007EF337 /* FLGAnnotation.m */,
+				59E040561ADC30AF007EF337 /* FLGAuthor.h */,
+				59E040571ADC30AF007EF337 /* FLGAuthor.m */,
+				59E040581ADC30AF007EF337 /* FLGBook.h */,
+				59E040591ADC30AF007EF337 /* FLGBook.m */,
+				59E0405A1ADC30AF007EF337 /* FLGCover.h */,
+				59E0405B1ADC30AF007EF337 /* FLGCover.m */,
+				59E0405C1ADC30AF007EF337 /* FLGLocation.h */,
+				59E0405D1ADC30AF007EF337 /* FLGLocation.m */,
+				59E0405E1ADC30AF007EF337 /* FLGPdf.h */,
+				59E0405F1ADC30AF007EF337 /* FLGPdf.m */,
+				59E040601ADC30AF007EF337 /* FLGPhoto.h */,
+				59E040611ADC30AF007EF337 /* FLGPhoto.m */,
+				59E040621ADC30AF007EF337 /* FLGTag.h */,
+				59E040631ADC30AF007EF337 /* FLGTag.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		59E040531ADC3099007EF337 /* Machine */ = {
+			isa = PBXGroup;
+			children = (
+				59E0403B1ADC3093007EF337 /* _FLGAnnotation.h */,
+				59E0403C1ADC3093007EF337 /* _FLGAnnotation.m */,
+				59E0403D1ADC3093007EF337 /* _FLGAuthor.h */,
+				59E0403E1ADC3093007EF337 /* _FLGAuthor.m */,
+				59E0403F1ADC3093007EF337 /* _FLGBook.h */,
+				59E040401ADC3093007EF337 /* _FLGBook.m */,
+				59E040411ADC3093007EF337 /* _FLGCover.h */,
+				59E040421ADC3093007EF337 /* _FLGCover.m */,
+				59E040431ADC3093007EF337 /* _FLGLocation.h */,
+				59E040441ADC3093007EF337 /* _FLGLocation.m */,
+				59E040451ADC3093007EF337 /* _FLGPdf.h */,
+				59E040461ADC3093007EF337 /* _FLGPdf.m */,
+				59E040471ADC3093007EF337 /* _FLGPhoto.h */,
+				59E040481ADC3093007EF337 /* _FLGPhoto.m */,
+				59E040491ADC3093007EF337 /* _FLGTag.h */,
+				59E0404A1ADC3093007EF337 /* _FLGTag.m */,
+			);
+			name = Machine;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,8 +310,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				59E0401D1ADC2782007EF337 /* AppDelegate.m in Sources */,
+				59E0404E1ADC3093007EF337 /* _FLGCover.m in Sources */,
+				59E040671ADC30B0007EF337 /* FLGCover.m in Sources */,
+				59E040641ADC30AF007EF337 /* FLGAnnotation.m in Sources */,
+				59E040511ADC3093007EF337 /* _FLGPhoto.m in Sources */,
+				59E0406B1ADC30B0007EF337 /* FLGTag.m in Sources */,
+				59E0404F1ADC3093007EF337 /* _FLGLocation.m in Sources */,
 				59E0401A1ADC2781007EF337 /* main.m in Sources */,
+				59E040661ADC30B0007EF337 /* FLGBook.m in Sources */,
+				59E040521ADC3093007EF337 /* _FLGTag.m in Sources */,
+				59E040501ADC3093007EF337 /* _FLGPdf.m in Sources */,
+				59E040681ADC30B0007EF337 /* FLGLocation.m in Sources */,
+				59E0404D1ADC3093007EF337 /* _FLGBook.m in Sources */,
+				59E0404C1ADC3093007EF337 /* _FLGAuthor.m in Sources */,
+				59E040651ADC30AF007EF337 /* FLGAuthor.m in Sources */,
+				59E0406A1ADC30B0007EF337 /* FLGPhoto.m in Sources */,
+				59E0404B1ADC3093007EF337 /* _FLGAnnotation.m in Sources */,
 				59E0403A1ADC29F6007EF337 /* Model.xcdatamodeld in Sources */,
+				59E040691ADC30B0007EF337 /* FLGPdf.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
