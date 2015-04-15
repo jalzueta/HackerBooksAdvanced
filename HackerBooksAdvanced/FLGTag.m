@@ -10,4 +10,13 @@
 
 // Custom logic goes here.
 
++ (instancetype) initWithName: (NSString *) name
+                      context: (NSManagedObjectContext *) context{
+    
+    FLGTag *tag = [self insertInManagedObjectContext:context];
+    tag.name = name;
+    
+    return tag;
+}
+
 @end

@@ -4,7 +4,7 @@
 #import "_FLGBook.h"
 
 const struct FLGBookAttributes FLGBookAttributes = {
-	.imageURL = @"imageURL",
+	.coverURL = @"coverURL",
 	.pdfURL = @"pdfURL",
 	.title = @"title",
 };
@@ -46,7 +46,7 @@ const struct FLGBookRelationships FLGBookRelationships = {
 	return keyPaths;
 }
 
-@dynamic imageURL;
+@dynamic coverURL;
 
 @dynamic pdfURL;
 

@@ -12,7 +12,7 @@
         <relationship name="book" toMany="YES" deletionRule="Nullify" destinationEntity="Book" inverseName="authors" inverseEntity="Book" syncable="YES"/>
     </entity>
     <entity name="Book" representedClassName="FLGBook" syncable="YES">
-        <attribute name="imageURL" attributeType="String" syncable="YES"/>
+        <attribute name="coverURL" attributeType="String" syncable="YES"/>
         <attribute name="pdfURL" attributeType="String" syncable="YES"/>
         <attribute name="title" attributeType="String" indexed="YES" syncable="YES"/>
         <relationship name="annotations" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Annotation" inverseName="book" inverseEntity="Annotation" syncable="YES"/>
@@ -44,13 +44,13 @@
         <relationship name="books" toMany="YES" deletionRule="Nullify" destinationEntity="Book" inverseName="tags" inverseEntity="Book" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Book" positionX="-765" positionY="-265" width="128" height="163"/>
-        <element name="Tag" positionX="-504" positionY="260" width="128" height="73"/>
-        <element name="Pdf" positionX="-452" positionY="125" width="128" height="73"/>
-        <element name="Photo" positionX="-126" positionY="-342" width="128" height="73"/>
-        <element name="Cover" positionX="-396" positionY="-28" width="128" height="73"/>
-        <element name="Location" positionX="-126" positionY="-504" width="128" height="103"/>
         <element name="Annotation" positionX="-450" positionY="-442" width="128" height="118"/>
         <element name="Author" positionX="-398" positionY="-252" width="128" height="73"/>
+        <element name="Book" positionX="-765" positionY="-265" width="128" height="165"/>
+        <element name="Cover" positionX="-396" positionY="-28" width="128" height="73"/>
+        <element name="Location" positionX="-126" positionY="-504" width="128" height="103"/>
+        <element name="Pdf" positionX="-452" positionY="125" width="128" height="73"/>
+        <element name="Photo" positionX="-126" positionY="-342" width="128" height="73"/>
+        <element name="Tag" positionX="-504" positionY="260" width="128" height="73"/>
     </elements>
 </model>

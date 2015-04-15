@@ -4,7 +4,7 @@
 @import CoreData;
 
 extern const struct FLGBookAttributes {
-	__unsafe_unretained NSString *imageURL;
+	__unsafe_unretained NSString *coverURL;
 	__unsafe_unretained NSString *pdfURL;
 	__unsafe_unretained NSString *title;
 } FLGBookAttributes;
@@ -32,9 +32,9 @@ extern const struct FLGBookRelationships {
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 @property (nonatomic, readonly, strong) FLGBookID* objectID;
 
-@property (nonatomic, strong) NSString* imageURL;
+@property (nonatomic, strong) NSString* coverURL;
 
-//- (BOOL)validateImageURL:(id*)value_ error:(NSError**)error_;
+//- (BOOL)validateCoverURL:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSString* pdfURL;
 
@@ -92,8 +92,8 @@ extern const struct FLGBookRelationships {
 
 @interface _FLGBook (CoreDataGeneratedPrimitiveAccessors)
 
-- (NSString*)primitiveImageURL;
-- (void)setPrimitiveImageURL:(NSString*)value;
+- (NSString*)primitiveCoverURL;
+- (void)setPrimitiveCoverURL:(NSString*)value;
 
 - (NSString*)primitivePdfURL;
 - (void)setPrimitivePdfURL:(NSString*)value;

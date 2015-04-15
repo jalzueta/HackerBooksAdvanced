@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		59DF20511ADDCF1000556DA2 /* AGTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 59DF20501ADDCF1000556DA2 /* AGTCoreDataStack.m */; };
 		59E0401A1ADC2781007EF337 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E040191ADC2781007EF337 /* main.m */; };
 		59E0401D1ADC2782007EF337 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E0401C1ADC2782007EF337 /* AppDelegate.m */; };
 		59E0401F1ADC2782007EF337 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59E0401E1ADC2782007EF337 /* Images.xcassets */; };
@@ -42,6 +43,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		59DF204F1ADDCF1000556DA2 /* AGTCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGTCoreDataStack.h; sourceTree = "<group>"; };
+		59DF20501ADDCF1000556DA2 /* AGTCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGTCoreDataStack.m; sourceTree = "<group>"; };
+		59DF20531ADDD36500556DA2 /* FLGConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLGConstants.h; sourceTree = "<group>"; };
 		59E040141ADC2781007EF337 /* HackerBooksAdvanced.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackerBooksAdvanced.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		59E040181ADC2781007EF337 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		59E040191ADC2781007EF337 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -105,6 +109,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		59DF20521ADDCF1500556DA2 /* Core Data Stack */ = {
+			isa = PBXGroup;
+			children = (
+				59DF204F1ADDCF1000556DA2 /* AGTCoreDataStack.h */,
+				59DF20501ADDCF1000556DA2 /* AGTCoreDataStack.m */,
+			);
+			name = "Core Data Stack";
+			sourceTree = "<group>";
+		};
+		59DF20541ADDD36A00556DA2 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				59DF20531ADDD36500556DA2 /* FLGConstants.h */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
 		59E0400B1ADC2781007EF337 = {
 			isa = PBXGroup;
 			children = (
@@ -128,6 +149,7 @@
 			children = (
 				59E0401B1ADC2782007EF337 /* AppDelegate.h */,
 				59E0401C1ADC2782007EF337 /* AppDelegate.m */,
+				59DF20541ADDD36A00556DA2 /* Settings */,
 				59E040371ADC29E4007EF337 /* Model */,
 				59E0401E1ADC2782007EF337 /* Images.xcassets */,
 				59E040201ADC2782007EF337 /* LaunchScreen.xib */,
@@ -166,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				59E040381ADC29F6007EF337 /* Model.xcdatamodeld */,
+				59DF20521ADDCF1500556DA2 /* Core Data Stack */,
 				59E040531ADC3099007EF337 /* Machine */,
 				59E040541ADC30AF007EF337 /* FLGAnnotation.h */,
 				59E040551ADC30AF007EF337 /* FLGAnnotation.m */,
@@ -315,6 +338,7 @@
 				59E040641ADC30AF007EF337 /* FLGAnnotation.m in Sources */,
 				59E040511ADC3093007EF337 /* _FLGPhoto.m in Sources */,
 				59E0406B1ADC30B0007EF337 /* FLGTag.m in Sources */,
+				59DF20511ADDCF1000556DA2 /* AGTCoreDataStack.m in Sources */,
 				59E0404F1ADC3093007EF337 /* _FLGLocation.m in Sources */,
 				59E0401A1ADC2781007EF337 /* main.m in Sources */,
 				59E040661ADC30B0007EF337 /* FLGBook.m in Sources */,
@@ -510,6 +534,7 @@
 				59E040331ADC2782007EF337 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		59E040341ADC2782007EF337 /* Build configuration list for PBXNativeTarget "HackerBooksAdvancedTests" */ = {
 			isa = XCConfigurationList;
@@ -518,6 +543,7 @@
 				59E040361ADC2782007EF337 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
