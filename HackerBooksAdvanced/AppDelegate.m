@@ -12,9 +12,12 @@
 #import "FLGBook.h"
 #import "FLGTag.h"
 #import "FLGAuthor.h"
+#import "FLGLibraryTableViewController.h"
+#import "UIViewController+Navigation.h"
 
 @interface AppDelegate ()
 @property (strong, nonatomic) AGTCoreDataStack *stack;
+@property (strong, nonatomic) FLGLibraryTableViewController *libraryVC;
 @end
 
 @implementation AppDelegate
@@ -34,7 +37,7 @@
         dispatch_async(json_download, ^{
             
             // Borro los datos de Core Data
-            [self.stack zapAllData];
+//            [self.stack zapAllData];
             
             // Descarga de datos de libros - JSON
             NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:JSON_DOWNLOAD_URL]];
@@ -66,6 +69,7 @@
                                                   stack:self.stack];
                     }
                     
+                    // Guardamos el contexto
                     [self.stack saveWithErrorBlock:^(NSError *error) {
                         NSLog(@"Error al autoguardar!: %@", error);
                     }];
@@ -81,6 +85,12 @@
                     
                     // Arranco el autosave
                     [self autoSave];
+                    
+                    // En primer plano
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        // Se recarga la tabla con los libros descargados
+                        [self.libraryVC.tableView reloadData];
+                    });
                     
                 }else{
                     // Se ha producido un error al parsear el JSON
@@ -101,11 +111,31 @@
         [self autoSave];
     }
     
+    // Creamos un fetchRequest
+    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[FLGBook entityName]];
+    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:FLGBookAttributes.title
+                                                          ascending:YES selector:@selector(caseInsensitiveCompare:)]];
+    
+    req.fetchBatchSize = 20;
+    
+    // Creamos un FetchedResultsController
+    NSFetchedResultsController *fc = [[NSFetchedResultsController alloc]
+                                      initWithFetchRequest:req
+                                      managedObjectContext:self.stack.context
+                                      sectionNameKeyPath:nil cacheName:nil];
+    
+    // Creamos el controller
+    self.libraryVC = [[FLGLibraryTableViewController alloc] initWithFetchedResultsController:fc style:UITableViewStylePlain];
+    
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
+    
+    // Usamos un metodo definido en la categoria "UIViewController+Navigation"
+    self.window.rootViewController = [self.libraryVC wrappedInNavigationController];
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
     return YES;
 }
 

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		59DF20511ADDCF1000556DA2 /* AGTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 59DF20501ADDCF1000556DA2 /* AGTCoreDataStack.m */; };
+		59DF20691ADEBB1000556DA2 /* AGTCoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59DF20681ADEBB1000556DA2 /* AGTCoreDataTableViewController.m */; };
+		59DF206C1ADEBB2200556DA2 /* FLGLibraryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59DF206B1ADEBB2200556DA2 /* FLGLibraryTableViewController.m */; };
+		59DF20701ADEBB8E00556DA2 /* UIViewController+Navigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 59DF206F1ADEBB8E00556DA2 /* UIViewController+Navigation.m */; };
 		59E0401A1ADC2781007EF337 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E040191ADC2781007EF337 /* main.m */; };
 		59E0401D1ADC2782007EF337 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E0401C1ADC2782007EF337 /* AppDelegate.m */; };
 		59E0401F1ADC2782007EF337 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59E0401E1ADC2782007EF337 /* Images.xcassets */; };
@@ -46,6 +49,12 @@
 		59DF204F1ADDCF1000556DA2 /* AGTCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGTCoreDataStack.h; sourceTree = "<group>"; };
 		59DF20501ADDCF1000556DA2 /* AGTCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGTCoreDataStack.m; sourceTree = "<group>"; };
 		59DF20531ADDD36500556DA2 /* FLGConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLGConstants.h; sourceTree = "<group>"; };
+		59DF20671ADEBB1000556DA2 /* AGTCoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGTCoreDataTableViewController.h; sourceTree = "<group>"; };
+		59DF20681ADEBB1000556DA2 /* AGTCoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGTCoreDataTableViewController.m; sourceTree = "<group>"; };
+		59DF206A1ADEBB2200556DA2 /* FLGLibraryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLGLibraryTableViewController.h; sourceTree = "<group>"; };
+		59DF206B1ADEBB2200556DA2 /* FLGLibraryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLGLibraryTableViewController.m; sourceTree = "<group>"; };
+		59DF206E1ADEBB8E00556DA2 /* UIViewController+Navigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Navigation.h"; sourceTree = "<group>"; };
+		59DF206F1ADEBB8E00556DA2 /* UIViewController+Navigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Navigation.m"; sourceTree = "<group>"; };
 		59E040141ADC2781007EF337 /* HackerBooksAdvanced.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackerBooksAdvanced.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		59E040181ADC2781007EF337 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		59E040191ADC2781007EF337 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -126,6 +135,26 @@
 			name = Settings;
 			sourceTree = "<group>";
 		};
+		59DF20661ADEBAF100556DA2 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				59DF20671ADEBB1000556DA2 /* AGTCoreDataTableViewController.h */,
+				59DF20681ADEBB1000556DA2 /* AGTCoreDataTableViewController.m */,
+				59DF206A1ADEBB2200556DA2 /* FLGLibraryTableViewController.h */,
+				59DF206B1ADEBB2200556DA2 /* FLGLibraryTableViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		59DF206D1ADEBB8700556DA2 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				59DF206E1ADEBB8E00556DA2 /* UIViewController+Navigation.h */,
+				59DF206F1ADEBB8E00556DA2 /* UIViewController+Navigation.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		59E0400B1ADC2781007EF337 = {
 			isa = PBXGroup;
 			children = (
@@ -150,6 +179,8 @@
 				59E0401B1ADC2782007EF337 /* AppDelegate.h */,
 				59E0401C1ADC2782007EF337 /* AppDelegate.m */,
 				59DF20541ADDD36A00556DA2 /* Settings */,
+				59DF206D1ADEBB8700556DA2 /* Categories */,
+				59DF20661ADEBAF100556DA2 /* Controllers */,
 				59E040371ADC29E4007EF337 /* Model */,
 				59E0401E1ADC2782007EF337 /* Images.xcassets */,
 				59E040201ADC2782007EF337 /* LaunchScreen.xib */,
@@ -334,6 +365,8 @@
 			files = (
 				59E0401D1ADC2782007EF337 /* AppDelegate.m in Sources */,
 				59E0404E1ADC3093007EF337 /* _FLGCover.m in Sources */,
+				59DF20691ADEBB1000556DA2 /* AGTCoreDataTableViewController.m in Sources */,
+				59DF20701ADEBB8E00556DA2 /* UIViewController+Navigation.m in Sources */,
 				59E040671ADC30B0007EF337 /* FLGCover.m in Sources */,
 				59E040641ADC30AF007EF337 /* FLGAnnotation.m in Sources */,
 				59E040511ADC3093007EF337 /* _FLGPhoto.m in Sources */,
@@ -350,6 +383,7 @@
 				59E040651ADC30AF007EF337 /* FLGAuthor.m in Sources */,
 				59E0406A1ADC30B0007EF337 /* FLGPhoto.m in Sources */,
 				59E0404B1ADC3093007EF337 /* _FLGAnnotation.m in Sources */,
+				59DF206C1ADEBB2200556DA2 /* FLGLibraryTableViewController.m in Sources */,
 				59E0403A1ADC29F6007EF337 /* Model.xcdatamodeld in Sources */,
 				59E040691ADC30B0007EF337 /* FLGPdf.m in Sources */,
 			);

@@ -27,9 +27,6 @@
     
 //    book.annotations is optional
     
-    
-    
-    
     // Obtengo los Authors del libro actual y miro si existen ya en Core Data:
     // Si existen, añado el Author de Core Data al libro.
     // Si no existe, creo ese Author en Core Data y se lo asigno al libro
@@ -60,6 +57,9 @@
     book.cover = [FLGCover insertInManagedObjectContext:context];
     book.pdf = [FLGPdf insertInManagedObjectContext:context];
     
+    // Obtengo los Tags del libro actual y miro si existen ya en Core Data:
+    // Si existen, añado el Tag de Core Data al libro.
+    // Si no existe, creo ese Tag en Core Data y se lo asigno al libro
     NSArray *bookTagsArray = [[jsonDict objectForKey:TAGS_KEY] componentsSeparatedByString: @", "];
     for (NSString *tagName in bookTagsArray) {
         // Authors: hago una busqueda del Author en Core Data.
@@ -82,6 +82,10 @@
         }
         [book addTagsObject:tag];
     }
+    
+//    [stack saveWithErrorBlock:^(NSError *error) {
+//        NSLog(@"Error al guardar el contexto en Core Data: %@", error);
+//    }];
     
     return book;
 }
