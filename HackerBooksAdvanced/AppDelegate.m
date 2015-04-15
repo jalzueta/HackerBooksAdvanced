@@ -66,6 +66,10 @@
                                                   stack:self.stack];
                     }
                     
+                    [self.stack saveWithErrorBlock:^(NSError *error) {
+                        NSLog(@"Error al autoguardar!: %@", error);
+                    }];
+                    
                     // Se modifican los NSUserDefaults para que no se vuelva a descargar el modelo
                     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
                     [def setObject:@"YES" forKey:IS_MODEL_DOWNLOADED];
