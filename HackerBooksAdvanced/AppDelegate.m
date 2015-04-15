@@ -36,6 +36,7 @@
             // Borro los datos de Core Data
             [self.stack zapAllData];
             
+            // Descarga de datos de libros - JSON
             NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:JSON_DOWNLOAD_URL]];
             NSURLResponse *response = [[NSURLResponse alloc] init];
             NSError *err;
@@ -60,7 +61,7 @@
                         }
                     }else{
                         NSDictionary *dict = (NSDictionary *) jsonObject;
-                        // Se inserta un libro a partir del diccionario
+                        // Se inserta un libro en Core Data a partir del diccionario
                         [FLGBook bookWithJsonDictionary:dict
                                                   stack:self.stack];
                     }
@@ -68,10 +69,14 @@
                     // Se modifican los NSUserDefaults para que no se vuelva a descargar el modelo
                     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
                     [def setObject:@"YES" forKey:IS_MODEL_DOWNLOADED];
+                    [def synchronize];
                     
                     [self fetchTags];
                     [self fetchBooks];
                     [self fetchAuthors];
+                    
+                    // Arranco el autosave
+                    [self autoSave];
                     
                 }else{
                     // Se ha producido un error al parsear el JSON
@@ -83,7 +88,15 @@
                 NSLog(@"Error al descargar JSON: %@", err.localizedDescription);
             }
         });
+    } else{
+        [self fetchTags];
+        [self fetchBooks];
+        [self fetchAuthors];
+        
+        // Arranco el autosave
+        [self autoSave];
     }
+    
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
@@ -100,6 +113,11 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+    // Aqui vamos a guardar el contexto
+    [self.stack saveWithErrorBlock:^(NSError *error) {
+        NSLog(@"Error al guardar el contexto en Core Data: %@", error);
+    }];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -115,6 +133,23 @@
 }
 
 #pragma mark - Utils
+
+- (void) autoSave{
+    
+    if (AUTO_SAVE) {
+        NSLog(@"Autoguardando");
+        
+        [self.stack saveWithErrorBlock:^(NSError *error) {
+            NSLog(@"Error al autoguardar!: %@", error);
+        }];
+        
+        // Pongo en mi agenda una nueva llamada a "autosave"
+        // En cada vuelta del runloop, se mirará si ha pasado el tiempo y si es así, se ejecutará el método antes de tu código, es decir, al principio del runloop
+        // Todo esto se ejecuta en la cola principal
+        [self performSelector:@selector(autoSave)
+                   withObject:nil afterDelay:AUTO_SAVE_DELAY];
+    }
+}
 
 - (void) fetchTags{
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[FLGTag entityName]];
@@ -160,5 +195,7 @@
                                             }];
     NSLog(@"");
 }
+
+
 
 @end

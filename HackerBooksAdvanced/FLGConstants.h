@@ -6,10 +6,14 @@
 //  Copyright (c) 2015 FillinGAPPs. All rights reserved.
 //
 
-#pragma mark - FLGBook JSON download/save
+#pragma mark - Autosave
+#define AUTO_SAVE NO
+#define AUTO_SAVE_DELAY 30
+
+
+#pragma mark - FLGBook JSON download
 #define JSON_DOWNLOAD_URL @"https://t.co/K9ziV0z3SJ"
 #define IS_MODEL_DOWNLOADED @"isModelDownloaded"
-#define JSON_FILENAME @"booksJsonData.txt"
 
 #pragma mark - FLGBook JSON parser
 #define AUTHORS_KEY @"authors"
@@ -17,7 +21,6 @@
 #define PDF_URL_KEY @"pdf_url"
 #define TAGS_KEY @"tags"
 #define TITLE_KEY @"title"
-#define SAVED_IN_LOCAL_KEY @"saved_in_local"
 
 #pragma mark - FLGLibrary
 #define FAVOURITES_TAG @"favorites"
