@@ -4,6 +4,8 @@
 #import "_FLGAnnotation.h"
 
 const struct FLGAnnotationAttributes FLGAnnotationAttributes = {
+	.creationDate = @"creationDate",
+	.modificationDate = @"modificationDate",
 	.text = @"text",
 	.title = @"title",
 };
@@ -42,6 +44,10 @@ const struct FLGAnnotationRelationships FLGAnnotationRelationships = {
 
 	return keyPaths;
 }
+
+@dynamic creationDate;
+
+@dynamic modificationDate;
 
 @dynamic text;
 

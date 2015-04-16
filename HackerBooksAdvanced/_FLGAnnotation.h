@@ -4,6 +4,8 @@
 @import CoreData;
 
 extern const struct FLGAnnotationAttributes {
+	__unsafe_unretained NSString *creationDate;
+	__unsafe_unretained NSString *modificationDate;
 	__unsafe_unretained NSString *text;
 	__unsafe_unretained NSString *title;
 } FLGAnnotationAttributes;
@@ -26,6 +28,14 @@ extern const struct FLGAnnotationRelationships {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 @property (nonatomic, readonly, strong) FLGAnnotationID* objectID;
+
+@property (nonatomic, strong) NSDate* creationDate;
+
+//- (BOOL)validateCreationDate:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSDate* modificationDate;
+
+//- (BOOL)validateModificationDate:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSString* text;
 
@@ -50,6 +60,12 @@ extern const struct FLGAnnotationRelationships {
 @end
 
 @interface _FLGAnnotation (CoreDataGeneratedPrimitiveAccessors)
+
+- (NSDate*)primitiveCreationDate;
+- (void)setPrimitiveCreationDate:(NSDate*)value;
+
+- (NSDate*)primitiveModificationDate;
+- (void)setPrimitiveModificationDate:(NSDate*)value;
 
 - (NSString*)primitiveText;
 - (void)setPrimitiveText:(NSString*)value;
