@@ -112,8 +112,22 @@
     }
     
     // Creamos un fetchRequest
-    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[FLGBook entityName]];
-    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:FLGBookAttributes.title
+//    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[FLGBook entityName]];
+//    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:FLGBookAttributes.title
+//                                                          ascending:YES selector:@selector(caseInsensitiveCompare:)]];
+//    
+//    req.fetchBatchSize = 20;
+//    
+//    // Creamos un FetchedResultsController
+//    NSFetchedResultsController *fc = [[NSFetchedResultsController alloc]
+//                                      initWithFetchRequest:req
+//                                      managedObjectContext:self.stack.context
+//                                      sectionNameKeyPath:@"tags" cacheName:nil];
+    
+    
+    // Creamos un fetchRequest
+    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[FLGTag entityName]];
+    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:FLGTagAttributes.name
                                                           ascending:YES selector:@selector(caseInsensitiveCompare:)]];
     
     req.fetchBatchSize = 20;
@@ -122,10 +136,13 @@
     NSFetchedResultsController *fc = [[NSFetchedResultsController alloc]
                                       initWithFetchRequest:req
                                       managedObjectContext:self.stack.context
-                                      sectionNameKeyPath:nil cacheName:nil];
+                                      sectionNameKeyPath:FLGTagAttributes.name cacheName:nil];
     
     // Creamos el controller
-    self.libraryVC = [[FLGLibraryTableViewController alloc] initWithFetchedResultsController:fc style:UITableViewStylePlain];
+    self.libraryVC = [[FLGLibraryTableViewController alloc]
+                      initWithFetchedResultsController:fc
+                      stack: self.stack
+                      style:UITableViewStylePlain];
     
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -197,7 +214,8 @@
                                             errorBlock:^(NSError *error) {
                                                 NSLog(@"Error al buscar! %@", error);
                                             }];
-    NSLog(@"");
+    
+    NSLog(@"Numero de tags en Core Data: %lu", (unsigned long)results.count);
 }
 
 - (void) fetchBooks{
@@ -212,7 +230,8 @@
                                             errorBlock:^(NSError *error) {
                                                 NSLog(@"Error al buscar! %@", error);
                                             }];
-    NSLog(@"");
+    
+    NSLog(@"Numero de libros en Core Data: %lu", (unsigned long)results.count);
 }
 
 - (void) fetchAuthors{
@@ -227,7 +246,8 @@
                                             errorBlock:^(NSError *error) {
                                                 NSLog(@"Error al buscar! %@", error);
                                             }];
-    NSLog(@"");
+    
+    NSLog(@"Numero de autores en Core Data: %lu", (unsigned long)results.count);
 }
 
 
