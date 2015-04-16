@@ -3,7 +3,7 @@
 @interface FLGTag : _FLGTag {}
 // Custom logic goes here.
 
-+ (instancetype) initWithName: (NSString *) name
++ (instancetype) tagWithName: (NSString *) name
                       context: (NSManagedObjectContext *) context;
 
 @end

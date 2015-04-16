@@ -12,6 +12,8 @@
 #import "FLGBookTableViewCell.h"
 #import "FLGTag.h"
 #import "AGTCoreDataStack.h"
+#import "FLGBookViewController.h"
+#import "FLGConstants.h"
 
 @interface FLGLibraryTableViewController ()
 @property (strong, nonatomic) AGTCoreDataStack *stack;
@@ -26,6 +28,7 @@
     if (self = [super initWithFetchedResultsController:aFetchedResultsController
                                                  style:aStyle]) {
         _stack = aStack;
+        self.title = @"Hacker Books PRO";
     }
     return self;
 }
@@ -112,12 +115,12 @@
         cell = [tableView dequeueReusableCellWithIdentifier:[FLGBookTableViewCell cellId]
                                                                      forIndexPath:indexPath];
         
-        // Seleccionamos la celda, si procede
-        //    if (book == self.selectedBook && self.showSelectedCell) {
-        //        [tableView selectRowAtIndexPath:indexPath
-        //                               animated:YES
-        //                         scrollPosition:UITableViewScrollPositionNone];
-        //    }
+//         //Seleccionamos la celda, si procede
+//            if (book == self.selectedBook && self.showSelectedCell) {
+//                [tableView selectRowAtIndexPath:indexPath
+//                                       animated:YES
+//                                 scrollPosition:UITableViewScrollPositionNone];
+//            }
         
         // Sincronizamos modelo (personaje) -> vista (celda)
         [cell configureWithBook: b];
@@ -125,6 +128,54 @@
     
     //Devolverla
     return cell;
+}
+
+
+#pragma mark - TableView Delegate
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    // Averiguar cual es el libro
+    FLGTag *tag = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section]];
+    
+    NSArray *results = [tag.books allObjects];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
+    results = [results sortedArrayUsingDescriptors:@[sortDescriptor]];
+    
+    if (results) {
+        FLGBook *book = [results objectAtIndex:indexPath.row];
+        
+        // Avisar al delegado (siempre y cuando entienda el mensaje) -> bookViewController
+        if ([self.delegate respondsToSelector:@selector(libraryTableViewController:didSelectBook:)]) {
+            // Envio el mensaje al delegado
+            [self.delegate libraryTableViewController:self didSelectBook:book];
+        }
+        
+        // Mandamos una notificacion -> para avisar a pdfViewController
+        NSNotification *note = [NSNotification notificationWithName:BOOK_DID_CHANGE_NOTIFICATION_NAME
+                                                             object:self
+                                                           userInfo:@{BOOK_KEY: book}];
+        
+        // Enviamos la notificacion
+        [[NSNotificationCenter defaultCenter] postNotification:note];
+        
+        // Guardamos las coordenadas del ultimo personaje en NSUserDefaults
+        NSData *archivedBookURI = [book archiveURIRepresentation];
+        NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+        [def setObject:archivedBookURI forKey:LAST_SELECTED_BOOK_ARCHIVED_URI];
+        [def synchronize];
+    }
+}
+
+#pragma mark - FLGLibraryTableViewControllerDelegate
+
+- (void) libraryTableViewController:(FLGLibraryTableViewController *)libraryTableViewController didSelectBook:(FLGBook *)book{
+    
+    // Creamos un BookVC
+    FLGBookViewController *bookVC = [[FLGBookViewController alloc] initWithModel:book];
+    
+    // Hago un push
+    [self.navigationController pushViewController:bookVC animated:YES];
 }
 
 @end

@@ -69,6 +69,10 @@
                                                   stack:self.stack];
                     }
                     
+                    // Creamos e insertamos en Core Data el tag "FAVOURITE"
+                    [FLGTag tagWithName:FAVOURITES_TAG
+                                context:self.stack.context];
+                    
                     // Guardamos el contexto
                     [self.stack saveWithErrorBlock:^(NSError *error) {
                         NSLog(@"Error al autoguardar!: %@", error);
@@ -128,7 +132,9 @@
     // Creamos un fetchRequest
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[FLGTag entityName]];
     req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:FLGTagAttributes.name
-                                                          ascending:YES selector:@selector(caseInsensitiveCompare:)]];
+                                                          ascending:YES selector:@selector(caseInsensitiveCompare:)],
+                            [NSSortDescriptor sortDescriptorWithKey:FLGTagAttributes.name
+                                                          ascending:YES selector:@selector(favouriteFirst:)]];
     
     req.fetchBatchSize = 20;
     
@@ -143,6 +149,9 @@
                       initWithFetchedResultsController:fc
                       stack: self.stack
                       style:UITableViewStylePlain];
+    
+    // Asignamos delegados
+    self.libraryVC.delegate = self.libraryVC;
     
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -208,7 +217,6 @@
                                                           ascending:YES
                                                            selector:@selector(caseInsensitiveCompare:)]];
     req.fetchBatchSize = 20;
-    //            req.predicate = [NSPredicate predicateWithFormat:@"name = %@", tagName];
     
     NSArray *results = [self.stack executeFetchRequest:req
                                             errorBlock:^(NSError *error) {
@@ -224,7 +232,6 @@
                                                           ascending:YES
                                                            selector:@selector(caseInsensitiveCompare:)]];
     req.fetchBatchSize = 20;
-    //            req.predicate = [NSPredicate predicateWithFormat:@"name = %@", tagName];
     
     NSArray *results = [self.stack executeFetchRequest:req
                                             errorBlock:^(NSError *error) {
@@ -240,7 +247,6 @@
                                                           ascending:YES
                                                            selector:@selector(caseInsensitiveCompare:)]];
     req.fetchBatchSize = 20;
-    //            req.predicate = [NSPredicate predicateWithFormat:@"name = %@", tagName];
     
     NSArray *results = [self.stack executeFetchRequest:req
                                             errorBlock:^(NSError *error) {
@@ -250,6 +256,8 @@
     NSLog(@"Numero de autores en Core Data: %lu", (unsigned long)results.count);
 }
 
-
+- (NSComparisonResult)favouriteFirst:(NSString *)string {
+    return [string isEqualToString:FAVOURITES_TAG];
+}
 
 @end

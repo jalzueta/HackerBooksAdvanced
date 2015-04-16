@@ -14,6 +14,31 @@
 
 @implementation FLGBook
 
+
+#pragma mark - Properties
+- (void) setIsFavourite:(BOOL)isFavourite{
+    
+    if (isFavourite) {
+        // Se añade el tag "FAVOURITE" al book
+        
+    }else{
+        // Se elimina el tag "FAVOURITE" del book
+        
+    }
+}
+
+- (BOOL) isFavourite{
+    
+    // Se comprueba si el tag "FAVOURITE" pertenece al book
+    
+    return NO;
+}
+
+- (BOOL) savedIntoDisk{
+    return self.pdf.pdfData;
+}
+
+#pragma mark - Init
 // Custom logic goes here.
 + (instancetype) bookWithJsonDictionary:(NSDictionary *) jsonDict
                                   stack:(AGTCoreDataStack *)stack{
@@ -77,7 +102,7 @@
         
         FLGTag *tag = [results firstObject];
         if (!tag) {
-            tag = [FLGTag initWithName:tagName
+            tag = [FLGTag tagWithName:tagName
                                context:context];
         }
         [book addTagsObject:tag];
@@ -89,5 +114,67 @@
     
     return book;
 }
+
++ (instancetype) objectWithArchivedURIRepresentation:(NSData*)archivedURI
+                                            context:(NSManagedObjectContext *) context{
+    
+    NSURL *uri = [NSKeyedUnarchiver unarchiveObjectWithData:archivedURI];
+    if (uri == nil) {
+        return nil;
+    }
+    
+    NSManagedObjectID *nid = [context.persistentStoreCoordinator
+                              managedObjectIDForURIRepresentation:uri];
+    if (nid == nil) {
+        return nil;
+    }
+    
+    NSManagedObject *ob = [context objectWithID:nid];
+    if (ob.isFault) {
+        // Got it!
+        return (FLGBook *)ob;
+    }else{
+        // Might not exist anymore. Let's fetch it!
+        NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:ob.entity.name];
+        req.predicate = [NSPredicate predicateWithFormat:@"SELF = %@", ob];
+        
+        NSError *error;
+        NSArray *res = [context executeFetchRequest:req
+                                              error:&error];
+        if (res == nil) {
+            return nil;
+        }else{
+            return [res lastObject];
+        }
+    }
+}
+
+#pragma mark - Utils
+- (NSData*) archiveURIRepresentation{
+    
+    NSURL *uri = self.objectID.URIRepresentation;
+    return [NSKeyedArchiver archivedDataWithRootObject:uri];
+}
+
+- (NSString *) authorsString{
+    
+    NSString *authorsString = @"";
+    NSSet *authors = self.authors;
+    for (FLGAuthor *author in authors) {
+        authorsString = [NSString stringWithFormat:@"%@%@, ", authorsString, author.name];
+    }
+    return authorsString;
+}
+
+- (NSString *) tagsString{
+    
+    NSString *tagsString = @"";
+    NSSet *tags = self.tags;
+    for (FLGTag *tag in tags) {
+        tagsString = [NSString stringWithFormat:@"%@%@, ", tagsString, tag.name];
+    }
+    return tagsString;
+}
+
 
 @end

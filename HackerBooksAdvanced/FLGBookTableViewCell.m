@@ -39,12 +39,7 @@
 - (void) configureWithBook: (FLGBook *) book{
     self.title.text = book.title;
     
-    NSString *authorsString = @"";
-    NSSet *authors = book.authors;
-    for (FLGAuthor *author in authors) {
-        authorsString = [NSString stringWithFormat:@"%@%@, ", authorsString, author.name];
-    }
-    self.authors.text = [authorsString substringToIndex:(authorsString.length - 2)];
+    self.authors.text = [book authorsString];
     
     if (!book.cover.image) {
         

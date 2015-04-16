@@ -42,6 +42,7 @@
         <relationship name="annotation" maxCount="1" deletionRule="Nullify" destinationEntity="Annotation" inverseName="photo" inverseEntity="Annotation" syncable="YES"/>
     </entity>
     <entity name="Tag" representedClassName="FLGTag" syncable="YES">
+        <attribute name="index" attributeType="Integer 16" defaultValueString="1" indexed="YES" syncable="YES"/>
         <attribute name="name" attributeType="String" indexed="YES" syncable="YES"/>
         <relationship name="books" toMany="YES" deletionRule="Nullify" destinationEntity="Book" inverseName="tags" inverseEntity="Book" syncable="YES"/>
     </entity>
@@ -53,6 +54,6 @@
         <element name="Location" positionX="-126" positionY="-504" width="128" height="103"/>
         <element name="Pdf" positionX="-452" positionY="125" width="128" height="73"/>
         <element name="Photo" positionX="-126" positionY="-342" width="128" height="73"/>
-        <element name="Tag" positionX="-504" positionY="260" width="128" height="73"/>
+        <element name="Tag" positionX="-504" positionY="260" width="128" height="90"/>
     </elements>
 </model>

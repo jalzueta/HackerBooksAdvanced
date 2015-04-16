@@ -22,6 +22,9 @@
 		59DF208A1ADF299D00556DA2 /* open_pdf@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 59DF20821ADF299D00556DA2 /* open_pdf@2x.png */; };
 		59DF208B1ADF299D00556DA2 /* saved_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 59DF20831ADF299D00556DA2 /* saved_icon.png */; };
 		59DF208C1ADF299D00556DA2 /* saved_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 59DF20841ADF299D00556DA2 /* saved_on.png */; };
+		59DF20901ADFFCC900556DA2 /* FLGBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59DF208E1ADFFCC900556DA2 /* FLGBookViewController.m */; };
+		59DF20911ADFFCC900556DA2 /* FLGBookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59DF208F1ADFFCC900556DA2 /* FLGBookViewController.xib */; };
+		59DF20D61AE00D9900556DA2 /* FLGBookViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59DF20D51AE00D9900556DA2 /* FLGBookViewController~iphone.xib */; };
 		59E0401A1ADC2781007EF337 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E040191ADC2781007EF337 /* main.m */; };
 		59E0401D1ADC2782007EF337 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E0401C1ADC2782007EF337 /* AppDelegate.m */; };
 		59E0401F1ADC2782007EF337 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59E0401E1ADC2782007EF337 /* Images.xcassets */; };
@@ -78,6 +81,10 @@
 		59DF20821ADF299D00556DA2 /* open_pdf@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "open_pdf@2x.png"; sourceTree = "<group>"; };
 		59DF20831ADF299D00556DA2 /* saved_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = saved_icon.png; sourceTree = "<group>"; };
 		59DF20841ADF299D00556DA2 /* saved_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = saved_on.png; sourceTree = "<group>"; };
+		59DF208D1ADFFCC900556DA2 /* FLGBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLGBookViewController.h; sourceTree = "<group>"; };
+		59DF208E1ADFFCC900556DA2 /* FLGBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLGBookViewController.m; sourceTree = "<group>"; };
+		59DF208F1ADFFCC900556DA2 /* FLGBookViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FLGBookViewController.xib; sourceTree = "<group>"; };
+		59DF20D51AE00D9900556DA2 /* FLGBookViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "FLGBookViewController~iphone.xib"; sourceTree = "<group>"; };
 		59E040141ADC2781007EF337 /* HackerBooksAdvanced.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackerBooksAdvanced.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		59E040181ADC2781007EF337 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		59E040191ADC2781007EF337 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -165,6 +172,10 @@
 				59DF20681ADEBB1000556DA2 /* AGTCoreDataTableViewController.m */,
 				59DF20711ADF1DB800556DA2 /* FLGLibraryTableViewController.h */,
 				59DF20721ADF1DB800556DA2 /* FLGLibraryTableViewController.m */,
+				59DF208D1ADFFCC900556DA2 /* FLGBookViewController.h */,
+				59DF208E1ADFFCC900556DA2 /* FLGBookViewController.m */,
+				59DF208F1ADFFCC900556DA2 /* FLGBookViewController.xib */,
+				59DF20D51AE00D9900556DA2 /* FLGBookViewController~iphone.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -398,8 +409,10 @@
 				59DF207B1ADF24D300556DA2 /* FLGBookTableViewCell.xib in Resources */,
 				59DF20851ADF299D00556DA2 /* favourite_icon_off.png in Resources */,
 				59E040221ADC2782007EF337 /* LaunchScreen.xib in Resources */,
+				59DF20911ADFFCC900556DA2 /* FLGBookViewController.xib in Resources */,
 				59DF20861ADF299D00556DA2 /* favourite_icon_on.png in Resources */,
 				59DF20881ADF299D00556DA2 /* favourite_on.png in Resources */,
+				59DF20D61AE00D9900556DA2 /* FLGBookViewController~iphone.xib in Resources */,
 				59DF20871ADF299D00556DA2 /* favourite_off.png in Resources */,
 				59DF208C1ADF299D00556DA2 /* saved_on.png in Resources */,
 				59DF20891ADF299D00556DA2 /* open_pdf.png in Resources */,
@@ -439,6 +452,7 @@
 				59E0401A1ADC2781007EF337 /* main.m in Sources */,
 				59E040661ADC30B0007EF337 /* FLGBook.m in Sources */,
 				59E040521ADC3093007EF337 /* _FLGTag.m in Sources */,
+				59DF20901ADFFCC900556DA2 /* FLGBookViewController.m in Sources */,
 				59E040501ADC3093007EF337 /* _FLGPdf.m in Sources */,
 				59E040681ADC30B0007EF337 /* FLGLocation.m in Sources */,
 				59E0404D1ADC3093007EF337 /* _FLGBook.m in Sources */,

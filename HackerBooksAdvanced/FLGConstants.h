@@ -31,7 +31,7 @@
 #define BOOK_KEY @"book"
 
 #pragma mark - NSUserDefaults
-#define LAST_SELECTED_BOOK @"lastBook"
+#define LAST_SELECTED_BOOK_ARCHIVED_URI @"lastBookArchivedUri"
 
 #pragma mark - Book
 #define FAVOURITE_ON_IMAGE_NAME @"favourite_on.png"
