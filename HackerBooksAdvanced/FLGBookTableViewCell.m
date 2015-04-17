@@ -11,6 +11,7 @@
 #import "FLGConstants.h"
 #import "FLGAuthor.h"
 #import "FLGCover.h"
+#import "FLGPdf.h"
 
 @implementation FLGBookTableViewCell
 
@@ -43,7 +44,7 @@
     
     if (!book.cover.image) {
         
-        self.imageView.image = [UIImage imageNamed:@"no_image.png"];
+        self.bookImage.image = [UIImage imageNamed:@"no_image.png"];
         
         dispatch_queue_t cover_download = dispatch_queue_create("cover", 0);
         dispatch_async(cover_download, ^{
@@ -63,19 +64,26 @@
             else{
                 //Se ha producido un error al parsear el JSON
                 NSLog(@"Error al descargar la imagen de portada: %@", err.localizedDescription);
-                coverImage = [UIImage imageNamed:@"no_image.png"];
             }
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.imageView.image = coverImage;
+                self.bookImage.image = book.cover.image;
 //                self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-                [self reloadInputViews];
+//                [self reloadInputViews];
             });
         });
     }
     else{
-        self.imageView.image = book.cover.image;
+        self.bookImage.image = book.cover.image;
 //        self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     }
+    
+    if (book.isFavourite) {
+        self.favouriteIcon.image = [UIImage imageNamed:FAVOURITE_ON_IMAGE_NAME];
+    } else{
+        self.favouriteIcon.image = [UIImage imageNamed:FAVOURITE_OFF_IMAGE_NAME];
+    }
+    
+    self.downloadIcon.hidden = !book.pdf.pdfData;
 }
 
 @end

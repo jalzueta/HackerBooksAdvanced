@@ -18,19 +18,39 @@
 #pragma mark - Properties
 - (void) setIsFavourite:(BOOL)isFavourite{
     
+    // Se obtiene el Tag "FAVOURITE"
+    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[FLGTag entityName]];
+    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:FLGTagAttributes.name
+                                                          ascending:YES
+                                                           selector:@selector(caseInsensitiveCompare:)]];
+    req.fetchBatchSize = 20;
+    req.predicate = [NSPredicate predicateWithFormat:@"name = %@", FAVOURITES_TAG];
+    
+    AGTCoreDataStack *stack = [AGTCoreDataStack coreDataStackWithModelName:@"Model"];
+    NSArray *results = [stack executeFetchRequest:req
+                                       errorBlock:^(NSError *error) {
+                                           NSLog(@"Error al buscar! %@", error);
+                                       }];
+    
+    FLGTag *tag = [results firstObject];
+    
     if (isFavourite) {
         // Se añade el tag "FAVOURITE" al book
-        
+        [self addTagsObject:tag];
     }else{
         // Se elimina el tag "FAVOURITE" del book
-        
+        [self removeTagsObject:tag];
     }
 }
 
 - (BOOL) isFavourite{
     
     // Se comprueba si el tag "FAVOURITE" pertenece al book
-    
+    for (FLGTag *tag in self.tags) {
+        if ([tag.name isEqualToString:FAVOURITES_TAG]) {
+            return YES;
+        }
+    }
     return NO;
 }
 
@@ -43,6 +63,7 @@
 + (instancetype) bookWithJsonDictionary:(NSDictionary *) jsonDict
                                   stack:(AGTCoreDataStack *)stack{
 
+//    AGTCoreDataStack *stack = [AGTCoreDataStack coreDataStackWithModelName:@"Model"];
     NSManagedObjectContext *context = stack.context;
     
     FLGBook *book = [FLGBook insertInManagedObjectContext:context];

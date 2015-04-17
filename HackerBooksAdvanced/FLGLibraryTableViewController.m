@@ -45,6 +45,24 @@
          forCellReuseIdentifier:[FLGBookTableViewCell cellId]];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    // Nos damos de alta en las notificaciones
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self
+               selector:@selector(notifyThatBookDidChangeItsContent:)
+                   name:BOOK_DID_CHANGE_ITS_CONTENT_NOTIFICATION_NAME
+                 object:nil];
+}
+
+- (void) dealloc{
+    
+    // Nos damos de baja de las notificaciones - Utilizo el dealloc para que en la versión de iPhone, al volver atrás, también se actualice la lista de libros
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center removeObserver:self];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -62,42 +80,46 @@
     return 80.0;
 }
 
-//- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-//    return 30.0;
-//}
-//
-//- (CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-//    if ([[self.model.tags objectAtIndex:section] isEqualToString:FAVOURITES_TAG]) {
-//        return 10.0;
-//    }
-//    return 0.0;
-//}
+- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 30.0;
+}
 
-//- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-//    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30.0)];
-//    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, self.tableView.frame.size.width - 40, 30.0)];
-//    titleLabel.text = [[self.model tagForIndex:section] capitalizedString];
-//    titleLabel.font = [UIFont fontWithName:@"Palatino-Bold" size:18.0];
-//    
-//    if ([[self.model.tags objectAtIndex:section] isEqualToString:FAVOURITES_TAG]) {
-//        titleLabel.textColor = [UIColor whiteColor];
-//        headerView.backgroundColor = FAVOURITE_HEADER_COLOR;
-//    }else{
-//        titleLabel.textColor = [UIColor whiteColor];
-//        headerView.backgroundColor = CATHEGORY_HEADER_COLOR;
-//    }
-//    titleLabel.textAlignment = NSTextAlignmentCenter;
-//    
-//    [headerView addSubview:titleLabel];
-//    return headerView;
-//}
-//
-//- (UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-//    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 10.0)];
-//    footerView.backgroundColor = [UIColor colorWithRed:77/255.0 green:173/255.0 blue:0/255.0 alpha:1.0];
-//    return footerView;
-//}
+- (CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    FLGTag* tag = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0
+                                                                                      inSection:section]];
+    if ([tag.name isEqualToString:FAVOURITES_TAG]) {
+        return 10.0;
+    }
+    return 0.0;
+}
 
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30.0)];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, self.tableView.frame.size.width - 40, 30.0)];
+    
+    FLGTag* tag = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0
+                                                                                      inSection:section]];
+    titleLabel.text = [tag.name capitalizedString];
+    titleLabel.font = [UIFont fontWithName:@"Palatino-Bold" size:18.0];
+    
+    if ([tag.name isEqualToString:FAVOURITES_TAG]) {
+        titleLabel.textColor = [UIColor whiteColor];
+        headerView.backgroundColor = FAVOURITE_HEADER_COLOR;
+    }else{
+        titleLabel.textColor = [UIColor whiteColor];
+        headerView.backgroundColor = CATHEGORY_HEADER_COLOR;
+    }
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    
+    [headerView addSubview:titleLabel];
+    return headerView;
+}
+
+- (UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 10.0)];
+    footerView.backgroundColor = [UIColor colorWithRed:77/255.0 green:173/255.0 blue:0/255.0 alpha:1.0];
+    return footerView;
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     // Averiguar cual es el libro
@@ -172,10 +194,19 @@
 - (void) libraryTableViewController:(FLGLibraryTableViewController *)libraryTableViewController didSelectBook:(FLGBook *)book{
     
     // Creamos un BookVC
-    FLGBookViewController *bookVC = [[FLGBookViewController alloc] initWithModel:book];
+    FLGBookViewController *bookVC = [[FLGBookViewController alloc] initWithModel:book
+                                                                           stack:self.stack];
     
     // Hago un push
     [self.navigationController pushViewController:bookVC animated:YES];
+}
+
+#pragma mark - Notifications
+// BOOK_DID_CHANGE_ITS_CONTENT_NOTIFICATION_NAME
+- (void) notifyThatBookDidChangeItsContent: (NSNotification *) aNotification{
+    
+    // Sincronizamos modelo -> vista
+    [self.tableView reloadData];
 }
 
 @end

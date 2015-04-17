@@ -14,6 +14,7 @@
 #import "FLGAuthor.h"
 #import "FLGLibraryTableViewController.h"
 #import "UIViewController+Navigation.h"
+#import "FLGSplashViewController.h"
 
 @interface AppDelegate ()
 @property (strong, nonatomic) AGTCoreDataStack *stack;
@@ -27,6 +28,25 @@
     
     // Creamos una instancia del Core Data Stack
     self.stack = [AGTCoreDataStack coreDataStackWithModelName:@"Model"];
+    
+    
+    
+    // Creo el controlador de inicio: animacion durante la carga inicial de datos
+    FLGSplashViewController *splashVC = [[FLGSplashViewController alloc] initWithStack:self.stack];
+    self.delegate = splashVC;
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    // Usamos un metodo definido en la categoria "UIViewController+Navigation"
+    //    self.window.rootViewController = [self.libraryVC wrappedInNavigationController];
+    
+    self.window.rootViewController = splashVC;
+    //    [self.delegate didFinishSavingBooksInAppDelegate:self];
+    
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
+    
+    
     
     // Se comprueba a ver si se ha descargado el modelo anteriormente
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
@@ -90,11 +110,32 @@
                     // Arranco el autosave
                     [self autoSave];
                     
-                    // En primer plano
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        // Se recarga la tabla con los libros descargados
-                        [self.libraryVC.tableView reloadData];
+                        
+                        [self.delegate didFinishSavingBooksInAppDelegate:self];
+                        
                     });
+                    
+//                    // Creamos un fetchRequest
+//                    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[FLGTag entityName]];
+//                    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:FLGTagAttributes.name
+//                                                                          ascending:YES selector:@selector(caseInsensitiveCompare:)]];
+//                    
+//                    req.fetchBatchSize = 20;
+//                    
+//                    // Creamos un FetchedResultsController
+//                    NSFetchedResultsController *fc = [[NSFetchedResultsController alloc]
+//                                                      initWithFetchRequest:req
+//                                                      managedObjectContext:self.stack.context
+//                                                      sectionNameKeyPath:FLGTagAttributes.name
+//                                                      cacheName:nil];
+//                    
+//                    // En primer plano
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                 
+//                        [self.libraryVC setFetchedResultsController: fc];
+//                        
+//                    });
                     
                 }else{
                     // Se ha producido un error al parsear el JSON
@@ -113,11 +154,13 @@
         
         // Arranco el autosave
         [self autoSave];
+        
+        [self.delegate didFinishSavingBooksInAppDelegate:self];
     }
     
     // Creamos un fetchRequest
-//    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[FLGBook entityName]];
-//    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:FLGBookAttributes.title
+//    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[FLGTag entityName]];
+//    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:FLGTagAttributes.name
 //                                                          ascending:YES selector:@selector(caseInsensitiveCompare:)]];
 //    
 //    req.fetchBatchSize = 20;
@@ -126,41 +169,18 @@
 //    NSFetchedResultsController *fc = [[NSFetchedResultsController alloc]
 //                                      initWithFetchRequest:req
 //                                      managedObjectContext:self.stack.context
-//                                      sectionNameKeyPath:@"tags" cacheName:nil];
+//                                      sectionNameKeyPath:FLGTagAttributes.name
+//                                       cacheName:nil];
+//    
+//    // Creamos el controller
+//    self.libraryVC = [[FLGLibraryTableViewController alloc]
+//                      initWithFetchedResultsController:fc
+//                      stack: self.stack
+//                      style:UITableViewStylePlain];
+//    
+//    // Asignamos delegados
+//    self.libraryVC.delegate = self.libraryVC;
     
-    
-    // Creamos un fetchRequest
-    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[FLGTag entityName]];
-    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:FLGTagAttributes.name
-                                                          ascending:YES selector:@selector(caseInsensitiveCompare:)],
-                            [NSSortDescriptor sortDescriptorWithKey:FLGTagAttributes.name
-                                                          ascending:YES selector:@selector(favouriteFirst:)]];
-    
-    req.fetchBatchSize = 20;
-    
-    // Creamos un FetchedResultsController
-    NSFetchedResultsController *fc = [[NSFetchedResultsController alloc]
-                                      initWithFetchRequest:req
-                                      managedObjectContext:self.stack.context
-                                      sectionNameKeyPath:FLGTagAttributes.name cacheName:nil];
-    
-    // Creamos el controller
-    self.libraryVC = [[FLGLibraryTableViewController alloc]
-                      initWithFetchedResultsController:fc
-                      stack: self.stack
-                      style:UITableViewStylePlain];
-    
-    // Asignamos delegados
-    self.libraryVC.delegate = self.libraryVC;
-    
-    
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
-    // Usamos un metodo definido en la categoria "UIViewController+Navigation"
-    self.window.rootViewController = [self.libraryVC wrappedInNavigationController];
-    
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
     
     return YES;
 }

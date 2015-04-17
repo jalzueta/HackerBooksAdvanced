@@ -10,6 +10,7 @@
 #import "FLGBook.h"
 #import "FLGConstants.h"
 #import "FLGCover.h"
+#import "AGTCoreDataStack.h"
 //#import "FLGPdfViewController.h"
 //#import "FLGVfrReaderViewController.h"
 
@@ -18,10 +19,12 @@
 
 #pragma mark - Init
 
-- (id) initWithModel: (FLGBook *) book{
+- (id) initWithModel: (FLGBook *) book
+               stack: (AGTCoreDataStack *) stack{
     if (self = [super initWithNibName:nil
                                bundle:nil]) {
         _book = book;
+        _stack = stack;
     }
     return self;
 }
@@ -60,7 +63,13 @@
 
 - (IBAction)didPressFavourite:(id)sender {
     [self.book setIsFavourite: ![self.book isFavourite]];
+    
     [self syncFavouriteValue];
+    
+//    // Se guardan los cambios
+//    [self.stack saveWithErrorBlock:^(NSError *error) {
+//        NSLog(@"Error al guardar el contexto en Core Data: %@", error);
+//    }];
     
     // Mandamos una notificacion -> para avisar a libraryVC
     NSNotification *note = [NSNotification notificationWithName:BOOK_DID_CHANGE_ITS_CONTENT_NOTIFICATION_NAME
@@ -111,7 +120,7 @@
     self.bookImage.layer.shadowOffset = CGSizeMake(5, 5);
     self.bookImage.layer.shadowOpacity = 0.5;
     
-    self.bookDataView.backgroundColor = SELECTED_CELL_BACKGROUND_COLOR;
+//    self.bookDataView.backgroundColor = SELECTED_CELL_BACKGROUND_COLOR;
 }
 
 - (void) syncViewToModel{

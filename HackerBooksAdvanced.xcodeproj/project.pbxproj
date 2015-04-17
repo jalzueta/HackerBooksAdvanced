@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		59DA36C31AE08C1000A7E12E /* FLGSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59DA36C11AE08C1000A7E12E /* FLGSplashViewController.m */; };
+		59DA36C41AE08C1000A7E12E /* FLGSplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59DA36C21AE08C1000A7E12E /* FLGSplashViewController.xib */; };
+		59DA36C61AE08D4C00A7E12E /* book.png in Resources */ = {isa = PBXBuildFile; fileRef = 59DA36C51AE08D4C00A7E12E /* book.png */; };
 		59DF20511ADDCF1000556DA2 /* AGTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 59DF20501ADDCF1000556DA2 /* AGTCoreDataStack.m */; };
 		59DF20691ADEBB1000556DA2 /* AGTCoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59DF20681ADEBB1000556DA2 /* AGTCoreDataTableViewController.m */; };
 		59DF20701ADEBB8E00556DA2 /* UIViewController+Navigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 59DF206F1ADEBB8E00556DA2 /* UIViewController+Navigation.m */; };
@@ -60,6 +63,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		59DA36C01AE08C1000A7E12E /* FLGSplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLGSplashViewController.h; sourceTree = "<group>"; };
+		59DA36C11AE08C1000A7E12E /* FLGSplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLGSplashViewController.m; sourceTree = "<group>"; };
+		59DA36C21AE08C1000A7E12E /* FLGSplashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FLGSplashViewController.xib; sourceTree = "<group>"; };
+		59DA36C51AE08D4C00A7E12E /* book.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = book.png; sourceTree = "<group>"; };
 		59DF204F1ADDCF1000556DA2 /* AGTCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGTCoreDataStack.h; sourceTree = "<group>"; };
 		59DF20501ADDCF1000556DA2 /* AGTCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGTCoreDataStack.m; sourceTree = "<group>"; };
 		59DF20531ADDD36500556DA2 /* FLGConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLGConstants.h; sourceTree = "<group>"; };
@@ -168,6 +175,9 @@
 		59DF20661ADEBAF100556DA2 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				59DA36C01AE08C1000A7E12E /* FLGSplashViewController.h */,
+				59DA36C11AE08C1000A7E12E /* FLGSplashViewController.m */,
+				59DA36C21AE08C1000A7E12E /* FLGSplashViewController.xib */,
 				59DF20671ADEBB1000556DA2 /* AGTCoreDataTableViewController.h */,
 				59DF20681ADEBB1000556DA2 /* AGTCoreDataTableViewController.m */,
 				59DF20711ADF1DB800556DA2 /* FLGLibraryTableViewController.h */,
@@ -192,6 +202,7 @@
 		59DF20741ADF237400556DA2 /* Recursos */ = {
 			isa = PBXGroup;
 			children = (
+				59DA36C51AE08D4C00A7E12E /* book.png */,
 				59DF20751ADF237400556DA2 /* no_image.png */,
 				59DF207D1ADF299D00556DA2 /* favourite_icon_off.png */,
 				59DF207E1ADF299D00556DA2 /* favourite_icon_on.png */,
@@ -412,7 +423,9 @@
 				59DF20911ADFFCC900556DA2 /* FLGBookViewController.xib in Resources */,
 				59DF20861ADF299D00556DA2 /* favourite_icon_on.png in Resources */,
 				59DF20881ADF299D00556DA2 /* favourite_on.png in Resources */,
+				59DA36C61AE08D4C00A7E12E /* book.png in Resources */,
 				59DF20D61AE00D9900556DA2 /* FLGBookViewController~iphone.xib in Resources */,
+				59DA36C41AE08C1000A7E12E /* FLGSplashViewController.xib in Resources */,
 				59DF20871ADF299D00556DA2 /* favourite_off.png in Resources */,
 				59DF208C1ADF299D00556DA2 /* saved_on.png in Resources */,
 				59DF20891ADF299D00556DA2 /* open_pdf.png in Resources */,
@@ -446,6 +459,7 @@
 				59E040671ADC30B0007EF337 /* FLGCover.m in Sources */,
 				59E040641ADC30AF007EF337 /* FLGAnnotation.m in Sources */,
 				59E040511ADC3093007EF337 /* _FLGPhoto.m in Sources */,
+				59DA36C31AE08C1000A7E12E /* FLGSplashViewController.m in Sources */,
 				59E0406B1ADC30B0007EF337 /* FLGTag.m in Sources */,
 				59DF20511ADDCF1000556DA2 /* AGTCoreDataStack.m in Sources */,
 				59E0404F1ADC3093007EF337 /* _FLGLocation.m in Sources */,

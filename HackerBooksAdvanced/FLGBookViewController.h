@@ -10,6 +10,7 @@
 @class FLGBook;
 @class FLGBookViewController;
 #import "FLGLibraryTableViewController.h"
+@class AGTCoreDataStack;
 
 @protocol FLGBookViewControllerDelegate <NSObject>
 
@@ -33,8 +34,10 @@
 @property (weak, nonatomic) id <FLGBookViewControllerDelegate> delegate;
 
 @property (strong, nonatomic) FLGBook *book;
+@property (strong, nonatomic) AGTCoreDataStack *stack;
 
-- (id) initWithModel: (FLGBook *) book;
+- (id) initWithModel: (FLGBook *) book
+               stack: (AGTCoreDataStack *) stack;
 
 - (IBAction)displayPdf:(id)sender;
 - (IBAction)didPressFavourite:(id)sender;

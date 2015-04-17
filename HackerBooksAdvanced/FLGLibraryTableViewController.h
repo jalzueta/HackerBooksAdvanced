@@ -19,7 +19,7 @@
 
 @end
 
-@interface FLGLibraryTableViewController : AGTCoreDataTableViewController
+@interface FLGLibraryTableViewController : AGTCoreDataTableViewController<FLGLibraryTableViewControllerDelegate>
 
 
 @property (weak, nonatomic) id <FLGLibraryTableViewControllerDelegate> delegate;
@@ -29,5 +29,6 @@
 -(id) initWithFetchedResultsController: (NSFetchedResultsController *) aFetchedResultsController
                                  stack: (AGTCoreDataStack *) aStack
                                  style: (UITableViewStyle) aStyle;
+
 
 @end
