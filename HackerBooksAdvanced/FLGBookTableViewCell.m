@@ -104,6 +104,7 @@
     
     
     [self syncFavoriteState];
+    [self syncDownloadedState];
 }
 
 - (void)syncFavoriteState{
@@ -113,6 +114,10 @@
     } else{
         self.favouriteIconView.image = [UIImage imageNamed:FAVOURITE_OFF_IMAGE_NAME];
     }
+}
+
+- (void)syncDownloadedState{
+    self.downloadIconView.hidden = ![self.book savedIntoDisk];
 }
 
 #pragma mark - Actions

@@ -40,16 +40,7 @@
     self.browser.delegate = self;
     
     // Nos damos de alta en las notificaciones
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-//    [center addObserver:self
-//               selector:@selector(notifyThatBookDidChange:)
-//                   name:BOOK_DID_CHANGE_NOTIFICATION
-//                 object:nil]; // Quien es el sender de la notificacion: en este caso no da igual
-    
-    [center addObserver:self
-               selector:@selector(notifyThatBookDidChangeItsContent:)
-                   name:BOOK_DID_CHANGE_ITS_CONTENT_NOTIFICATION
-                 object:self.model]; // Quien es el sender de la notificacion: el modelo
+    [self setupNotifications];
     
     [self configViewBeforeLoadingPDF];
 }
@@ -66,8 +57,7 @@
     [super viewWillDisappear:animated];
     
     // Nos damos de baja de las notificaciones
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center removeObserver:self];
+    [self tearDownNotifications];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -96,6 +86,32 @@
 }
 
 #pragma mark - Notifications
+
+- (void) setupNotifications{
+    // Nos damos de alta en las notificaciones
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self
+               selector:@selector(notifyThatBookDidChange:)
+                   name:BOOK_DID_CHANGE_NOTIFICATION
+                 object:nil]; // Quien es el sender de la notificacion: en este caso no da igual
+    
+    [center addObserver:self
+               selector:@selector(notifyThatBookDidChangeItsContent:)
+                   name:BOOK_DID_CHANGE_ITS_CONTENT_NOTIFICATION
+                 object:self.model]; // Quien es el sender de la notificacion: el modelo
+}
+
+- (void) tearDownNotifications{
+    // Nos damos de baja de las notificaciones
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center removeObserver:self];
+}
+
+- (void) updateSetupNotifications{
+    [self tearDownNotifications];
+    [self setupNotifications];
+}
+
 // BOOK_DID_CHANGE_NOTIFICATION
 - (void) notifyThatBookDidChange: (NSNotification *) aNotification{
     
@@ -104,6 +120,12 @@
     
     // Actualizamos el modelo
     self.model = book;
+    
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];;
+    [center addObserver:self
+               selector:@selector(notifyThatBookDidChangeItsContent:)
+                   name:BOOK_DID_CHANGE_ITS_CONTENT_NOTIFICATION
+                 object:self.model]; // Quien es el sender de la notificacion: el modelo
     
     // Sincronizamos modelo -> vista
     [self syncViewToModel];
@@ -138,9 +160,8 @@
     self.browser.delegate = self;
     
     NSData *pdfData = [NSData dataWithData:self.model.pdf.pdfEndData];
-    if (pdfData) {
+    if (![pdfData isEqualToData:[NSData dataWithData:nil]]) {
         self.hideActivity = YES;
-        [self.activityView stopAnimating];
         [self.browser loadData:pdfData
                       MIMEType:@"application/pdf"
               textEncodingName:@"UTF-8"
