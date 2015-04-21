@@ -26,9 +26,11 @@
 #define FAVOURITES_TAG @"favorites"
 
 #pragma mark - Notifications
-#define BOOK_DID_CHANGE_NOTIFICATION_NAME @"bookDidChange"
-#define BOOK_DID_CHANGE_ITS_CONTENT_NOTIFICATION_NAME @"bookDidChangeItsContent"
+#define COVER_KEY @"cover"
+#define COVER_DID_CHANGE_NOTIFICATION @"coverDidChange"
 #define BOOK_KEY @"book"
+#define BOOK_DID_CHANGE_NOTIFICATION @"bookDidChange"
+#define BOOK_DID_CHANGE_ITS_CONTENT_NOTIFICATION @"bookDidChangeItsContent"
 
 #pragma mark - NSUserDefaults
 #define LAST_SELECTED_BOOK_ARCHIVED_URI @"lastBookArchivedUri"

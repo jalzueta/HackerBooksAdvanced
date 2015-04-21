@@ -21,7 +21,7 @@
         <relationship name="authors" toMany="YES" deletionRule="Nullify" destinationEntity="Author" inverseName="book" inverseEntity="Author" syncable="YES"/>
         <relationship name="cover" maxCount="1" deletionRule="Cascade" destinationEntity="Cover" inverseName="book" inverseEntity="Cover" syncable="YES"/>
         <relationship name="pdf" maxCount="1" deletionRule="Cascade" destinationEntity="Pdf" inverseName="book" inverseEntity="Pdf" syncable="YES"/>
-        <relationship name="tags" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="books" inverseEntity="Tag" syncable="YES"/>
+        <relationship name="tags" toMany="YES" deletionRule="Cascade" destinationEntity="Tag" inverseName="books" inverseEntity="Tag" syncable="YES"/>
     </entity>
     <entity name="Cover" representedClassName="FLGCover" syncable="YES">
         <attribute name="imageData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
@@ -42,18 +42,17 @@
         <relationship name="annotation" maxCount="1" deletionRule="Nullify" destinationEntity="Annotation" inverseName="photo" inverseEntity="Annotation" syncable="YES"/>
     </entity>
     <entity name="Tag" representedClassName="FLGTag" syncable="YES">
-        <attribute name="index" attributeType="Integer 16" defaultValueString="1" indexed="YES" syncable="YES"/>
         <attribute name="name" attributeType="String" indexed="YES" syncable="YES"/>
         <relationship name="books" toMany="YES" deletionRule="Nullify" destinationEntity="Book" inverseName="tags" inverseEntity="Book" syncable="YES"/>
     </entity>
     <elements>
         <element name="Annotation" positionX="-450" positionY="-442" width="128" height="150"/>
         <element name="Author" positionX="-398" positionY="-252" width="128" height="73"/>
-        <element name="Book" positionX="-765" positionY="-265" width="128" height="165"/>
+        <element name="Book" positionX="-765" positionY="-265" width="128" height="163"/>
         <element name="Cover" positionX="-396" positionY="-28" width="128" height="73"/>
         <element name="Location" positionX="-126" positionY="-504" width="128" height="103"/>
         <element name="Pdf" positionX="-452" positionY="125" width="128" height="73"/>
         <element name="Photo" positionX="-126" positionY="-342" width="128" height="73"/>
-        <element name="Tag" positionX="-504" positionY="260" width="128" height="90"/>
+        <element name="Tag" positionX="-504" positionY="260" width="128" height="73"/>
     </elements>
 </model>

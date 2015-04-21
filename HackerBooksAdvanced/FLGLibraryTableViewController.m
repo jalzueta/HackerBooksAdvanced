@@ -21,13 +21,15 @@
 
 @implementation FLGLibraryTableViewController
 
--(id) initWithFetchedResultsController: (NSFetchedResultsController *) aFetchedResultsController
-                                 stack: (AGTCoreDataStack *) aStack
-                                 style: (UITableViewStyle) aStyle{
+- (id) initWithFetchedResultsController: (NSFetchedResultsController *) aFetchedResultsController
+                                  stack: (AGTCoreDataStack *) aStack
+                                  style: (UITableViewStyle) aStyle
+                       showSelectedCell: (BOOL) aShowSelectedCellValue{
     
     if (self = [super initWithFetchedResultsController:aFetchedResultsController
                                                  style:aStyle]) {
         _stack = aStack;
+        _showSelectedCell = aShowSelectedCellValue;
         self.title = @"Hacker Books PRO";
     }
     return self;
@@ -52,7 +54,7 @@
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self
                selector:@selector(notifyThatBookDidChangeItsContent:)
-                   name:BOOK_DID_CHANGE_ITS_CONTENT_NOTIFICATION_NAME
+                   name:BOOK_DID_CHANGE_ITS_CONTENT_NOTIFICATION
                  object:nil];
 }
 
@@ -72,7 +74,7 @@
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    FLGTag *tag = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
+    FLGTag *tag = [self.fetchedResultsController.fetchedObjects objectAtIndex:section];
     return tag.books.count;
 }
 
@@ -91,6 +93,11 @@
         return 10.0;
     }
     return 0.0;
+}
+
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+{
+    return nil;
 }
 
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -123,7 +130,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     // Averiguar cual es el libro
-    FLGTag *tag = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section]];
+    FLGTag *tag = [self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.section];
     
     NSArray *results = [tag.books allObjects];
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
@@ -137,15 +144,16 @@
         cell = [tableView dequeueReusableCellWithIdentifier:[FLGBookTableViewCell cellId]
                                                                      forIndexPath:indexPath];
         
-//         //Seleccionamos la celda, si procede
-//            if (book == self.selectedBook && self.showSelectedCell) {
-//                [tableView selectRowAtIndexPath:indexPath
-//                                       animated:YES
-//                                 scrollPosition:UITableViewScrollPositionNone];
-//            }
+        //Seleccionamos la celda, si procede
+        if (b == self.selectedBook && self.showSelectedCell) {
+            [tableView selectRowAtIndexPath:indexPath
+                                   animated:YES
+                             scrollPosition:UITableViewScrollPositionNone];
+        }
         
         // Sincronizamos modelo (personaje) -> vista (celda)
         [cell configureWithBook: b];
+        [cell observeBook:b];
     }
     
     //Devolverla
@@ -167,6 +175,8 @@
     if (results) {
         FLGBook *book = [results objectAtIndex:indexPath.row];
         
+        self.selectedBook = book;
+        
         // Avisar al delegado (siempre y cuando entienda el mensaje) -> bookViewController
         if ([self.delegate respondsToSelector:@selector(libraryTableViewController:didSelectBook:)]) {
             // Envio el mensaje al delegado
@@ -174,18 +184,17 @@
         }
         
         // Mandamos una notificacion -> para avisar a pdfViewController
-        NSNotification *note = [NSNotification notificationWithName:BOOK_DID_CHANGE_NOTIFICATION_NAME
+        NSNotification *note = [NSNotification notificationWithName:BOOK_DID_CHANGE_NOTIFICATION
                                                              object:self
                                                            userInfo:@{BOOK_KEY: book}];
         
         // Enviamos la notificacion
         [[NSNotificationCenter defaultCenter] postNotification:note];
         
-        // Guardamos las coordenadas del ultimo personaje en NSUserDefaults
-        NSData *archivedBookURI = [book archiveURIRepresentation];
-        NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-        [def setObject:archivedBookURI forKey:LAST_SELECTED_BOOK_ARCHIVED_URI];
-        [def synchronize];
+        // Guardamos en NSUserDefaults el libro seleccionado
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:[book archiveURIRepresentation] forKey:LAST_SELECTED_BOOK_ARCHIVED_URI];
+        [defaults synchronize];
     }
 }
 
@@ -196,17 +205,27 @@
     // Creamos un BookVC
     FLGBookViewController *bookVC = [[FLGBookViewController alloc] initWithModel:book
                                                                            stack:self.stack];
-    
     // Hago un push
     [self.navigationController pushViewController:bookVC animated:YES];
 }
 
 #pragma mark - Notifications
-// BOOK_DID_CHANGE_ITS_CONTENT_NOTIFICATION_NAME
+// BOOK_DID_CHANGE_ITS_CONTENT_NOTIFICATION
 - (void) notifyThatBookDidChangeItsContent: (NSNotification *) aNotification{
     
+    // Guardamos el contexto
+    [self.stack saveWithErrorBlock:^(NSError *error) {
+        NSLog(@"Error al autoguardar!: %@", error);
+    }];
+    
     // Sincronizamos modelo -> vista
-    [self.tableView reloadData];
+//    [self.tableView reloadData];
+}
+
+#pragma mark - UISearchResultsUpdating
+
+- (void) updateSearchResultsForSearchController:(UISearchController *)searchController{
+    
 }
 
 @end

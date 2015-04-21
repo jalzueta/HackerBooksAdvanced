@@ -11,6 +11,9 @@
 #import "FLGTag.h"
 #import "FLGLibraryTableViewController.h"
 #import "UIViewController+Navigation.h"
+#import "FLGBookViewController.h"
+#import "FLGConstants.h"
+#import "FLGBook.h"
 
 @interface FLGSplashViewController ()
 @property (nonatomic) BOOL shouldAnimate;
@@ -101,9 +104,15 @@
 
 - (void) launchApp{
     
+    // Tenemos que hacer la busqueda de libros
+    
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[FLGTag entityName]];
+    // Implementar el metodo "compare" que ha hecho fernando para los tags
     req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:FLGTagAttributes.name
-                                                          ascending:YES selector:@selector(caseInsensitiveCompare:)]];
+                                                          ascending:YES selector:@selector(compare:)]];
+    
+//    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:FLGTagAttributes.name
+//                                                          ascending:YES selector:@selector(caseInsensitiveCompare:)]];
     
     req.fetchBatchSize = 20;
     
@@ -114,11 +123,55 @@
                                       sectionNameKeyPath:FLGTagAttributes.name
                                       cacheName:nil];
     
+    // Detectamos el tipo de pantalla
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        
+        // Tipo tableta
+        [self configureForPadWithModel:fc];
+    }else{
+        
+        // Tipo telefono
+        [self configureForPhoneWithModel:fc];
+    }
+}
+
+- (void) configureForPadWithModel: (NSFetchedResultsController *) fc{
+    
+    FLGBook *lastSelectedBook = [self lastSelectedBookInContext];
+    
     // Creamos el controller
     self.libraryVC = [[FLGLibraryTableViewController alloc]
                       initWithFetchedResultsController: fc
                       stack: self.stack
-                      style: UITableViewStylePlain];
+                      style: UITableViewStylePlain
+                      showSelectedCell:YES];
+    
+    // Creamos un BookVC
+    FLGBookViewController *bookVC = [[FLGBookViewController alloc] initWithModel:lastSelectedBook
+                                                                           stack:self.stack];
+    
+    UISplitViewController *spliVC = [[UISplitViewController alloc] init];
+    spliVC.viewControllers = @[[self.libraryVC wrappedInNavigationController], [bookVC wrappedInNavigationController]];
+    
+    // Asignamos delegados
+    spliVC.delegate = bookVC;
+    self.libraryVC.delegate = bookVC;
+    
+    self.libraryVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentViewController:spliVC
+                       animated:YES
+                     completion:^{
+                         
+                     }];
+}
+
+- (void) configureForPhoneWithModel: (NSFetchedResultsController *) fc{
+    // Creamos el controller
+    self.libraryVC = [[FLGLibraryTableViewController alloc]
+                      initWithFetchedResultsController: fc
+                      stack: self.stack
+                      style: UITableViewStylePlain
+                      showSelectedCell:NO];
     
     // Asignamos delegados
     self.libraryVC.delegate = self.libraryVC;
@@ -129,6 +182,33 @@
                      completion:^{
                          
                      }];
+}
+
+- (FLGBook *) lastSelectedBookInContext{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *archivedUri = [defaults objectForKey:LAST_SELECTED_BOOK_ARCHIVED_URI];
+    
+    if (archivedUri) {
+        return [FLGBook objectWithArchivedURIRepresentation:archivedUri
+                                                    context:self.stack.context];
+    }else{
+        NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[FLGBook entityName]];
+        
+        req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:FLGBookAttributes.title
+                                                              ascending:YES selector:@selector(caseInsensitiveCompare:)]];
+        
+        req.fetchBatchSize = 20;
+        
+        // Creamos un FetchedResultsController
+        NSFetchedResultsController *fc = [[NSFetchedResultsController alloc]
+                                          initWithFetchRequest:req
+                                          managedObjectContext:self.stack.context
+                                          sectionNameKeyPath:nil
+                                          cacheName:nil];
+        
+        
+        return [fc.fetchedObjects firstObject];
+    }
 }
 
 @end

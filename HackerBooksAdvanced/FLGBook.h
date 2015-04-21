@@ -1,27 +1,41 @@
+
 #import "_FLGBook.h"
+
+@import UIKit;
+
 @class AGTCoreDataStack;
+@class FLGBook;
+
+@protocol FLGBookDelegate <NSObject>
+
+-(void) bookDidChange:(FLGBook*) book;
+
+@end
 
 @interface FLGBook : _FLGBook {}
-// Custom logic goes here.
 
-// Propiedad "transient" por código: esta no va a Core Data
+#pragma mark - Propiedades "transient"
+// Propiedades transient por código: estas no van a Core Data
 @property (nonatomic) BOOL isFavourite;
 @property (readonly, nonatomic) BOOL savedIntoDisk;
 
-#pragma mark - Properties
-- (void) setIsFavourite:(BOOL)isFavourite;
-- (BOOL) isFavourite;
+@property (weak, nonatomic) id<FLGBookDelegate> delegate;
+
 
 #pragma mark - Init
 + (instancetype) bookWithJsonDictionary:(NSDictionary *) jsonDict
-                                  stack:(AGTCoreDataStack *)stack;
+                                context:(NSManagedObjectContext *) context;
 
 + (instancetype) objectWithArchivedURIRepresentation:(NSData*)archivedURI
                                              context:(NSManagedObjectContext *) context;
 
 #pragma mark - Utils
 - (NSData*) archiveURIRepresentation;
+
+#pragma mark - "Cosmetic" methods
 - (NSString *) authorsString;
 - (NSString *) tagsString;
+
+- (NSString *) proxyForSorting;
 
 @end

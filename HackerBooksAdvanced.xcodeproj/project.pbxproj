@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		59AFD6A81AE4080F004BEA6B /* AGTAsyncImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 59AFD6A71AE4080F004BEA6B /* AGTAsyncImage.m */; };
+		59AFD6AB1AE4F2FF004BEA6B /* AGTCoreDataStack+FetchWithContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 59AFD6AA1AE4F2FF004BEA6B /* AGTCoreDataStack+FetchWithContext.m */; };
 		59DA36C31AE08C1000A7E12E /* FLGSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59DA36C11AE08C1000A7E12E /* FLGSplashViewController.m */; };
 		59DA36C41AE08C1000A7E12E /* FLGSplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59DA36C21AE08C1000A7E12E /* FLGSplashViewController.xib */; };
 		59DA36C61AE08D4C00A7E12E /* book.png in Resources */ = {isa = PBXBuildFile; fileRef = 59DA36C51AE08D4C00A7E12E /* book.png */; };
@@ -63,6 +65,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		59AFD6A61AE4080F004BEA6B /* AGTAsyncImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGTAsyncImage.h; sourceTree = "<group>"; };
+		59AFD6A71AE4080F004BEA6B /* AGTAsyncImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGTAsyncImage.m; sourceTree = "<group>"; };
+		59AFD6A91AE4F2FF004BEA6B /* AGTCoreDataStack+FetchWithContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AGTCoreDataStack+FetchWithContext.h"; sourceTree = "<group>"; };
+		59AFD6AA1AE4F2FF004BEA6B /* AGTCoreDataStack+FetchWithContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AGTCoreDataStack+FetchWithContext.m"; sourceTree = "<group>"; };
 		59DA36C01AE08C1000A7E12E /* FLGSplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLGSplashViewController.h; sourceTree = "<group>"; };
 		59DA36C11AE08C1000A7E12E /* FLGSplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLGSplashViewController.m; sourceTree = "<group>"; };
 		59DA36C21AE08C1000A7E12E /* FLGSplashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FLGSplashViewController.xib; sourceTree = "<group>"; };
@@ -195,6 +201,8 @@
 			children = (
 				59DF206E1ADEBB8E00556DA2 /* UIViewController+Navigation.h */,
 				59DF206F1ADEBB8E00556DA2 /* UIViewController+Navigation.m */,
+				59AFD6A91AE4F2FF004BEA6B /* AGTCoreDataStack+FetchWithContext.h */,
+				59AFD6AA1AE4F2FF004BEA6B /* AGTCoreDataStack+FetchWithContext.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -310,6 +318,8 @@
 				59E040611ADC30AF007EF337 /* FLGPhoto.m */,
 				59E040621ADC30AF007EF337 /* FLGTag.h */,
 				59E040631ADC30AF007EF337 /* FLGTag.m */,
+				59AFD6A61AE4080F004BEA6B /* AGTAsyncImage.h */,
+				59AFD6A71AE4080F004BEA6B /* AGTAsyncImage.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -470,10 +480,12 @@
 				59E040501ADC3093007EF337 /* _FLGPdf.m in Sources */,
 				59E040681ADC30B0007EF337 /* FLGLocation.m in Sources */,
 				59E0404D1ADC3093007EF337 /* _FLGBook.m in Sources */,
+				59AFD6A81AE4080F004BEA6B /* AGTAsyncImage.m in Sources */,
 				59E0404C1ADC3093007EF337 /* _FLGAuthor.m in Sources */,
 				59E040651ADC30AF007EF337 /* FLGAuthor.m in Sources */,
 				59E0406A1ADC30B0007EF337 /* FLGPhoto.m in Sources */,
 				59E0404B1ADC3093007EF337 /* _FLGAnnotation.m in Sources */,
+				59AFD6AB1AE4F2FF004BEA6B /* AGTCoreDataStack+FetchWithContext.m in Sources */,
 				59E0403A1ADC29F6007EF337 /* Model.xcdatamodeld in Sources */,
 				59E040691ADC30B0007EF337 /* FLGPdf.m in Sources */,
 			);
@@ -592,6 +604,7 @@
 				INFOPLIST_FILE = HackerBooksAdvanced/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -602,6 +615,7 @@
 				INFOPLIST_FILE = HackerBooksAdvanced/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

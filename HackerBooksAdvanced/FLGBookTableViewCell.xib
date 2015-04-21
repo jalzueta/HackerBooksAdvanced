@@ -39,15 +39,25 @@
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="m8N-zn-u92">
+                        <rect key="frame" x="733" y="45" width="30" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <state key="normal">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="favoriteDidPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="bpW-CQ-0lO"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             </tableViewCellContentView>
             <connections>
-                <outlet property="authors" destination="pqG-qh-fZr" id="DGg-xF-82I"/>
-                <outlet property="bookImage" destination="FYK-La-EiE" id="9fF-xM-eA7"/>
-                <outlet property="downloadIcon" destination="XKi-Ge-acY" id="Nvr-Td-8wq"/>
-                <outlet property="favouriteIcon" destination="9KH-qK-5dv" id="OTf-84-9N9"/>
-                <outlet property="title" destination="xdX-OT-WNC" id="WfA-Oq-Jf4"/>
+                <outlet property="authorsView" destination="pqG-qh-fZr" id="tok-bL-NEv"/>
+                <outlet property="coverImageView" destination="FYK-La-EiE" id="8LZ-Wm-Pbr"/>
+                <outlet property="downloadIconView" destination="XKi-Ge-acY" id="X1b-ue-t49"/>
+                <outlet property="favouriteIconView" destination="9KH-qK-5dv" id="NAT-V4-aeR"/>
+                <outlet property="titleView" destination="xdX-OT-WNC" id="9qD-lv-f7v"/>
             </connections>
             <point key="canvasLocation" x="572" y="354"/>
         </tableViewCell>

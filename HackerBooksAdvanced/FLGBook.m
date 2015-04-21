@@ -1,38 +1,33 @@
 #import "FLGBook.h"
 #import "FLGConstants.h"
-#import "AGTCoreDataStack.h"
+#import "AGTCoreDataStack+FetchWithContext.h"
 #import "FLGCover.h"
 #import "FLGAuthor.h"
 #import "FLGPdf.h"
 #import "FLGTag.h"
+#import "AGTAsyncImage.h"
 
 @interface FLGBook ()
-
-// Private interface goes here.
 
 @end
 
 @implementation FLGBook
+@dynamic delegate;
+
+#pragma mark - Class Methods
+
++ (NSArray *) observableKeys{
+    // Devuelve por defecto un array vacio -> Luego se sobreescribira en cada subclase
+    return @[@"cover.imageData"];
+//    return @[];
+}
 
 
 #pragma mark - Properties
 - (void) setIsFavourite:(BOOL)isFavourite{
     
     // Se obtiene el Tag "FAVOURITE"
-    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[FLGTag entityName]];
-    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:FLGTagAttributes.name
-                                                          ascending:YES
-                                                           selector:@selector(caseInsensitiveCompare:)]];
-    req.fetchBatchSize = 20;
-    req.predicate = [NSPredicate predicateWithFormat:@"name = %@", FAVOURITES_TAG];
-    
-    AGTCoreDataStack *stack = [AGTCoreDataStack coreDataStackWithModelName:@"Model"];
-    NSArray *results = [stack executeFetchRequest:req
-                                       errorBlock:^(NSError *error) {
-                                           NSLog(@"Error al buscar! %@", error);
-                                       }];
-    
-    FLGTag *tag = [results firstObject];
+    FLGTag *tag = [FLGTag favoriteTagWithContext:self.managedObjectContext];
     
     if (isFavourite) {
         // Se añade el tag "FAVOURITE" al book
@@ -41,6 +36,7 @@
         // Se elimina el tag "FAVOURITE" del book
         [self removeTagsObject:tag];
     }
+    [self sendBookDidChangeItsContentNotification];
 }
 
 - (BOOL) isFavourite{
@@ -55,77 +51,45 @@
 }
 
 - (BOOL) savedIntoDisk{
-    return self.pdf.pdfData;
+    if (self.pdf.pdfData) {
+        return YES;
+    }
+    return NO;
 }
 
 #pragma mark - Init
 // Custom logic goes here.
 + (instancetype) bookWithJsonDictionary:(NSDictionary *) jsonDict
-                                  stack:(AGTCoreDataStack *)stack{
-
-//    AGTCoreDataStack *stack = [AGTCoreDataStack coreDataStackWithModelName:@"Model"];
-    NSManagedObjectContext *context = stack.context;
+                                context:(NSManagedObjectContext *)context{
     
     FLGBook *book = [FLGBook insertInManagedObjectContext:context];
+    
     book.title = [jsonDict objectForKey:TITLE_KEY];
     book.coverURL = [jsonDict objectForKey:COVER_URL_KEY];
     book.pdfURL = [jsonDict objectForKey:PDF_URL_KEY];
     
 //    book.annotations is optional
     
-    // Obtengo los Authors del libro actual y miro si existen ya en Core Data:
-    // Si existen, añado el Author de Core Data al libro.
-    // Si no existe, creo ese Author en Core Data y se lo asigno al libro
     NSArray *bookAuthorsArray = [[jsonDict objectForKey:AUTHORS_KEY] componentsSeparatedByString: @", "];
     for (NSString *authorName in bookAuthorsArray) {
         
-        // Authors: hago una busqueda del Author en Core Data.
-        NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[FLGAuthor entityName]];
-        req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:FLGAuthorAttributes.name
-                                                              ascending:YES
-                                                               selector:@selector(caseInsensitiveCompare:)]];
-        req.fetchBatchSize = 20;
-        req.predicate = [NSPredicate predicateWithFormat:@"name = %@", authorName];
+        FLGAuthor *author = [FLGAuthor authorWithName:authorName
+                                              context:context];
         
-        NSArray *results = [stack executeFetchRequest:req
-                                           errorBlock:^(NSError *error) {
-                                               NSLog(@"Error al buscar! %@", error);
-                                           }];
-        
-        FLGAuthor *author = [results firstObject];
-        if (!author) {
-            author = [FLGAuthor initWithName:authorName
-                                     context:context];
-        }
         [book addAuthorsObject:author];
     }
     
-    book.cover = [FLGCover insertInManagedObjectContext:context];
+    book.cover = [FLGCover coverWithCoverURL:[NSURL URLWithString: book.coverURL]
+                                     context:context];
+    
     book.pdf = [FLGPdf insertInManagedObjectContext:context];
     
-    // Obtengo los Tags del libro actual y miro si existen ya en Core Data:
-    // Si existen, añado el Tag de Core Data al libro.
-    // Si no existe, creo ese Tag en Core Data y se lo asigno al libro
     NSArray *bookTagsArray = [[jsonDict objectForKey:TAGS_KEY] componentsSeparatedByString: @", "];
     for (NSString *tagName in bookTagsArray) {
-        // Authors: hago una busqueda del Author en Core Data.
-        NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[FLGTag entityName]];
-        req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:FLGTagAttributes.name
-                                                              ascending:YES
-                                                               selector:@selector(caseInsensitiveCompare:)]];
-        req.fetchBatchSize = 20;
-        req.predicate = [NSPredicate predicateWithFormat:@"name = %@", tagName];
         
-        NSArray *results = [stack executeFetchRequest:req
-                                           errorBlock:^(NSError *error) {
-                                               NSLog(@"Error al buscar! %@", error);
-                                           }];
+        FLGTag *tag = [FLGTag tagWithName:tagName
+                                    context:context];
         
-        FLGTag *tag = [results firstObject];
-        if (!tag) {
-            tag = [FLGTag tagWithName:tagName
-                               context:context];
-        }
         [book addTagsObject:tag];
     }
     
@@ -170,6 +134,98 @@
     }
 }
 
+#pragma mark - Life cycle
+
+// Solo se produce 1 vez en la vida del objeto
+- (void) awakeFromInsert{
+    [super awakeFromInsert];
+    // Alta en la notificaciones
+    [self setupKVO];
+//    [self setupNotifications];
+}
+
+// Se produce n veces a lo largo de la vida del objeto:
+//    - Cada vez que pasa de Fault a objeto con contenido
+//    - Cada vez que se saca un objeto de base de datos
+- (void) awakeFromFetch{
+    [super awakeFromFetch];
+    // Alta en la notificaciones
+    [self setupKVO];
+//    [self setupNotifications];
+}
+
+// Se produce cuando un objeto se vacía convirtiendose en un fault
+- (void) willTurnIntoFault{
+    [super willTurnIntoFault];
+    // Baja en la notificaciones
+    [self tearDownKVO];
+//    [self tearDownNotifications];
+}
+
+#pragma mark - KVO
+
+- (void) setupKVO{
+    
+    // Observamos todas las propiedades EXCEPTO "modificationDate" (creariamos bucle infinito)
+    for (NSString *key in [[self class] observableKeys]) {
+        [self addObserver:self
+               forKeyPath:key
+                  options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew
+                  context:NULL];
+    }
+}
+
+- (void) tearDownKVO{
+    
+    // Me doy de baja de toda las notificaciones
+    for (NSString *key in [[self class] observableKeys]) {
+        [self removeObserver:self
+                  forKeyPath:key];
+    }
+}
+
+// mensaje que se recibe siempre en KVO cuando cambia cualquiera de las propiedades observadas
+- (void) observeValueForKeyPath:(NSString *)keyPath
+                       ofObject:(id)object
+                         change:(NSDictionary *)change
+                        context:(void *)context{
+    
+    // Se llama a este metodo cuando cambia la imagen del cover -> se enviara una notificacion
+    NSLog(@"Se ha cargado la cover del libro: %@", self.title);
+    // Mandamos una notificacion
+    [self sendBookDidChangeItsContentNotification];
+}
+
+#pragma mark - Notifications
+
+- (void) setupNotifications{
+    // Nos damos de alta en las notificaciones
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self
+               selector:@selector(notifyThatCoverDidChange:)
+                   name:COVER_DID_CHANGE_NOTIFICATION
+                 object:self.cover];
+}
+
+- (void) tearDownNotifications{
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center removeObserver:self];
+}
+
+// COVER_DID_CHANGE_NOTIFICATION
+- (void) notifyThatCoverDidChange: (NSNotification *) n{
+    [self sendBookDidChangeItsContentNotification];
+}
+
+- (void) sendBookDidChangeItsContentNotification{
+    NSNotification *note = [NSNotification notificationWithName:BOOK_DID_CHANGE_ITS_CONTENT_NOTIFICATION
+                                                         object:self
+                                                       userInfo:@{BOOK_KEY: self}];
+    
+    // Enviamos la notificacion
+    [[NSNotificationCenter defaultCenter] postNotification:note];
+}
+
 #pragma mark - Utils
 - (NSData*) archiveURIRepresentation{
     
@@ -184,7 +240,7 @@
     for (FLGAuthor *author in authors) {
         authorsString = [NSString stringWithFormat:@"%@%@, ", authorsString, author.name];
     }
-    return authorsString;
+    return [authorsString substringToIndex:authorsString.length -2];
 }
 
 - (NSString *) tagsString{
@@ -194,7 +250,27 @@
     for (FLGTag *tag in tags) {
         tagsString = [NSString stringWithFormat:@"%@%@, ", tagsString, tag.name];
     }
+    return [tagsString substringToIndex:tagsString.length -2];
+}
+
+#pragma mark - Comparison
+//- (NSComparisonResult)compare:(FLGBook *)other{
+//    
+//    return [[self proxyForSorting] compare:[other proxyForSorting]];
+//}
+
+- (NSString *) proxyForSorting{
+    NSString *tagsString = @"";
+    for (FLGTag *tag in self.tags) {
+        tagsString = [NSString stringWithFormat:@"%@%@", tagsString, tag.name];
+    }
     return tagsString;
+}
+
+#pragma mark - NSObject
+-(NSString *) description{
+    return [NSString stringWithFormat:@"<%@:\nTitle:%@\nAuthors:%@\nTags:%@>",
+            [self class], self.title, self.authors, self.tags];
 }
 
 

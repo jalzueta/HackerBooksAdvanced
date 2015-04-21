@@ -70,14 +70,6 @@
 //    [self.stack saveWithErrorBlock:^(NSError *error) {
 //        NSLog(@"Error al guardar el contexto en Core Data: %@", error);
 //    }];
-    
-    // Mandamos una notificacion -> para avisar a libraryVC
-    NSNotification *note = [NSNotification notificationWithName:BOOK_DID_CHANGE_ITS_CONTENT_NOTIFICATION_NAME
-                                                         object:self
-                                                       userInfo:@{BOOK_KEY: self.book}];
-    
-    // Enviamos la notificacion
-    [[NSNotificationCenter defaultCenter] postNotification:note];
 }
 
 #pragma mark - UISplitViewControllerDelegate
@@ -128,8 +120,8 @@
     
     self.bookTitle.text = self.book.title;
     self.authors.text = [NSString stringWithFormat:@"Authors: %@", [self.book authorsString]];
-    self.backgroundBookImage.image = self.book.cover.image;
-    self.bookImage.image = self.book.cover.image;
+    self.backgroundBookImage.image = self.book.cover.coverImage;
+    self.bookImage.image = self.book.cover.coverImage;
     self.tags.text = [NSString stringWithFormat:@"Tags: %@", [self.book tagsString]];
     self.savedOnDiskImage.hidden = ![self.book savedIntoDisk];
     [self syncFavouriteValue];

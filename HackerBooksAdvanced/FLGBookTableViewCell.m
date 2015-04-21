@@ -13,7 +13,13 @@
 #import "FLGCover.h"
 #import "FLGPdf.h"
 
+@interface FLGBookTableViewCell()
+@property (nonatomic, strong) FLGBook *book;
+
+@end
+
 @implementation FLGBookTableViewCell
+
 
 + (NSString *) cellId{
     return NSStringFromClass(self);
@@ -38,52 +44,82 @@
 }
 
 - (void) configureWithBook: (FLGBook *) book{
-    self.title.text = book.title;
+    self.book = book;
+    self.titleView.text = self.book.title;
     
-    self.authors.text = [book authorsString];
+    self.authorsView.text = [self.book authorsString];
     
-    if (!book.cover.image) {
-        
-        self.bookImage.image = [UIImage imageNamed:@"no_image.png"];
-        
-        dispatch_queue_t cover_download = dispatch_queue_create("cover", 0);
-        dispatch_async(cover_download, ^{
-            // Descarga de datos de cover
-            NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:book.coverURL]];
-            NSURLResponse *response = [[NSURLResponse alloc] init];
-            NSError *err;
-            NSData *coverData = [NSURLConnection sendSynchronousRequest:request
-                                                      returningResponse:&response
-                                                                  error:&err];
-            
-            UIImage *coverImage = [UIImage imageWithData:coverData];
-            if (coverImage) {
-                //No ha habido error
-                book.cover.imageData = coverData;
-            }
-            else{
-                //Se ha producido un error al parsear el JSON
-                NSLog(@"Error al descargar la imagen de portada: %@", err.localizedDescription);
-            }
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.bookImage.image = book.cover.image;
-//                self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-//                [self reloadInputViews];
-            });
-        });
-    }
-    else{
-        self.bookImage.image = book.cover.image;
-//        self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-    }
+    self.downloadIconView.hidden = !book.pdf.pdfData;
+    self.coverImageView.image = book.cover.coverImage;
     
-    if (book.isFavourite) {
-        self.favouriteIcon.image = [UIImage imageNamed:FAVOURITE_ON_IMAGE_NAME];
-    } else{
-        self.favouriteIcon.image = [UIImage imageNamed:FAVOURITE_OFF_IMAGE_NAME];
-    }
-    
-    self.downloadIcon.hidden = !book.pdf.pdfData;
+    [self syncFavoriteState];
 }
+
+#pragma mark -  Notificaciones
+- (void) observeBook:(FLGBook*) book{
+    
+    self.book = book;
+    
+    [self addObserver];
+    
+    [self syncWithBook];
+}
+
+- (void) addObserver{
+    
+    // Lo normal seria observar por FVO
+    
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    
+    // Muy importante, solo nos interesa los cambios en NUESTRO libro!
+    [nc addObserver:self
+           selector:@selector(syncWithBook)
+               name:BOOK_DID_CHANGE_ITS_CONTENT_NOTIFICATION
+             object:self.book];
+}
+
+- (void) removeObserver{
+    
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc removeObserver:self];
+    
+}
+
+- (void) dealloc{
+    
+    // baja en notificaciones
+    [self removeObserver];
+}
+
+#pragma mark -  Sync
+- (void) syncWithBook{
+    
+    // Puede cambiar imagen y favoritos
+    [UIView transitionWithView:self.coverImageView
+                      duration:0.7
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^{
+                        self.coverImageView.image = self.book.cover.coverImage;
+                    } completion:nil];
+    
+    
+    [self syncFavoriteState];
+}
+
+- (void)syncFavoriteState{
+    
+    if ([self.book isFavourite]) {
+        self.favouriteIconView.image = [UIImage imageNamed:FAVOURITE_ON_IMAGE_NAME];
+    } else{
+        self.favouriteIconView.image = [UIImage imageNamed:FAVOURITE_OFF_IMAGE_NAME];
+    }
+}
+
+#pragma mark - Actions
+
+- (IBAction)favoriteDidPressed:(id)sender {
+    [self.book setIsFavourite:!self.book.isFavourite];
+}
+
 
 @end

@@ -19,16 +19,17 @@
 
 @end
 
-@interface FLGLibraryTableViewController : AGTCoreDataTableViewController<FLGLibraryTableViewControllerDelegate>
+@interface FLGLibraryTableViewController : AGTCoreDataTableViewController<FLGLibraryTableViewControllerDelegate, UISearchResultsUpdating>
 
 
 @property (weak, nonatomic) id <FLGLibraryTableViewControllerDelegate> delegate;
 @property (strong, nonatomic) FLGBook *selectedBook;
+@property (nonatomic) BOOL showSelectedCell;
 
-
--(id) initWithFetchedResultsController: (NSFetchedResultsController *) aFetchedResultsController
+- (id) initWithFetchedResultsController: (NSFetchedResultsController *) aFetchedResultsController
                                  stack: (AGTCoreDataStack *) aStack
-                                 style: (UITableViewStyle) aStyle;
+                                 style: (UITableViewStyle) aStyle
+                      showSelectedCell: (BOOL) aShowSelectedCellValue;
 
 
 @end

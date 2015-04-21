@@ -11,14 +11,18 @@
 
 @interface FLGBookTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *bookImage;
-@property (weak, nonatomic) IBOutlet UIImageView *downloadIcon;
-@property (weak, nonatomic) IBOutlet UIImageView *favouriteIcon;
-@property (weak, nonatomic) IBOutlet UILabel *title;
-@property (weak, nonatomic) IBOutlet UILabel *authors;
+@property (weak, nonatomic) IBOutlet UIImageView *coverImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *downloadIconView;
+@property (weak, nonatomic) IBOutlet UIImageView *favouriteIconView;
+@property (weak, nonatomic) IBOutlet UILabel *titleView;
+@property (weak, nonatomic) IBOutlet UILabel *authorsView;
+
+
+- (IBAction)favoriteDidPressed:(id)sender;
 
 + (NSString *) cellId;
 
 - (void) configureWithBook: (FLGBook *) book;
+- (void) observeBook:(FLGBook*) book;
 
 @end

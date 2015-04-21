@@ -37,11 +37,7 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    // Usamos un metodo definido en la categoria "UIViewController+Navigation"
-    //    self.window.rootViewController = [self.libraryVC wrappedInNavigationController];
-    
     self.window.rootViewController = splashVC;
-    //    [self.delegate didFinishSavingBooksInAppDelegate:self];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
@@ -78,20 +74,24 @@
                     if ([jsonObject isKindOfClass:[NSArray class]]) {
                         NSArray *JSONObjects = (NSArray *) jsonObject;
                         for (NSDictionary *dict in JSONObjects) {
-                            // Se inserta un libro a partir del diccionario
-                            [FLGBook bookWithJsonDictionary:dict
-                                                      stack:self.stack];
+//                            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//                            if (![defaults objectForKey:LAST_SELECTED_BOOK_ARCHIVED_URI]) {
+//                                [defaults setObject:[[FLGBook bookWithJsonDictionary:dict context:self.stack.context] archiveURIRepresentation] forKey:LAST_SELECTED_BOOK_ARCHIVED_URI];
+//                                [defaults synchronize];
+//                            }else{
+                                [FLGBook bookWithJsonDictionary:dict
+                                                        context:self.stack.context];
+//                            }
                         }
                     }else{
                         NSDictionary *dict = (NSDictionary *) jsonObject;
                         // Se inserta un libro en Core Data a partir del diccionario
                         [FLGBook bookWithJsonDictionary:dict
-                                                  stack:self.stack];
+                                                context:self.stack.context];
                     }
                     
-                    // Creamos e insertamos en Core Data el tag "FAVOURITE"
-                    [FLGTag tagWithName:FAVOURITES_TAG
-                                context:self.stack.context];
+//                    // Creamos e insertamos en Core Data el tag "FAVOURITE"
+//                    [FLGTag favoriteTagWithContext:self.stack.context];
                     
                     // Guardamos el contexto
                     [self.stack saveWithErrorBlock:^(NSError *error) {
@@ -112,8 +112,10 @@
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
                         
-                        [self.delegate didFinishSavingBooksInAppDelegate:self];
-                        
+                        if ([self.delegate respondsToSelector:@selector(didFinishSavingBooksInAppDelegate:)]) {
+                            // Envio el mensaje al delegado
+                            [self.delegate didFinishSavingBooksInAppDelegate:self];
+                        }
                     });
                     
 //                    // Creamos un fetchRequest
@@ -155,7 +157,10 @@
         // Arranco el autosave
         [self autoSave];
         
-        [self.delegate didFinishSavingBooksInAppDelegate:self];
+        if ([self.delegate respondsToSelector:@selector(didFinishSavingBooksInAppDelegate:)]) {
+            // Envio el mensaje al delegado
+            [self.delegate didFinishSavingBooksInAppDelegate:self];
+        }
     }
     
     // Creamos un fetchRequest
