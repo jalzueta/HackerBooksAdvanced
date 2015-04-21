@@ -18,7 +18,7 @@
 
 + (NSArray *) observableKeys{
     // Devuelve por defecto un array vacio -> Luego se sobreescribira en cada subclase
-    return @[@"cover.imageData"];
+    return @[@"cover.imageData", @"pdf.pdfData"];
 //    return @[];
 }
 
@@ -79,10 +79,9 @@
         [book addAuthorsObject:author];
     }
     
-    book.cover = [FLGCover coverWithCoverURL:[NSURL URLWithString: book.coverURL]
-                                     context:context];
+    book.cover = [FLGCover coverWithContext:context];
     
-    book.pdf = [FLGPdf insertInManagedObjectContext:context];
+    book.pdf = [FLGPdf pdfWithContext:context];
     
     NSArray *bookTagsArray = [[jsonDict objectForKey:TAGS_KEY] componentsSeparatedByString: @", "];
     for (NSString *tagName in bookTagsArray) {
@@ -93,9 +92,9 @@
         [book addTagsObject:tag];
     }
     
-//    [stack saveWithErrorBlock:^(NSError *error) {
-//        NSLog(@"Error al guardar el contexto en Core Data: %@", error);
-//    }];
+    if (context.hasChanges) {
+        [context save:nil];
+    }
     
     return book;
 }
@@ -190,10 +189,17 @@
                          change:(NSDictionary *)change
                         context:(void *)context{
     
-    // Se llama a este metodo cuando cambia la imagen del cover -> se enviara una notificacion
-    NSLog(@"Se ha cargado la cover del libro: %@", self.title);
-    // Mandamos una notificacion
-    [self sendBookDidChangeItsContentNotification];
+    if ([keyPath isEqualToString:@"cover.imageData"]) {
+        // Se llama a este metodo cuando cambia la imagen del cover -> se enviara una notificacion
+        NSLog(@"Se ha cargado la cover del libro: %@", self.title);
+        // Mandamos una notificacion
+        [self sendBookDidChangeItsContentNotification];
+    }else if ([keyPath isEqualToString:@"pdf.pdfData"]){
+        // Se llama a este metodo cuando cambia el contenido del PDF -> se enviara una notificacion
+        NSLog(@"Ha cambiado el PDF del libro: %@", self.title);
+        // Mandamos una notificacion
+        [self sendBookDidChangeItsContentNotification];
+    }
 }
 
 #pragma mark - Notifications
@@ -218,6 +224,11 @@
 }
 
 - (void) sendBookDidChangeItsContentNotification{
+    
+    if (self.managedObjectContext.hasChanges) {
+        [self.managedObjectContext save:nil];
+    }
+
     NSNotification *note = [NSNotification notificationWithName:BOOK_DID_CHANGE_ITS_CONTENT_NOTIFICATION
                                                          object:self
                                                        userInfo:@{BOOK_KEY: self}];

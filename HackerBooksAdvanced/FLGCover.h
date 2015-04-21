@@ -15,7 +15,6 @@
 @property (strong, nonatomic) UIImage *coverImage;
 @property (weak, nonatomic) id <FLGCoverDelegate> delegate;
 
-+ (instancetype) coverWithCoverURL: (NSURL *) coverURL
-                           context: (NSManagedObjectContext *) context;
++ (instancetype) coverWithContext: (NSManagedObjectContext *) context;
 
 @end

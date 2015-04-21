@@ -11,7 +11,7 @@
 #import "FLGConstants.h"
 #import "FLGCover.h"
 #import "AGTCoreDataStack.h"
-//#import "FLGPdfViewController.h"
+#import "FLGPdfViewController.h"
 //#import "FLGVfrReaderViewController.h"
 
 
@@ -45,6 +45,21 @@
     
     // Asignamos al navigationItem del controlador el boton del SplitViewController.
     self.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
+    
+    // Nos damos de alta en las notificaciones
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self
+               selector:@selector(notifyThatBookDidChangeItsContent:)
+                   name:BOOK_DID_CHANGE_ITS_CONTENT_NOTIFICATION
+                 object:nil];
+}
+
+- (void) viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    
+    // Nos damos de baja de las notificaciones - Utilizo el dealloc para que en la versión de iPhone, al volver atrás, también se actualice la lista de libros
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,9 +71,9 @@
 
 - (IBAction)displayPdf:(id)sender {
     
-//    [self launchPdfInWebview];
+    [self launchPdfInWebview];
     
-    [self launchVfrReader];
+//    [self launchVfrReader];
 }
 
 - (IBAction)didPressFavourite:(id)sender {
@@ -94,15 +109,10 @@
     [self syncViewToModel];
 }
 
-- (void) libraryTableViewController:(FLGLibraryTableViewController *)libraryTableViewController didChangeFavoriteStateInBook:(FLGBook *)book{
-    
-//    if ([self.book isTheSameBook:book]) {
-//        // Actualizamos el modelo
-//        self.book = book;
-//        
-//        // Sincronizamos modelo -> vista
-//        [self syncViewToModel];
-//    }
+#pragma mark - Notifications
+// BOOK_DID_CHANGE_ITS_CONTENT_NOTIFICATION
+- (void) notifyThatBookDidChangeItsContent: (NSNotification *) aNotification{
+    [self syncViewToModel];
 }
 
 #pragma mark - Utils
@@ -137,10 +147,10 @@
 
 - (void) launchPdfInWebview{
     //    // Crear un pdfVC
-    //    FLGPdfViewController *pdfVC = [[FLGPdfViewController alloc] initWithModel:self.model];
-    //
+        FLGPdfViewController *pdfVC = [[FLGPdfViewController alloc] initWithModel:self.book];
+    
     //    // Hacer un push usando la propiedad "navigationController" que tiene todo UIViewController
-    //    [self.navigationController pushViewController:pdfVC animated:YES];
+        [self.navigationController pushViewController:pdfVC animated:YES];
 }
 
 - (void) launchVfrReader{

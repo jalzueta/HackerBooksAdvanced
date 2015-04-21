@@ -5,12 +5,9 @@
 
 @interface FLGCover ()
 
-@property (nonatomic, strong) NSURL *coverURL;
-
 @end
 
 @implementation FLGCover
-@synthesize coverURL;
 @synthesize delegate;
 
 - (void) setCoverImage:(UIImage *)coverImage{
@@ -30,20 +27,9 @@
     return [UIImage imageWithData:self.imageData];
 }
 
-//- (NSURL *) coverURL{
-//    return self.coverURL;
-//}
-//
-//- (void) setCoverURL:(NSURL *)aCoverURL{
-//    self.coverURL = aCoverURL;
-//}
-
-+ (instancetype) coverWithCoverURL: (NSURL *) coverURL
-                           context: (NSManagedObjectContext *) context{
++ (instancetype) coverWithContext: (NSManagedObjectContext *) context{
     
     FLGCover *cover = [self insertInManagedObjectContext: context];
-    
-    cover.coverURL = coverURL;
     
     return cover;
 }
@@ -52,20 +38,21 @@
     dispatch_queue_t cover_download = dispatch_queue_create("cover", 0);
     dispatch_async(cover_download,
                    ^{
-                       NSData *data = [NSData dataWithContentsOfURL:self.coverURL];
+                       NSLog(@"coverURL: %@", self.book.coverURL);
+                       NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.book.coverURL]];
                        
                        dispatch_async(dispatch_get_main_queue(), ^{
                            // Lo hago en primer plano para asegurarme de
                            // todas las ntificaciones van en la ocla
                            // principal
-                           [self setNewImageWithData:data];
+                           [self coverImageDataWithData:data];
                        });
                    });
 }
 
 #pragma mark - Utils
-- (void) setNewImageWithData: (NSData *) data{
-    self.imageData = data;
+- (void) coverImageDataWithData: (NSData *) data{
+    self.imageData = data; // Launch KVO notification
     [self notifyChanges];
 }
 

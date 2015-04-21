@@ -1,5 +1,18 @@
 #import "_FLGPdf.h"
+@class FLGPdf;
+
+@protocol FLGPdfDelegate <NSObject>
+
+-(void) pdfDidChange:(FLGPdf*) pdf;
+
+@end
 
 @interface FLGPdf : _FLGPdf {}
-// Custom logic goes here.
+
+@property (weak, nonatomic) id <FLGPdfDelegate> delegate;
+
+- (NSData *) pdfEndData;
+
++ (instancetype) pdfWithContext: (NSManagedObjectContext *) context;
+
 @end

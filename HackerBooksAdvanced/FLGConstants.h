@@ -7,8 +7,8 @@
 //
 
 #pragma mark - Autosave
-#define AUTO_SAVE NO
-#define AUTO_SAVE_DELAY 30
+#define AUTO_SAVE YES
+#define AUTO_SAVE_DELAY 10
 
 
 #pragma mark - FLGBook JSON download
@@ -28,6 +28,8 @@
 #pragma mark - Notifications
 #define COVER_KEY @"cover"
 #define COVER_DID_CHANGE_NOTIFICATION @"coverDidChange"
+#define PDF_KEY @"pdf"
+#define PDF_DID_CHANGE_NOTIFICATION @"pdfDidChange"
 #define BOOK_KEY @"book"
 #define BOOK_DID_CHANGE_NOTIFICATION @"bookDidChange"
 #define BOOK_DID_CHANGE_ITS_CONTENT_NOTIFICATION @"bookDidChangeItsContent"
