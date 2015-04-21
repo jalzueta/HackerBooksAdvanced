@@ -36,7 +36,6 @@
         // Se elimina el tag "FAVOURITE" del book
         [self removeTagsObject:tag];
     }
-    [self sendBookDidChangeItsContentNotification];
 }
 
 - (BOOL) isFavourite{
@@ -193,43 +192,73 @@
         // Se llama a este metodo cuando cambia la imagen del cover -> se enviara una notificacion
         NSLog(@"Se ha cargado la cover del libro: %@", self.title);
         // Mandamos una notificacion
-        [self sendBookDidChangeItsContentNotification];
+        [self sendBookDidChangeCoverNotification];
     }else if ([keyPath isEqualToString:@"pdf.pdfData"]){
         // Se llama a este metodo cuando cambia el contenido del PDF -> se enviara una notificacion
         NSLog(@"Ha cambiado el PDF del libro: %@", self.title);
         // Mandamos una notificacion
-        [self sendBookDidChangeItsContentNotification];
+        [self sendBookDidChangePdfNotification];
+    }else if ([keyPath isEqualToString:@"isFavorite"]){
+        
     }
 }
 
 #pragma mark - Notifications
 
-- (void) setupNotifications{
-    // Nos damos de alta en las notificaciones
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self
-               selector:@selector(notifyThatCoverDidChange:)
-                   name:COVER_DID_CHANGE_NOTIFICATION
-                 object:self.cover];
+//- (void) setupNotifications{
+//    // Nos damos de alta en las notificaciones
+//    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+//    [center addObserver:self
+//               selector:@selector(notifyThatCoverDidChange:)
+//                   name:COVER_DID_CHANGE_NOTIFICATION
+//                 object:self.cover];
+//}
+//
+//- (void) tearDownNotifications{
+//    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+//    [center removeObserver:self];
+//}
+//
+//// COVER_DID_CHANGE_NOTIFICATION
+//- (void) notifyThatCoverDidChange: (NSNotification *) n{
+//    [self sendBookDidChangeItsCoverNotification];
+//}
+
+- (void) sendBookDidChangeCoverNotification{
+    
+    if (self.managedObjectContext.hasChanges) {
+        [self.managedObjectContext save:nil];
+    }
+    
+    NSNotification *note = [NSNotification notificationWithName:BOOK_DID_CHANGE_COVER_NOTIFICATION
+                                                         object:self
+                                                       userInfo:@{BOOK_KEY: self}];
+    
+    // Enviamos la notificacion
+    [[NSNotificationCenter defaultCenter] postNotification:note];
 }
 
-- (void) tearDownNotifications{
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center removeObserver:self];
+- (void) sendBookDidChangePdfNotification{
+    
+    if (self.managedObjectContext.hasChanges) {
+        [self.managedObjectContext save:nil];
+    }
+    
+    NSNotification *note = [NSNotification notificationWithName:BOOK_DID_CHANGE_PDF_NOTIFICATION
+                                                         object:self
+                                                       userInfo:@{BOOK_KEY: self}];
+    
+    // Enviamos la notificacion
+    [[NSNotificationCenter defaultCenter] postNotification:note];
 }
 
-// COVER_DID_CHANGE_NOTIFICATION
-- (void) notifyThatCoverDidChange: (NSNotification *) n{
-    [self sendBookDidChangeItsContentNotification];
-}
-
-- (void) sendBookDidChangeItsContentNotification{
+- (void) sendBookDidChangeFavoriteStateNotification{
     
     if (self.managedObjectContext.hasChanges) {
         [self.managedObjectContext save:nil];
     }
 
-    NSNotification *note = [NSNotification notificationWithName:BOOK_DID_CHANGE_ITS_CONTENT_NOTIFICATION
+    NSNotification *note = [NSNotification notificationWithName:BOOK_DID_CHANGE_FAVORITE_STATE_NOTIFICATION
                                                          object:self
                                                        userInfo:@{BOOK_KEY: self}];
     
@@ -259,7 +288,7 @@
     NSString *tagsString = @"";
     NSSet *tags = self.tags;
     for (FLGTag *tag in tags) {
-        tagsString = [NSString stringWithFormat:@"%@%@, ", tagsString, tag.name];
+        tagsString = [NSString stringWithFormat:@"%@%@, ", tagsString, [tag.name capitalizedString]];
     }
     return [tagsString substringToIndex:tagsString.length -2];
 }

@@ -47,24 +47,6 @@
          forCellReuseIdentifier:[FLGBookTableViewCell cellId]];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    // Nos damos de alta en las notificaciones
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self
-               selector:@selector(notifyThatBookDidChangeItsContent:)
-                   name:BOOK_DID_CHANGE_ITS_CONTENT_NOTIFICATION
-                 object:nil];
-}
-
-- (void) dealloc{
-    
-    // Nos damos de baja de las notificaciones - Utilizo el dealloc para que en la versión de iPhone, al volver atrás, también se actualice la lista de libros
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center removeObserver:self];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -210,17 +192,7 @@
 }
 
 #pragma mark - Notifications
-// BOOK_DID_CHANGE_ITS_CONTENT_NOTIFICATION
-- (void) notifyThatBookDidChangeItsContent: (NSNotification *) aNotification{
-    
-    // Guardamos el contexto
-    [self.stack saveWithErrorBlock:^(NSError *error) {
-        NSLog(@"Error al autoguardar!: %@", error);
-    }];
-    
-    // Sincronizamos modelo -> vista
-//    [self.tableView reloadData];
-}
+
 
 #pragma mark - UISearchResultsUpdating
 

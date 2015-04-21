@@ -97,7 +97,7 @@
     
     [center addObserver:self
                selector:@selector(notifyThatBookDidChangeItsContent:)
-                   name:BOOK_DID_CHANGE_ITS_CONTENT_NOTIFICATION
+                   name:BOOK_DID_CHANGE_PDF_NOTIFICATION
                  object:self.model]; // Quien es el sender de la notificacion: el modelo
 }
 
@@ -124,7 +124,7 @@
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];;
     [center addObserver:self
                selector:@selector(notifyThatBookDidChangeItsContent:)
-                   name:BOOK_DID_CHANGE_ITS_CONTENT_NOTIFICATION
+                   name:BOOK_DID_CHANGE_PDF_NOTIFICATION
                  object:self.model]; // Quien es el sender de la notificacion: el modelo
     
     // Sincronizamos modelo -> vista

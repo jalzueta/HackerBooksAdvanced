@@ -32,7 +32,9 @@
 #define PDF_DID_CHANGE_NOTIFICATION @"pdfDidChange"
 #define BOOK_KEY @"book"
 #define BOOK_DID_CHANGE_NOTIFICATION @"bookDidChange"
-#define BOOK_DID_CHANGE_ITS_CONTENT_NOTIFICATION @"bookDidChangeItsContent"
+#define BOOK_DID_CHANGE_COVER_NOTIFICATION @"bookDidChangeCover"
+#define BOOK_DID_CHANGE_PDF_NOTIFICATION @"bookDidChangePdf"
+#define BOOK_DID_CHANGE_FAVORITE_STATE_NOTIFICATION @"BookDidChangeFavoriteState"
 
 #pragma mark - NSUserDefaults
 #define LAST_SELECTED_BOOK_ARCHIVED_URI @"lastBookArchivedUri"

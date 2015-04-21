@@ -49,15 +49,25 @@
     // Nos damos de alta en las notificaciones
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self
-               selector:@selector(notifyThatBookDidChangeItsContent:)
-                   name:BOOK_DID_CHANGE_ITS_CONTENT_NOTIFICATION
-                 object:nil];
+               selector:@selector(notifyThatBookDidChangeCover:)
+                   name:BOOK_DID_CHANGE_COVER_NOTIFICATION
+                 object:self.book];
+    
+    [center addObserver:self
+               selector:@selector(notifyThatBookDidChangePdf:)
+                   name:BOOK_DID_CHANGE_PDF_NOTIFICATION
+                 object:self.book];
+    
+    [center addObserver:self
+               selector:@selector(notifyThatBookDidChangeFavoriteState:)
+                   name:BOOK_DID_CHANGE_FAVORITE_STATE_NOTIFICATION
+                 object:self.book];
 }
 
 - (void) viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     
-    // Nos damos de baja de las notificaciones - Utilizo el dealloc para que en la versión de iPhone, al volver atrás, también se actualice la lista de libros
+    // Nos damos de baja de las notificaciones
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center removeObserver:self];
 }
@@ -110,9 +120,19 @@
 }
 
 #pragma mark - Notifications
-// BOOK_DID_CHANGE_ITS_CONTENT_NOTIFICATION
-- (void) notifyThatBookDidChangeItsContent: (NSNotification *) aNotification{
-    [self syncViewToModel];
+// BOOK_DID_CHANGE_COVER_NOTIFICATION
+- (void) notifyThatBookDidChangeCover: (NSNotification *) aNotification{
+    [self syncCoverValue];
+}
+
+// BOOK_DID_CHANGE_PDF_NOTIFICATION
+- (void) notifyThatBookDidChangePdf: (NSNotification *) aNotification{
+    [self syncPdfValue];
+}
+
+// BOOK_DID_CHANGE_FAVORITE_STATE_NOTIFICATION
+- (void) notifyThatBookDidChangeFavoriteState: (NSNotification *) aNotification{
+    [self syncFavouriteValue];
 }
 
 #pragma mark - Utils
@@ -130,11 +150,20 @@
     
     self.bookTitle.text = self.book.title;
     self.authors.text = [NSString stringWithFormat:@"Authors: %@", [self.book authorsString]];
+    self.tags.text = [NSString stringWithFormat:@"Tags: %@", [self.book tagsString]];
+    
+    [self syncCoverValue];
+    [self syncPdfValue];
+    [self syncFavouriteValue];
+}
+
+- (void) syncCoverValue{
     self.backgroundBookImage.image = self.book.cover.coverImage;
     self.bookImage.image = self.book.cover.coverImage;
-    self.tags.text = [NSString stringWithFormat:@"Tags: %@", [self.book tagsString]];
+}
+
+- (void) syncPdfValue{
     self.savedOnDiskImage.hidden = ![self.book savedIntoDisk];
-    [self syncFavouriteValue];
 }
 
 - (void) syncFavouriteValue{

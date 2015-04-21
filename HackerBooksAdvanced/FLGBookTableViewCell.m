@@ -52,7 +52,7 @@
     self.downloadIconView.hidden = !book.pdf.pdfData;
     self.coverImageView.image = book.cover.coverImage;
     
-    [self syncFavoriteState];
+    [self syncFavoriteWithBook];
 }
 
 #pragma mark -  Notificaciones
@@ -73,8 +73,18 @@
     
     // Muy importante, solo nos interesa los cambios en NUESTRO libro!
     [nc addObserver:self
-           selector:@selector(syncWithBook)
-               name:BOOK_DID_CHANGE_ITS_CONTENT_NOTIFICATION
+           selector:@selector(syncCoverWithBook)
+               name:BOOK_DID_CHANGE_COVER_NOTIFICATION
+             object:self.book];
+    
+    [nc addObserver:self
+           selector:@selector(syncFavoriteWithBook)
+               name:BOOK_DID_CHANGE_FAVORITE_STATE_NOTIFICATION
+             object:self.book];
+    
+    [nc addObserver:self
+           selector:@selector(syncDownloadedWithBook)
+               name:BOOK_DID_CHANGE_PDF_NOTIFICATION
              object:self.book];
 }
 
@@ -92,22 +102,24 @@
 }
 
 #pragma mark -  Sync
+
 - (void) syncWithBook{
+    [self syncCoverWithBook];
+    [self syncDownloadedWithBook];
+    [self syncFavoriteWithBook];
+}
+
+- (void) syncCoverWithBook{
     
-    // Puede cambiar imagen y favoritos
     [UIView transitionWithView:self.coverImageView
                       duration:0.7
                        options:UIViewAnimationOptionTransitionCrossDissolve
                     animations:^{
                         self.coverImageView.image = self.book.cover.coverImage;
                     } completion:nil];
-    
-    
-    [self syncFavoriteState];
-    [self syncDownloadedState];
-}
+    }
 
-- (void)syncFavoriteState{
+- (void)syncFavoriteWithBook{
     
     if ([self.book isFavourite]) {
         self.favouriteIconView.image = [UIImage imageNamed:FAVOURITE_ON_IMAGE_NAME];
@@ -116,7 +128,7 @@
     }
 }
 
-- (void)syncDownloadedState{
+- (void)syncDownloadedWithBook{
     self.downloadIconView.hidden = ![self.book savedIntoDisk];
 }
 
