@@ -1,6 +1,5 @@
 #import "FLGCover.h"
 #import "FLGBook.h"
-#import "AGTAsyncImage.h"
 #import "FLGConstants.h"
 
 @interface FLGCover ()

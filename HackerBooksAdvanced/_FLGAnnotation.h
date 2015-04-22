@@ -2,6 +2,7 @@
 // Make changes to FLGAnnotation.h instead.
 
 @import CoreData;
+#import "FLGHackerBooksBaseClass.h"
 
 extern const struct FLGAnnotationAttributes {
 	__unsafe_unretained NSString *creationDate;
@@ -23,7 +24,7 @@ extern const struct FLGAnnotationRelationships {
 @interface FLGAnnotationID : NSManagedObjectID {}
 @end
 
-@interface _FLGAnnotation : NSManagedObject {}
+@interface _FLGAnnotation : FLGHackerBooksBaseClass {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;

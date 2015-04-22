@@ -135,7 +135,7 @@
 #pragma mark - Actions
 
 - (IBAction)favoriteDidPressed:(id)sender {
-    [self.book setIsFavourite:!self.book.isFavourite];
+//    [self.book setIsFavourite:!self.book.isFavourite];
 }
 
 

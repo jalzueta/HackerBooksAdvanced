@@ -47,6 +47,17 @@
          forCellReuseIdentifier:[FLGBookTableViewCell cellId]];
 }
 
+- (void) viewDidAppear:(BOOL)animated{
+    
+    [super viewDidAppear:animated];
+    
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self
+           selector:@selector(notifyThatFavoriteStateDidChange:)
+               name:BOOK_DID_CHANGE_FAVORITE_STATE_NOTIFICATION
+             object:nil];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -120,6 +131,7 @@
     
     FLGBookTableViewCell *cell;
     if (results) {
+        
         FLGBook *b = [results objectAtIndex:indexPath.row];
         
         // Crear una celda
@@ -199,5 +211,61 @@
 - (void) updateSearchResultsForSearchController:(UISearchController *)searchController{
     
 }
+
+// BOOK_DID_CHANGE_FAVORITE_STATE_NOTIFICATION
+- (void) notifyThatFavoriteStateDidChange: (NSNotification *) aNotification{
+//    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[FLGTag entityName]];
+//    // Implementar el metodo "compare" que ha hecho fernando para los tags
+//    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:FLGTagAttributes.name
+//                                                          ascending:YES selector:@selector(compare:)]];
+//    
+//    //    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:FLGTagAttributes.name
+//    //                                                          ascending:YES selector:@selector(caseInsensitiveCompare:)]];
+//    
+//    req.fetchBatchSize = 20;
+//    
+//    // Creamos un FetchedResultsController
+//    self.fetchedResultsController = [[NSFetchedResultsController alloc]
+//                                      initWithFetchRequest:req
+//                                      managedObjectContext:self.stack.context
+//                                      sectionNameKeyPath:FLGTagAttributes.name
+//                                      cacheName:nil];
+    
+    FLGBook *b = [aNotification.userInfo objectForKey:BOOK_KEY];
+    
+    
+    [self performFetch];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller
+   didChangeObject:(id)anObject
+       atIndexPath:(NSIndexPath *)indexPath
+     forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath
+{
+    if (!self.suspendAutomaticTrackingOfChangesInManagedObjectContext)
+    {
+        switch(type)
+        {
+            case NSFetchedResultsChangeInsert:
+                [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+                
+            case NSFetchedResultsChangeDelete:
+                [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+                
+            case NSFetchedResultsChangeUpdate:
+                [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+                
+            case NSFetchedResultsChangeMove:
+                [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+        }
+    }
+}
+
 
 @end

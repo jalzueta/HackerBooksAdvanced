@@ -10,6 +10,8 @@
 #import "FLGBook.h"
 #import "FLGConstants.h"
 #import "FLGPdf.h"
+#import "FLGAnnotation.h"
+#import "FLGAnnotationsTableViewController.h"
 
 @interface FLGPdfViewController ()
 @property (nonatomic) BOOL hideActivity;
@@ -169,6 +171,43 @@
     }else{
         self.hideActivity = NO;
     }
+}
+
+
+#pragma mark - Actions
+
+- (IBAction)showAnnotations:(id)sender {
+    
+    // Averiguo la libreta
+    FLGBook *b = self.model;
+    
+    //Creo el fetch result controller
+    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[FLGAnnotation entityName]];
+    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:FLGAnnotationAttributes.title
+                                                          ascending:YES selector:@selector(caseInsensitiveCompare:)],
+                            [NSSortDescriptor sortDescriptorWithKey:FLGAnnotationAttributes.modificationDate
+                                                          ascending:NO]];
+    
+    // Numero de objetos en cada lote
+    req.fetchBatchSize = 20;
+    
+    req.predicate = [NSPredicate predicateWithFormat:@"book = %@", b];
+    
+    //Creo el fetch result controller
+    NSFetchedResultsController *fc = [[NSFetchedResultsController alloc]
+                                      initWithFetchRequest:req
+                                      managedObjectContext:b.managedObjectContext
+                                      sectionNameKeyPath:nil cacheName:nil];
+    
+    // Creo un controlador de notas
+    FLGAnnotationsTableViewController *annotationsVC = [[FLGAnnotationsTableViewController alloc] initWithFetchedResultsController:fc
+                                                                                                                   style:UITableViewStylePlain
+                                                                                                                    book:b];
+    
+    // Hago el push
+    [self.navigationController pushViewController:annotationsVC
+                                         animated:YES];
+    
 }
 
 @end

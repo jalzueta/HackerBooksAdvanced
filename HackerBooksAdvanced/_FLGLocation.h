@@ -2,6 +2,7 @@
 // Make changes to FLGLocation.h instead.
 
 @import CoreData;
+#import "FLGHackerBooksBaseClass.h"
 
 extern const struct FLGLocationAttributes {
 	__unsafe_unretained NSString *address;
@@ -18,7 +19,7 @@ extern const struct FLGLocationRelationships {
 @interface FLGLocationID : NSManagedObjectID {}
 @end
 
-@interface _FLGLocation : NSManagedObject {}
+@interface _FLGLocation : FLGHackerBooksBaseClass {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;

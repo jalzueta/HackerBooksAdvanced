@@ -4,7 +4,6 @@
 #import "_FLGTag.h"
 
 const struct FLGTagAttributes FLGTagAttributes = {
-	.index = @"index",
 	.name = @"name",
 };
 
@@ -38,33 +37,7 @@ const struct FLGTagRelationships FLGTagRelationships = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
-	if ([key isEqualToString:@"indexValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"index"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
-
 	return keyPaths;
-}
-
-@dynamic index;
-
-- (int16_t)indexValue {
-	NSNumber *result = [self index];
-	return [result shortValue];
-}
-
-- (void)setIndexValue:(int16_t)value_ {
-	[self setIndex:@(value_)];
-}
-
-- (int16_t)primitiveIndexValue {
-	NSNumber *result = [self primitiveIndex];
-	return [result shortValue];
-}
-
-- (void)setPrimitiveIndexValue:(int16_t)value_ {
-	[self setPrimitiveIndex:@(value_)];
 }
 
 @dynamic name;

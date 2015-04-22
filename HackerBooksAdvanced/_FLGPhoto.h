@@ -2,6 +2,7 @@
 // Make changes to FLGPhoto.h instead.
 
 @import CoreData;
+#import "FLGHackerBooksBaseClass.h"
 
 extern const struct FLGPhotoAttributes {
 	__unsafe_unretained NSString *photoData;
@@ -16,7 +17,7 @@ extern const struct FLGPhotoRelationships {
 @interface FLGPhotoID : NSManagedObjectID {}
 @end
 
-@interface _FLGPhoto : NSManagedObject {}
+@interface _FLGPhoto : FLGHackerBooksBaseClass {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;

@@ -2,6 +2,7 @@
 // Make changes to FLGAuthor.h instead.
 
 @import CoreData;
+#import "FLGHackerBooksBaseClass.h"
 
 extern const struct FLGAuthorAttributes {
 	__unsafe_unretained NSString *name;
@@ -16,7 +17,7 @@ extern const struct FLGAuthorRelationships {
 @interface FLGAuthorID : NSManagedObjectID {}
 @end
 
-@interface _FLGAuthor : NSManagedObject {}
+@interface _FLGAuthor : FLGHackerBooksBaseClass {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;

@@ -2,6 +2,7 @@
 // Make changes to FLGCover.h instead.
 
 @import CoreData;
+#import "FLGHackerBooksBaseClass.h"
 
 extern const struct FLGCoverAttributes {
 	__unsafe_unretained NSString *imageData;
@@ -16,7 +17,7 @@ extern const struct FLGCoverRelationships {
 @interface FLGCoverID : NSManagedObjectID {}
 @end
 
-@interface _FLGCover : NSManagedObject {}
+@interface _FLGCover : FLGHackerBooksBaseClass {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;

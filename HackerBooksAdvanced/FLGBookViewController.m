@@ -87,14 +87,9 @@
 }
 
 - (IBAction)didPressFavourite:(id)sender {
-    [self.book setIsFavourite: ![self.book isFavourite]];
+//    [self.book setIsFavourite: ![self.book isFavourite]];
     
     [self syncFavouriteValue];
-    
-//    // Se guardan los cambios
-//    [self.stack saveWithErrorBlock:^(NSError *error) {
-//        NSLog(@"Error al guardar el contexto en Core Data: %@", error);
-//    }];
 }
 
 #pragma mark - UISplitViewControllerDelegate

@@ -2,6 +2,7 @@
 // Make changes to FLGPdf.h instead.
 
 @import CoreData;
+#import "FLGHackerBooksBaseClass.h"
 
 extern const struct FLGPdfAttributes {
 	__unsafe_unretained NSString *pdfData;
@@ -16,7 +17,7 @@ extern const struct FLGPdfRelationships {
 @interface FLGPdfID : NSManagedObjectID {}
 @end
 
-@interface _FLGPdf : NSManagedObject {}
+@interface _FLGPdf : FLGHackerBooksBaseClass {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;

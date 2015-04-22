@@ -5,7 +5,6 @@
 #import "FLGAuthor.h"
 #import "FLGPdf.h"
 #import "FLGTag.h"
-#import "AGTAsyncImage.h"
 
 @interface FLGBook ()
 
@@ -13,12 +12,13 @@
 
 @implementation FLGBook
 @dynamic delegate;
+@dynamic isFavourite;
 
 #pragma mark - Class Methods
 
 + (NSArray *) observableKeys{
     // Devuelve por defecto un array vacio -> Luego se sobreescribira en cada subclase
-    return @[@"cover.imageData", @"pdf.pdfData"];
+    return @[@"cover.imageData", @"pdf.pdfData", @"isFavorite"];
 //    return @[];
 }
 
@@ -36,6 +36,7 @@
         // Se elimina el tag "FAVOURITE" del book
         [self removeTagsObject:tag];
     }
+    [self sendBookDidChangeFavoriteStateNotification];
 }
 
 - (BOOL) isFavourite{
@@ -199,7 +200,7 @@
         // Mandamos una notificacion
         [self sendBookDidChangePdfNotification];
     }else if ([keyPath isEqualToString:@"isFavorite"]){
-        
+        [self sendBookDidChangeFavoriteStateNotification];
     }
 }
 

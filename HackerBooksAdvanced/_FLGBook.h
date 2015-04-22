@@ -2,6 +2,7 @@
 // Make changes to FLGBook.h instead.
 
 @import CoreData;
+#import "FLGHackerBooksBaseClass.h"
 
 extern const struct FLGBookAttributes {
 	__unsafe_unretained NSString *coverURL;
@@ -26,7 +27,7 @@ extern const struct FLGBookRelationships {
 @interface FLGBookID : NSManagedObjectID {}
 @end
 
-@interface _FLGBook : NSManagedObject {}
+@interface _FLGBook : FLGHackerBooksBaseClass {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;

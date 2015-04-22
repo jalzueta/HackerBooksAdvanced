@@ -74,14 +74,14 @@
                     if ([jsonObject isKindOfClass:[NSArray class]]) {
                         NSArray *JSONObjects = (NSArray *) jsonObject;
                         for (NSDictionary *dict in JSONObjects) {
-//                            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//                            if (![defaults objectForKey:LAST_SELECTED_BOOK_ARCHIVED_URI]) {
-//                                [defaults setObject:[[FLGBook bookWithJsonDictionary:dict context:self.stack.context] archiveURIRepresentation] forKey:LAST_SELECTED_BOOK_ARCHIVED_URI];
-//                                [defaults synchronize];
-//                            }else{
+                            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                            if (![defaults objectForKey:LAST_SELECTED_BOOK_ARCHIVED_URI]) {
+                                [defaults setObject:[[FLGBook bookWithJsonDictionary:dict context:self.stack.context] archiveURIRepresentation] forKey:LAST_SELECTED_BOOK_ARCHIVED_URI];
+                                [defaults synchronize];
+                            }else{
                                 [FLGBook bookWithJsonDictionary:dict
                                                         context:self.stack.context];
-//                            }
+                            }
                         }
                     }else{
                         NSDictionary *dict = (NSDictionary *) jsonObject;
@@ -90,7 +90,7 @@
                                                 context:self.stack.context];
                     }
                     
-//                    // Creamos e insertamos en Core Data el tag "FAVOURITE"
+                    // Creamos e insertamos en Core Data el tag "FAVOURITE"
 //                    [FLGTag favoriteTagWithContext:self.stack.context];
                     
                     // Guardamos el contexto

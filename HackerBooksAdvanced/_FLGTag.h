@@ -2,9 +2,9 @@
 // Make changes to FLGTag.h instead.
 
 @import CoreData;
+#import "FLGHackerBooksBaseClass.h"
 
 extern const struct FLGTagAttributes {
-	__unsafe_unretained NSString *index;
 	__unsafe_unretained NSString *name;
 } FLGTagAttributes;
 
@@ -17,19 +17,11 @@ extern const struct FLGTagRelationships {
 @interface FLGTagID : NSManagedObjectID {}
 @end
 
-@interface _FLGTag : NSManagedObject {}
+@interface _FLGTag : FLGHackerBooksBaseClass {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 @property (nonatomic, readonly, strong) FLGTagID* objectID;
-
-@property (nonatomic, strong) NSNumber* index;
-
-@property (atomic) int16_t indexValue;
-- (int16_t)indexValue;
-- (void)setIndexValue:(int16_t)value_;
-
-//- (BOOL)validateIndex:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSString* name;
 
@@ -50,12 +42,6 @@ extern const struct FLGTagRelationships {
 @end
 
 @interface _FLGTag (CoreDataGeneratedPrimitiveAccessors)
-
-- (NSNumber*)primitiveIndex;
-- (void)setPrimitiveIndex:(NSNumber*)value;
-
-- (int16_t)primitiveIndexValue;
-- (void)setPrimitiveIndexValue:(int16_t)value_;
 
 - (NSString*)primitiveName;
 - (void)setPrimitiveName:(NSString*)value;

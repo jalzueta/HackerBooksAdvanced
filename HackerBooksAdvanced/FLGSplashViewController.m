@@ -108,8 +108,9 @@
     
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[FLGTag entityName]];
     // Implementar el metodo "compare" que ha hecho fernando para los tags
-    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:FLGTagAttributes.name
-                                                          ascending:YES selector:@selector(compare:)]];
+    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name"
+                                                          ascending:YES
+                                                           selector:@selector(compare:)]];
     
 //    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:FLGTagAttributes.name
 //                                                          ascending:YES selector:@selector(caseInsensitiveCompare:)]];
@@ -157,7 +158,7 @@
     spliVC.delegate = bookVC;
     self.libraryVC.delegate = bookVC;
     
-    self.libraryVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    spliVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentViewController:spliVC
                        animated:YES
                      completion:^{

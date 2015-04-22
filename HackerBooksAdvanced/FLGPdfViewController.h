@@ -18,4 +18,6 @@
 
 - (id) initWithModel: (FLGBook *) model;
 
+- (IBAction)showAnnotations:(id)sender;
+
 @end

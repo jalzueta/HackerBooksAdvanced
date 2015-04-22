@@ -2,7 +2,7 @@
 #import "FLGConstants.h"
 #import "AGTCoreDataStack+FetchWithContext.h"
 
-@interface FLGTag ()
+@interface FLGTag () <NSCopying>
 
 // Private interface goes here.
 
