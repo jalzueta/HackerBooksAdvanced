@@ -8,6 +8,7 @@
 
 #import "FLGPhotoViewController.h"
 #import "FLGPhoto.h"
+#import "FLGConstants.h"
 @import CoreImage;
 
 @interface FLGPhotoViewController ()
@@ -37,6 +38,9 @@
     
     // Sincronizo modelo -> vista
     self.photoView.image = self.model.image;
+    
+    // Alta en Notifications
+    [self setupNotifications];
 }
 
 - (void) viewWillDisappear:(BOOL)animated{
@@ -44,24 +48,52 @@
     
     // Sincronizo vista -> modelo
     self.model.image = self.photoView.image;
+    
+    // Baja en Notifications
+    [self tearDownNotifications];
 }
 
 
 #pragma mark - Actions
 
-- (IBAction)takePicture:(id)sender {
+- (IBAction)deletePhoto:(id)sender {
     
+    // La eliminamos del modelo
+    self.model.image = nil;
+}
+
+- (IBAction)takePictureFromCamera:(id)sender {
+    [self takePicture:CAMERA];
+}
+
+- (IBAction)takePictureFromRoll:(id)sender {
+    [self takePicture:ROLL];
+}
+
+- (IBAction)takePictureFromAlbum:(id)sender {
+    [self takePicture:ALBUM];
+}
+
+- (void) takePicture: (NSString *) type{
     // Creamos un UIImagePickerController
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     
     // -------------- Lo configuramos ---------------
-    // Compruebo si el dispositivo tiene camara
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        // Uso la camara
-        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    }else{
-        // Tiro de la galeria
+    if ([type isEqualToString:CAMERA]) {
+        // Compruebo si el dispositivo tiene camara
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            // Uso la camara
+            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        }else{
+            // Tiro de la galeria
+            picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        }
+    } else if ([type isEqualToString:ROLL]){
         picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        picker.modalPresentationStyle = UIModalPresentationFormSheet;
+    } else{
+        picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+        picker.modalPresentationStyle = UIModalPresentationFormSheet;
     }
     
     // Asigno el delegado
@@ -69,72 +101,46 @@
     
     // Customizo la transicion del controlador modal
     // picker.modalPresentationStyle -> forma en la que se va a presentar
-    // picker.modalTransitionStyle -> animacion que se va a usar al hacer la transicion
+//    picker.modalPresentationStyle = UIModalPresentationFormSheet;
     
+    // picker.modalTransitionStyle -> animacion que se va a usar al hacer la transicion
     // ojo si se usa "UIModalTransitionStylePartialCurl" -> No se va a llamar a viewWillDisappear ni a viewWillAppear cuando se produzca la transicion
-    picker.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    picker.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     
     // Lo muetro de forma modal
     [self presentViewController:picker
                        animated:YES
                      completion:^{
-                        // Esto se va a ejecutar cuando termine la animacion que muestra al picker
+                         // Esto se va a ejecutar cuando termine la animacion que muestra al picker
                      }];
 }
 
-// TODO: aplicar el filtro en segundo plano y poner un activity indicator
-- (IBAction)applyFilter:(id)sender {
-    // Los filtros se ejecutan en la GPU -> son muy rapidos, incluso para videos
-    // Creo un contexto de CoreImage
-    CIContext *ctxt = [CIContext contextWithOptions:nil];
-    
-    // Imagen de entrada para el filtro
-    CIImage *inputImg = [CIImage imageWithCGImage:[self.photoView.image CGImage]];
-    
-    // Creo un filtro y lo configuro
-    CIFilter *vintage = [CIFilter filterWithName:@"CIFalseColor"];
-    [vintage setValue:inputImg
-               forKey:kCIInputImageKey];
-    
-    CIImage *outputImg = vintage.outputImage;
-    
-    // Lo aplico
-    CGImageRef out = nil;
-    out = [ctxt createCGImage:outputImg
-                     fromRect:outputImg.extent]; // el tamaño de la imagen de salida del filtro. Es el "frame" de una CIImage
-    
-    // Actualizo el modelo
-    self.model.image = [UIImage imageWithCGImage:out];
-    CGImageRelease(out);
-    
-    // Sustituyo la imagen
-    self.photoView.image = self.model.image;
-    
+#pragma mark - Notifications
+- (void) setupNotifications{
+    // Nos damos de alta en las notificaciones
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self
+               selector:@selector(notifyThatPhotoDidChange:)
+                   name:PHOTO_DID_CHANGE_PHOTO
+                 object:self.model];
 }
 
-- (IBAction)deletePhoto:(id)sender {
+- (void) tearDownNotifications{
+    // Nos damos de baja de las notificaciones
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center removeObserver:self];
+}
+
+// PHOTO_DID_CHANGE_PHOTO
+- (void) notifyThatPhotoDidChange: (NSNotification *) aNotification{
     
-    // La eliminamos del modelo
-    self.model.image = nil;
-    
-    // GUardamos el bounds inicial
-    CGRect oldRect = self.photoView.bounds;
-    // frame: se refiere al sistema de coordenadas de su supervista
-    // bounds: se refiere al sistema de coordenadas global
-    
-    // Sincronizo modelo -> vista
-    [UIView animateWithDuration:0.7
-                     animations:^{
-                         self.photoView.alpha = 0;
-                         self.photoView.bounds = CGRectZero;
-                         self.photoView.transform = CGAffineTransformMakeRotation(M_1_PI);
-                     } completion:^(BOOL finished) {
-                         
-                         self.photoView.image = nil;
-                         self.photoView.transform = CGAffineTransformIdentity;
-                         self.photoView.bounds = oldRect;
-                         self.photoView.alpha = 1;
-                     }];
+    // Sincronizamos modelo -> vista
+    [UIView transitionWithView:self.photoView
+                      duration:0.7
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^{
+                        self.photoView.image = self.model.image;
+                    } completion:NULL];
 }
 
 #pragma mark - UIImagePickerControllerDelegate

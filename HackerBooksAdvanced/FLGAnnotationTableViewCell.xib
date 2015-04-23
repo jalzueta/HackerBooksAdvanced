@@ -6,21 +6,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FLGBookTableViewCell" rowHeight="80" id="KGk-i7-Jjw" customClass="FLGBookTableViewCell">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FLGAnnotationTableViewCell" rowHeight="80" id="KGk-i7-Jjw" customClass="FLGAnnotationTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="768" height="80"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="768" height="43"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="saved_icon.png" id="XKi-Ge-acY">
-                        <rect key="frame" x="733" y="8" width="30" height="30"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                    </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="favourite_off.png" id="9KH-qK-5dv">
-                        <rect key="frame" x="733" y="45" width="30" height="30"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xdX-OT-WNC">
                         <rect key="frame" x="91" y="10" width="631" height="40"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
@@ -28,7 +20,7 @@
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="book.png" id="FYK-La-EiE">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no_image.png" id="FYK-La-EiE">
                         <rect key="frame" x="10" y="10" width="60" height="60"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
@@ -39,34 +31,19 @@
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="m8N-zn-u92">
-                        <rect key="frame" x="733" y="45" width="30" height="30"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <state key="normal">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                        <connections>
-                            <action selector="favoriteDidPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="bpW-CQ-0lO"/>
-                        </connections>
-                    </button>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             </tableViewCellContentView>
             <connections>
-                <outlet property="authorsView" destination="pqG-qh-fZr" id="tok-bL-NEv"/>
-                <outlet property="coverImageView" destination="FYK-La-EiE" id="8LZ-Wm-Pbr"/>
-                <outlet property="downloadIconView" destination="XKi-Ge-acY" id="X1b-ue-t49"/>
-                <outlet property="favouriteIconView" destination="9KH-qK-5dv" id="NAT-V4-aeR"/>
+                <outlet property="annotationImageView" destination="FYK-La-EiE" id="TDA-fU-MNb"/>
+                <outlet property="modificationDateView" destination="pqG-qh-fZr" id="q7n-0H-cO1"/>
                 <outlet property="titleView" destination="xdX-OT-WNC" id="9qD-lv-f7v"/>
             </connections>
             <point key="canvasLocation" x="572" y="354"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="book.png" width="512" height="512"/>
-        <image name="favourite_off.png" width="256" height="256"/>
-        <image name="saved_icon.png" width="256" height="256"/>
+        <image name="no_image.png" width="450" height="450"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

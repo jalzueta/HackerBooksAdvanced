@@ -15,19 +15,29 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="tGU-Jb-P62">
+                    <rect key="frame" x="10" y="74" width="300" height="440"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                </imageView>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="BFj-pf-fJL">
                     <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <items>
                         <barButtonItem systemItem="camera" id="eet-uH-PbQ">
                             <connections>
-                                <action selector="takePicture:" destination="-1" id="lzm-Zt-eFC"/>
+                                <action selector="takePictureFromCamera:" destination="-1" id="eGQ-ij-6Tg"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="Miu-tc-wTY"/>
-                        <barButtonItem title="Vintage" id="KZs-fD-IoZ">
+                        <barButtonItem image="roll.png" id="PJ8-Hh-F4r">
                             <connections>
-                                <action selector="applyFilter:" destination="-1" id="qZ6-xj-XMl"/>
+                                <action selector="takePictureFromRoll:" destination="-1" id="1PM-OG-4gH"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="LQe-2k-61h"/>
+                        <barButtonItem image="album.png" id="mDP-d8-z9J">
+                            <connections>
+                                <action selector="takePictureFromAlbum:" destination="-1" id="SBN-48-fnm"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="RqN-MR-jct"/>
@@ -38,16 +48,16 @@
                         </barButtonItem>
                     </items>
                 </toolbar>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="tGU-Jb-P62">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
             <point key="canvasLocation" x="314" y="363"/>
         </view>
     </objects>
+    <resources>
+        <image name="album.png" width="22" height="22"/>
+        <image name="roll.png" width="22" height="22"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

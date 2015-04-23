@@ -33,8 +33,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1016"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="zjw-Vj-rp6" userLabel="Image View - Nitida">
-                                <rect key="frame" x="100" y="150" width="568" height="651"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="zjw-Vj-rp6" userLabel="Image View - Nitida">
+                                <rect key="frame" x="100" y="150" width="568" height="650"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                         </subviews>

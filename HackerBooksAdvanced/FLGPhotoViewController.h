@@ -15,9 +15,10 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *photoView;
 
-- (IBAction)takePicture:(id)sender;
-- (IBAction)applyFilter:(id)sender;
+- (IBAction)takePictureFromCamera:(id)sender;
 - (IBAction)deletePhoto:(id)sender;
+- (IBAction)takePictureFromRoll:(id)sender;
+- (IBAction)takePictureFromAlbum:(id)sender;
 
 @property (strong, nonatomic) FLGPhoto *model;
 

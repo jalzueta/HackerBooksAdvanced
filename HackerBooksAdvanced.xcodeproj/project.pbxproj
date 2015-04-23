@@ -15,6 +15,14 @@
 		591820AE1AE7397000032809 /* FLGAnnotationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 591820AD1AE7397000032809 /* FLGAnnotationViewController.xib */; };
 		591820B21AE73A7E00032809 /* FLGPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 591820B01AE73A7E00032809 /* FLGPhotoViewController.m */; };
 		591820B31AE73A7E00032809 /* FLGPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 591820B11AE73A7E00032809 /* FLGPhotoViewController.xib */; };
+		597238551AE82EBD001377BC /* album.png in Resources */ = {isa = PBXBuildFile; fileRef = 5972384F1AE82EBD001377BC /* album.png */; };
+		597238561AE82EBD001377BC /* album@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 597238501AE82EBD001377BC /* album@2x.png */; };
+		597238571AE82EBD001377BC /* album@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 597238511AE82EBD001377BC /* album@3x.png */; };
+		597238581AE82EBD001377BC /* roll.png in Resources */ = {isa = PBXBuildFile; fileRef = 597238521AE82EBD001377BC /* roll.png */; };
+		597238591AE82EBD001377BC /* roll@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 597238531AE82EBD001377BC /* roll@2x.png */; };
+		5972385A1AE82EBD001377BC /* roll@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 597238541AE82EBD001377BC /* roll@3x.png */; };
+		597238941AE85F4E001377BC /* FLGAnnotationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 597238921AE85F4E001377BC /* FLGAnnotationTableViewCell.m */; };
+		597238951AE85F4E001377BC /* FLGAnnotationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 597238931AE85F4E001377BC /* FLGAnnotationTableViewCell.xib */; };
 		59AFD6AB1AE4F2FF004BEA6B /* AGTCoreDataStack+FetchWithContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 59AFD6AA1AE4F2FF004BEA6B /* AGTCoreDataStack+FetchWithContext.m */; };
 		59AFD6E91AE5D63F004BEA6B /* FLGPdfViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59AFD6E51AE5D63F004BEA6B /* FLGPdfViewController.m */; };
 		59AFD6EA1AE5D63F004BEA6B /* FLGPdfViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59AFD6E61AE5D63F004BEA6B /* FLGPdfViewController.xib */; };
@@ -107,6 +115,15 @@
 		591820AF1AE73A7E00032809 /* FLGPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLGPhotoViewController.h; sourceTree = "<group>"; };
 		591820B01AE73A7E00032809 /* FLGPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLGPhotoViewController.m; sourceTree = "<group>"; };
 		591820B11AE73A7E00032809 /* FLGPhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FLGPhotoViewController.xib; sourceTree = "<group>"; };
+		5972384F1AE82EBD001377BC /* album.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = album.png; sourceTree = "<group>"; };
+		597238501AE82EBD001377BC /* album@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "album@2x.png"; sourceTree = "<group>"; };
+		597238511AE82EBD001377BC /* album@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "album@3x.png"; sourceTree = "<group>"; };
+		597238521AE82EBD001377BC /* roll.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = roll.png; sourceTree = "<group>"; };
+		597238531AE82EBD001377BC /* roll@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "roll@2x.png"; sourceTree = "<group>"; };
+		597238541AE82EBD001377BC /* roll@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "roll@3x.png"; sourceTree = "<group>"; };
+		597238911AE85F4E001377BC /* FLGAnnotationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLGAnnotationTableViewCell.h; sourceTree = "<group>"; };
+		597238921AE85F4E001377BC /* FLGAnnotationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLGAnnotationTableViewCell.m; sourceTree = "<group>"; };
+		597238931AE85F4E001377BC /* FLGAnnotationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FLGAnnotationTableViewCell.xib; sourceTree = "<group>"; };
 		59AFD6A91AE4F2FF004BEA6B /* AGTCoreDataStack+FetchWithContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AGTCoreDataStack+FetchWithContext.h"; sourceTree = "<group>"; };
 		59AFD6AA1AE4F2FF004BEA6B /* AGTCoreDataStack+FetchWithContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AGTCoreDataStack+FetchWithContext.m"; sourceTree = "<group>"; };
 		59AFD6E41AE5D63F004BEA6B /* FLGPdfViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLGPdfViewController.h; sourceTree = "<group>"; };
@@ -354,6 +371,12 @@
 		59DF20741ADF237400556DA2 /* Recursos */ = {
 			isa = PBXGroup;
 			children = (
+				5972384F1AE82EBD001377BC /* album.png */,
+				597238501AE82EBD001377BC /* album@2x.png */,
+				597238511AE82EBD001377BC /* album@3x.png */,
+				597238521AE82EBD001377BC /* roll.png */,
+				597238531AE82EBD001377BC /* roll@2x.png */,
+				597238541AE82EBD001377BC /* roll@3x.png */,
 				59DA36C51AE08D4C00A7E12E /* book.png */,
 				59DF20751ADF237400556DA2 /* no_image.png */,
 				59DF207D1ADF299D00556DA2 /* favourite_icon_off.png */,
@@ -374,6 +397,9 @@
 				59DF20771ADF24D300556DA2 /* FLGBookTableViewCell.h */,
 				59DF20781ADF24D300556DA2 /* FLGBookTableViewCell.m */,
 				59DF20791ADF24D300556DA2 /* FLGBookTableViewCell.xib */,
+				597238911AE85F4E001377BC /* FLGAnnotationTableViewCell.h */,
+				597238921AE85F4E001377BC /* FLGAnnotationTableViewCell.m */,
+				597238931AE85F4E001377BC /* FLGAnnotationTableViewCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -574,7 +600,9 @@
 			files = (
 				59AFD6EA1AE5D63F004BEA6B /* FLGPdfViewController.xib in Resources */,
 				59DF207B1ADF24D300556DA2 /* FLGBookTableViewCell.xib in Resources */,
+				597238551AE82EBD001377BC /* album.png in Resources */,
 				59DF20851ADF299D00556DA2 /* favourite_icon_off.png in Resources */,
+				597238571AE82EBD001377BC /* album@3x.png in Resources */,
 				59E040221ADC2782007EF337 /* LaunchScreen.xib in Resources */,
 				59DF20911ADFFCC900556DA2 /* FLGBookViewController.xib in Resources */,
 				59DF20861ADF299D00556DA2 /* favourite_icon_on.png in Resources */,
@@ -582,6 +610,7 @@
 				591820AE1AE7397000032809 /* FLGAnnotationViewController.xib in Resources */,
 				59DA36C61AE08D4C00A7E12E /* book.png in Resources */,
 				59DF20D61AE00D9900556DA2 /* FLGBookViewController~iphone.xib in Resources */,
+				597238591AE82EBD001377BC /* roll@2x.png in Resources */,
 				59DA36C41AE08C1000A7E12E /* FLGSplashViewController.xib in Resources */,
 				59DF20871ADF299D00556DA2 /* favourite_off.png in Resources */,
 				59DF208C1ADF299D00556DA2 /* saved_on.png in Resources */,
@@ -589,6 +618,10 @@
 				59DF20891ADF299D00556DA2 /* open_pdf.png in Resources */,
 				59DF208A1ADF299D00556DA2 /* open_pdf@2x.png in Resources */,
 				591820AC1AE7365400032809 /* FLGAnnotationViewController~iphone.xib in Resources */,
+				597238951AE85F4E001377BC /* FLGAnnotationTableViewCell.xib in Resources */,
+				5972385A1AE82EBD001377BC /* roll@3x.png in Resources */,
+				597238561AE82EBD001377BC /* album@2x.png in Resources */,
+				597238581AE82EBD001377BC /* roll.png in Resources */,
 				59DF20761ADF237400556DA2 /* no_image.png in Resources */,
 				59E0401F1ADC2782007EF337 /* Images.xcassets in Resources */,
 				59DF208B1ADF299D00556DA2 /* saved_icon.png in Resources */,
@@ -633,6 +666,7 @@
 				59AFD7211AE5D856004BEA6B /* ReaderThumbRender.m in Sources */,
 				59DF20511ADDCF1000556DA2 /* AGTCoreDataStack.m in Sources */,
 				59E0404F1ADC3093007EF337 /* _FLGLocation.m in Sources */,
+				597238941AE85F4E001377BC /* FLGAnnotationTableViewCell.m in Sources */,
 				59E0401A1ADC2781007EF337 /* main.m in Sources */,
 				59E040661ADC30B0007EF337 /* FLGBook.m in Sources */,
 				59E040521ADC3093007EF337 /* _FLGTag.m in Sources */,

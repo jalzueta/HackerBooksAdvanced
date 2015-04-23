@@ -9,6 +9,7 @@
 #import "FLGAnnotationViewController.h"
 #import "FLGAnnotation.h"
 #import "FLGPhotoViewController.h"
+#import "FLGPhoto.h"
 
 @interface FLGAnnotationViewController ()
 
@@ -44,6 +45,12 @@
     
     self.titleView.text = self.model.title;
     self.textView.text = self.model.text;
+    self.photoView.image = self.model.photo.image;
+    
+    [self roundedStyled:self.textView];
+    [self roundedStyled:self.creationDateView];
+    [self roundedStyled:self.modificationDateView];
+    [self roundedStyled:self.photoView];
 }
 
 - (void) viewWillDisappear:(BOOL)animated{
@@ -102,17 +109,19 @@
 
 - (void) setupKeyboardNotifications{
     
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    
-    [nc addObserver:self
-           selector:@selector(notifyThatKeyboardWillAppear:)
-               name:UIKeyboardWillShowNotification
-             object:nil];
-    
-    [nc addObserver:self
-           selector:@selector(notifyThatKeyboardWillDisappear:)
-               name:UIKeyboardWillHideNotification
-             object:nil];
+    if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone){
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        
+        [nc addObserver:self
+               selector:@selector(notifyThatKeyboardWillAppear:)
+                   name:UIKeyboardWillShowNotification
+                 object:nil];
+        
+        [nc addObserver:self
+               selector:@selector(notifyThatKeyboardWillDisappear:)
+                   name:UIKeyboardWillHideNotification
+                 object:nil];
+    }
 }
 
 - (void) tearDownKeyboardNotifications{
@@ -174,6 +183,15 @@
                      } completion:^(BOOL finished) {
                          
                      }];
+}
+
+#pragma mark - Utils
+
+- (void) roundedStyled: (UIView *) view{
+    view.layer.cornerRadius = 5;
+    view.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    view.layer.borderWidth = 0.5;
+    view.layer.masksToBounds = YES;
 }
 
 @end

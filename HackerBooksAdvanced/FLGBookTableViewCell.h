@@ -20,9 +20,12 @@
 
 - (IBAction)favoriteDidPressed:(id)sender;
 
++ (CGFloat) height;
 + (NSString *) cellId;
 
 - (void) configureWithBook: (FLGBook *) book;
 - (void) observeBook:(FLGBook*) book;
+
+- (void) cleanUp;
 
 @end

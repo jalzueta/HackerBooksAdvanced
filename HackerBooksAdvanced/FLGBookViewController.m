@@ -136,8 +136,6 @@
     self.bookImage.layer.masksToBounds = NO;
     self.bookImage.layer.shadowOffset = CGSizeMake(5, 5);
     self.bookImage.layer.shadowOpacity = 0.5;
-    
-//    self.bookDataView.backgroundColor = SELECTED_CELL_BACKGROUND_COLOR;
 }
 
 - (void) syncViewToModel{

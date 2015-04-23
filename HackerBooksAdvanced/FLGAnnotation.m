@@ -1,6 +1,7 @@
 #import "FLGAnnotation.h"
 #import "FLGPhoto.h"
 #import "FLGLocation.h"
+#import "FLGConstants.h"
 
 @interface FLGAnnotation ()
 
@@ -43,6 +44,23 @@
     
     // Actualizo la modificationDate
     self.modificationDate = [NSDate date];
+    
+    // Envio notificacion
+    
+}
+
+- (void) sendAnnotationDidChangeItsContentNotification{
+    
+    if (self.managedObjectContext.hasChanges) {
+        [self.managedObjectContext save:nil];
+    }
+    
+    NSNotification *note = [NSNotification notificationWithName:ANNOTATION_DID_CHANGE_ITS_CONTENT_NOTIFICATION
+                                                         object:self
+                                                       userInfo:@{ANNOTATION_KEY: self}];
+    
+    // Enviamos la notificacion
+    [[NSNotificationCenter defaultCenter] postNotification:note];
 }
 
 @end

@@ -8,7 +8,7 @@
 
 #pragma mark - Autosave
 #define AUTO_SAVE YES
-#define AUTO_SAVE_DELAY 10
+#define AUTO_SAVE_DELAY 30
 
 
 #pragma mark - FLGBook JSON download
@@ -43,9 +43,20 @@
 #define FAVOURITE_ON_IMAGE_NAME @"favourite_on.png"
 #define FAVOURITE_OFF_IMAGE_NAME @"favourite_off.png"
 
+#define PHOTO_DID_CHANGE_PHOTO @"photoDidChangePhoto"
+#define PHOTO_KEY @"photo"
+
+#define ANNOTATION_DID_CHANGE_ITS_CONTENT_NOTIFICATION @"annotationDidChangeItsContent"
+#define ANNOTATION_KEY @"annotation"
+
 #pragma mark - Colors
 #define FAVOURITE_HEADER_COLOR [UIColor colorWithRed:77/255.0 green:173/255.0 blue:0/255.0 alpha:1.0]
 #define CATHEGORY_HEADER_COLOR [UIColor colorWithRed:80/255.0 green:80/255.0 blue:80/255.0 alpha:1.0]
 #define SELECTED_CELL_BACKGROUND_COLOR [UIColor colorWithRed:235/255.0 green:255/255.0 blue:235/255.0 alpha:1.0]
+
+#pragma mark - Picture Date Picker
+#define CAMERA @"camera"
+#define ROLL @"roll"
+#define ALBUM @"album"
 
 

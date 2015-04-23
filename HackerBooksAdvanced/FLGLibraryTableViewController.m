@@ -72,7 +72,7 @@
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 80.0;
+    return [FLGBookTableViewCell height];
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -94,32 +94,38 @@
 }
 
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30.0)];
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, self.tableView.frame.size.width - 40, 30.0)];
     
     FLGTag* tag = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0
                                                                                       inSection:section]];
-    titleLabel.text = [tag.name capitalizedString];
-    titleLabel.font = [UIFont fontWithName:@"Palatino-Bold" size:18.0];
-    
     if ([tag.name isEqualToString:FAVOURITES_TAG]) {
-        titleLabel.textColor = [UIColor whiteColor];
+        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30.0)];
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, self.tableView.frame.size.width - 40, 30.0)];
+        
         headerView.backgroundColor = FAVOURITE_HEADER_COLOR;
-    }else{
+        
+        titleLabel.text = [tag.name capitalizedString];
+        titleLabel.font = [UIFont fontWithName:@"Palatino-Bold" size:18.0];
         titleLabel.textColor = [UIColor whiteColor];
-        headerView.backgroundColor = CATHEGORY_HEADER_COLOR;
+        titleLabel.textAlignment = NSTextAlignmentCenter;
+        
+        [headerView addSubview:titleLabel];
+        return headerView;
     }
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    
-    [headerView addSubview:titleLabel];
-    return headerView;
+    return nil;
 }
 
 - (UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 10.0)];
-    footerView.backgroundColor = [UIColor colorWithRed:77/255.0 green:173/255.0 blue:0/255.0 alpha:1.0];
-    return footerView;
+    FLGTag* tag = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0
+                                                                    inSection:section]];
+    if ([tag.name isEqualToString:FAVOURITES_TAG]) {
+        
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 10.0)];
+        footerView.backgroundColor = [UIColor colorWithRed:77/255.0 green:173/255.0 blue:0/255.0 alpha:1.0];
+        return footerView;
+    }
+    return nil;
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     // Averiguar cual es el libro

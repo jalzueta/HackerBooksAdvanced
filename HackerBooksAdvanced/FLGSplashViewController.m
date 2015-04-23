@@ -105,7 +105,6 @@
 - (void) launchApp{
     
     // Tenemos que hacer la busqueda de libros
-    
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[FLGTag entityName]];
     // Implementar el metodo "compare" que ha hecho fernando para los tags
     req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name"
@@ -144,7 +143,7 @@
     self.libraryVC = [[FLGLibraryTableViewController alloc]
                       initWithFetchedResultsController: fc
                       stack: self.stack
-                      style: UITableViewStylePlain
+                      style: UITableViewStyleGrouped
                       showSelectedCell:YES];
     
     // Creamos un BookVC

@@ -201,7 +201,7 @@
     
     // Creo un controlador de notas
     FLGAnnotationsTableViewController *annotationsVC = [[FLGAnnotationsTableViewController alloc] initWithFetchedResultsController:fc
-                                                                                                                   style:UITableViewStylePlain
+                                                                                                                   style:UITableViewStyleGrouped
                                                                                                                     book:b];
     
     // Hago el push

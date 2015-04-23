@@ -20,6 +20,9 @@
 
 @implementation FLGBookTableViewCell
 
++ (CGFloat) height{
+    return 80;
+}
 
 + (NSString *) cellId{
     return NSStringFromClass(self);
@@ -30,11 +33,8 @@
     UIView *backgroundView = [[UIView alloc] initWithFrame:self.frame];
     backgroundView.backgroundColor = SELECTED_CELL_BACKGROUND_COLOR;
     self.selectedBackgroundView = backgroundView;
-}
-
-- (void) prepareForReuse{
-    // Reseteamos la celda para el reuso
-//    [self setSelected:NO];
+    
+    [self roundedStyled:self.coverImageView];
 }
 
 - (void) setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -136,6 +136,37 @@
 
 - (IBAction)favoriteDidPressed:(id)sender {
 //    [self.book setIsFavourite:!self.book.isFavourite];
+}
+
+#pragma mark - Cleanup
+// Esto lo manda la tabla cuando este apunto de borrarme
+- (void) prepareForReuse{
+    [super prepareForReuse];
+    
+    // hacemos limpieza
+    [self cleanUp];
+}
+
+- (void) cleanUp{
+    
+    // baja en notificaciones
+    [self removeObserver];
+    
+    self.book = nil;
+    self.coverImageView.image = nil;
+    self.titleView.text = nil;
+    self.favouriteIconView.image = nil;
+    self.downloadIconView.image = nil;
+    self.authorsView.text = nil;
+}
+
+#pragma mark - Utils
+
+- (void) roundedStyled: (UIView *) view{
+    view.layer.cornerRadius = 5;
+    view.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    view.layer.borderWidth = 0.5;
+    view.layer.masksToBounds = YES;
 }
 
 
