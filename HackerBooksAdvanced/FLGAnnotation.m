@@ -46,7 +46,7 @@
     self.modificationDate = [NSDate date];
     
     // Envio notificacion
-    
+    [self sendAnnotationDidChangeItsContentNotification];
 }
 
 - (void) sendAnnotationDidChangeItsContentNotification{

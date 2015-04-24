@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		591820A11AE72E0B00032809 /* AGTCoreDataCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 591820A01AE72E0B00032809 /* AGTCoreDataCollectionViewController.m */; };
-		591820A41AE72F6200032809 /* FLGAnnotationsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 591820A31AE72F6200032809 /* FLGAnnotationsTableViewController.m */; };
 		591820A71AE732F800032809 /* FLGHackerBooksBaseClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 591820A61AE732F800032809 /* FLGHackerBooksBaseClass.m */; };
 		591820AB1AE7365400032809 /* FLGAnnotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 591820A91AE7365400032809 /* FLGAnnotationViewController.m */; };
 		591820AC1AE7365400032809 /* FLGAnnotationViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 591820AA1AE7365400032809 /* FLGAnnotationViewController~iphone.xib */; };
@@ -46,6 +45,7 @@
 		59AFD7261AE5D856004BEA6B /* ThumbsMainToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 59AFD7101AE5D856004BEA6B /* ThumbsMainToolbar.m */; };
 		59AFD7271AE5D856004BEA6B /* ThumbsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59AFD7121AE5D856004BEA6B /* ThumbsViewController.m */; };
 		59AFD7281AE5D856004BEA6B /* UIXToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 59AFD7141AE5D856004BEA6B /* UIXToolbarView.m */; };
+		59D6DBE31AE9B92400F33A5E /* FLGAnnotationsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59D6DBE21AE9B92400F33A5E /* FLGAnnotationsTableViewController.m */; };
 		59DA36C31AE08C1000A7E12E /* FLGSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59DA36C11AE08C1000A7E12E /* FLGSplashViewController.m */; };
 		59DA36C41AE08C1000A7E12E /* FLGSplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59DA36C21AE08C1000A7E12E /* FLGSplashViewController.xib */; };
 		59DA36C61AE08D4C00A7E12E /* book.png in Resources */ = {isa = PBXBuildFile; fileRef = 59DA36C51AE08D4C00A7E12E /* book.png */; };
@@ -104,8 +104,6 @@
 /* Begin PBXFileReference section */
 		5918209F1AE72E0B00032809 /* AGTCoreDataCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGTCoreDataCollectionViewController.h; sourceTree = "<group>"; };
 		591820A01AE72E0B00032809 /* AGTCoreDataCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGTCoreDataCollectionViewController.m; sourceTree = "<group>"; };
-		591820A21AE72F6200032809 /* FLGAnnotationsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLGAnnotationsTableViewController.h; sourceTree = "<group>"; };
-		591820A31AE72F6200032809 /* FLGAnnotationsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLGAnnotationsTableViewController.m; sourceTree = "<group>"; };
 		591820A51AE732F800032809 /* FLGHackerBooksBaseClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLGHackerBooksBaseClass.h; sourceTree = "<group>"; };
 		591820A61AE732F800032809 /* FLGHackerBooksBaseClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLGHackerBooksBaseClass.m; sourceTree = "<group>"; };
 		591820A81AE7365400032809 /* FLGAnnotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLGAnnotationViewController.h; sourceTree = "<group>"; };
@@ -169,6 +167,8 @@
 		59AFD7121AE5D856004BEA6B /* ThumbsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThumbsViewController.m; sourceTree = "<group>"; };
 		59AFD7131AE5D856004BEA6B /* UIXToolbarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIXToolbarView.h; sourceTree = "<group>"; };
 		59AFD7141AE5D856004BEA6B /* UIXToolbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIXToolbarView.m; sourceTree = "<group>"; };
+		59D6DBE11AE9B92400F33A5E /* FLGAnnotationsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLGAnnotationsTableViewController.h; sourceTree = "<group>"; };
+		59D6DBE21AE9B92400F33A5E /* FLGAnnotationsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLGAnnotationsTableViewController.m; sourceTree = "<group>"; };
 		59DA36C01AE08C1000A7E12E /* FLGSplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLGSplashViewController.h; sourceTree = "<group>"; };
 		59DA36C11AE08C1000A7E12E /* FLGSplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLGSplashViewController.m; sourceTree = "<group>"; };
 		59DA36C21AE08C1000A7E12E /* FLGSplashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FLGSplashViewController.xib; sourceTree = "<group>"; };
@@ -342,8 +342,8 @@
 				59AFD6E41AE5D63F004BEA6B /* FLGPdfViewController.h */,
 				59AFD6E51AE5D63F004BEA6B /* FLGPdfViewController.m */,
 				59AFD6E61AE5D63F004BEA6B /* FLGPdfViewController.xib */,
-				591820A21AE72F6200032809 /* FLGAnnotationsTableViewController.h */,
-				591820A31AE72F6200032809 /* FLGAnnotationsTableViewController.m */,
+				59D6DBE11AE9B92400F33A5E /* FLGAnnotationsTableViewController.h */,
+				59D6DBE21AE9B92400F33A5E /* FLGAnnotationsTableViewController.m */,
 				591820A81AE7365400032809 /* FLGAnnotationViewController.h */,
 				591820A91AE7365400032809 /* FLGAnnotationViewController.m */,
 				591820AD1AE7397000032809 /* FLGAnnotationViewController.xib */,
@@ -646,6 +646,7 @@
 				59AFD71B1AE5D856004BEA6B /* ReaderDocumentOutline.m in Sources */,
 				59AFD7251AE5D856004BEA6B /* ReaderViewController.m in Sources */,
 				59E0401D1ADC2782007EF337 /* AppDelegate.m in Sources */,
+				59D6DBE31AE9B92400F33A5E /* FLGAnnotationsTableViewController.m in Sources */,
 				59E0404E1ADC3093007EF337 /* _FLGCover.m in Sources */,
 				59AFD7241AE5D856004BEA6B /* ReaderThumbView.m in Sources */,
 				591820A71AE732F800032809 /* FLGHackerBooksBaseClass.m in Sources */,
@@ -654,7 +655,6 @@
 				59DF20701ADEBB8E00556DA2 /* UIViewController+Navigation.m in Sources */,
 				59AFD7181AE5D856004BEA6B /* ReaderContentTile.m in Sources */,
 				59E040671ADC30B0007EF337 /* FLGCover.m in Sources */,
-				591820A41AE72F6200032809 /* FLGAnnotationsTableViewController.m in Sources */,
 				59AFD7201AE5D856004BEA6B /* ReaderThumbQueue.m in Sources */,
 				59E040641ADC30AF007EF337 /* FLGAnnotation.m in Sources */,
 				59AFD71C1AE5D856004BEA6B /* ReaderMainPagebar.m in Sources */,
