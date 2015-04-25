@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UIToolbar *bottomBar;
 @property (weak, nonatomic) IBOutlet UIImageView *photoView;
+@property (weak, nonatomic) IBOutlet UILabel *locationView;
 
 @property (strong, nonatomic) FLGAnnotation *model;
 @property (nonatomic) CGRect textViewInitialFrame;

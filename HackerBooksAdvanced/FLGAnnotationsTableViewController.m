@@ -133,8 +133,7 @@
     
     // Creamos una nueva instancia de una libreta y Core Data se encarga de notificar al fetchResultsController, y este avisa a su delegado (el controlador AGTCoreDataTableViewController)
     [FLGAnnotation annotationWithTitle:@"Nueva nota"
-                                  book:self.book
-                               context:self.fetchedResultsController.managedObjectContext];
+                                  book:self.book];
     // Todo objeto de Core Data sabe cual es su contexto, por eso se lo preguntamos a "self.fetchedResultsController"
 }
 

@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *annotationImageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleView;
 @property (weak, nonatomic) IBOutlet UILabel *modificationDateView;
+@property (weak, nonatomic) IBOutlet UIImageView *locationView;
 
 + (CGFloat) height;
 + (NSString *) cellId;

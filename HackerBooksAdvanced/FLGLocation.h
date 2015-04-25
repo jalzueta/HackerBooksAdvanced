@@ -1,5 +1,11 @@
 #import "_FLGLocation.h"
 
+@import CoreLocation;
+@class FLGAnnotation;
+
 @interface FLGLocation : _FLGLocation {}
-// Custom logic goes here.
+
++ (instancetype) locationWithCLLocation: (CLLocation *) location
+                          forAnnotation: (FLGAnnotation *) annotation;
+
 @end

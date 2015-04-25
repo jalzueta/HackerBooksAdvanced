@@ -14,6 +14,7 @@
 		591820AE1AE7397000032809 /* FLGAnnotationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 591820AD1AE7397000032809 /* FLGAnnotationViewController.xib */; };
 		591820B21AE73A7E00032809 /* FLGPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 591820B01AE73A7E00032809 /* FLGPhotoViewController.m */; };
 		591820B31AE73A7E00032809 /* FLGPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 591820B11AE73A7E00032809 /* FLGPhotoViewController.xib */; };
+		5919D46B1AEB23040065F684 /* location_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5919D46A1AEB23040065F684 /* location_icon.png */; };
 		597238551AE82EBD001377BC /* album.png in Resources */ = {isa = PBXBuildFile; fileRef = 5972384F1AE82EBD001377BC /* album.png */; };
 		597238561AE82EBD001377BC /* album@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 597238501AE82EBD001377BC /* album@2x.png */; };
 		597238571AE82EBD001377BC /* album@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 597238511AE82EBD001377BC /* album@3x.png */; };
@@ -113,6 +114,7 @@
 		591820AF1AE73A7E00032809 /* FLGPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLGPhotoViewController.h; sourceTree = "<group>"; };
 		591820B01AE73A7E00032809 /* FLGPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLGPhotoViewController.m; sourceTree = "<group>"; };
 		591820B11AE73A7E00032809 /* FLGPhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FLGPhotoViewController.xib; sourceTree = "<group>"; };
+		5919D46A1AEB23040065F684 /* location_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location_icon.png; sourceTree = "<group>"; };
 		5972384F1AE82EBD001377BC /* album.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = album.png; sourceTree = "<group>"; };
 		597238501AE82EBD001377BC /* album@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "album@2x.png"; sourceTree = "<group>"; };
 		597238511AE82EBD001377BC /* album@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "album@3x.png"; sourceTree = "<group>"; };
@@ -387,6 +389,7 @@
 				59DF20821ADF299D00556DA2 /* open_pdf@2x.png */,
 				59DF20831ADF299D00556DA2 /* saved_icon.png */,
 				59DF20841ADF299D00556DA2 /* saved_on.png */,
+				5919D46A1AEB23040065F684 /* location_icon.png */,
 			);
 			path = Recursos;
 			sourceTree = "<group>";
@@ -615,6 +618,7 @@
 				59DF20871ADF299D00556DA2 /* favourite_off.png in Resources */,
 				59DF208C1ADF299D00556DA2 /* saved_on.png in Resources */,
 				591820B31AE73A7E00032809 /* FLGPhotoViewController.xib in Resources */,
+				5919D46B1AEB23040065F684 /* location_icon.png in Resources */,
 				59DF20891ADF299D00556DA2 /* open_pdf.png in Resources */,
 				59DF208A1ADF299D00556DA2 /* open_pdf@2x.png in Resources */,
 				591820AC1AE7365400032809 /* FLGAnnotationViewController~iphone.xib in Resources */,

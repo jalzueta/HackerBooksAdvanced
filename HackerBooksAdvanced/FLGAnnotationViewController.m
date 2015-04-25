@@ -10,6 +10,7 @@
 #import "FLGAnnotation.h"
 #import "FLGPhotoViewController.h"
 #import "FLGPhoto.h"
+#import "FLGLocation.h"
 
 @interface FLGAnnotationViewController ()
 
@@ -46,6 +47,7 @@
     self.titleView.text = self.model.title;
     self.textView.text = self.model.text;
     self.photoView.image = self.model.photo.image;
+    self.locationView.text = self.model.location.address;
     
     [self roundedStyled:self.textView];
     [self roundedStyled:self.creationDateView];

@@ -43,10 +43,8 @@
 
 - (void) configureWithAnnotation:(FLGAnnotation *)annotation{
     self.annotation = annotation;
-    self.titleView.text = self.annotation.title;
-    self.modificationDateView.text = [NSString stringWithFormat:@"%@", self.annotation.modificationDate];
     
-    self.annotationImageView.image = annotation.photo.image;
+    [self syncWithAnnotation];
 }
 
 #pragma mark -  Notificaciones
@@ -96,7 +94,16 @@
                     } completion:nil];
 
     self.titleView.text = self.annotation.title;
-    self.modificationDateView.text = [NSString stringWithFormat:@"%@", self.annotation.modificationDate];
+    
+    NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
+    fmt.dateStyle = NSDateFormatterMediumStyle;
+    self.modificationDateView.text = [fmt stringFromDate:self.annotation.modificationDate];
+    
+    if (self.annotation.hasLocation) {
+        self.locationView.image = [UIImage imageNamed:@"location_icon.png"];
+    }else{
+        self.locationView.image = nil;
+    }
 }
 
 #pragma mark - Cleanup

@@ -31,11 +31,16 @@
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location_icon.png" id="bbO-us-mbu">
+                        <rect key="frame" x="740" y="10" width="20" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             </tableViewCellContentView>
             <connections>
                 <outlet property="annotationImageView" destination="FYK-La-EiE" id="TDA-fU-MNb"/>
+                <outlet property="locationView" destination="bbO-us-mbu" id="ceC-mD-Qvl"/>
                 <outlet property="modificationDateView" destination="pqG-qh-fZr" id="q7n-0H-cO1"/>
                 <outlet property="titleView" destination="xdX-OT-WNC" id="9qD-lv-f7v"/>
             </connections>
@@ -43,6 +48,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="location_icon.png" width="128" height="128"/>
         <image name="no_image.png" width="450" height="450"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
