@@ -34,9 +34,9 @@
     return self;
 }
 
-- (void) viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [self launchAnimation];
+- (void) viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self launchAnimation1];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,54 +44,94 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-- (void) launchAnimation{
+- (void) launchAnimation1{
     
     UIViewAnimationOptions options = UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveLinear;
     
-    NSTimeInterval step = 0.3;
+    NSTimeInterval step = 0.5;
     
     // Traslacion
     [UIView animateWithDuration:step
                           delay:0
                         options:options
                      animations:^{
-                         self.bookImage.transform = CGAffineTransformMakeRotation(M_PI/2);
-                         
+                         self.bookImage.layer.transform = CATransform3DMakeRotation(M_PI/2, 0.0, 1.0, 0.0);
                      } completion:^(BOOL finished) {
-                         
+                         [UIView animateWithDuration:step
+                                               delay:0
+                                             options:options
+                                          animations:^{
+                                              self.bookImage.layer.transform = CATransform3DMakeRotation(M_PI, 0.0, 1.0, 0.0);
+                                          } completion:^(BOOL finished) {
+                                              [UIView animateWithDuration:step
+                                                                    delay:0
+                                                                  options:options
+                                                               animations:^{
+                                                                   self.bookImage.layer.transform = CATransform3DMakeRotation(3 * M_PI/2, 0.0, 1.0, 0.0);
+                                                               } completion:^(BOOL finished) {
+                                                                   [UIView animateWithDuration:step
+                                                                                         delay:0
+                                                                                       options:options
+                                                                                    animations:^{
+                                                                                        self.bookImage.layer.transform = CATransform3DMakeRotation(2 * M_PI, 0.0, 1.0, 0.0);
+                                                                                    } completion:^(BOOL finished) {
+                                                                                        if (self.shouldAnimate) {
+                                                                                            [self launchAnimation2];
+                                                                                        }else{
+                                                                                            [self launchApp];
+                                                                                        }
+                                                                                    }];
+
+                                                               }];
+
+                                          }];
                      }];
+    
+}
+
+- (void) launchAnimation2{
+    
+    UIViewAnimationOptions options = UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveLinear;
+    
+    NSTimeInterval step = 0.5;
+    
+    // Traslacion
     [UIView animateWithDuration:step
-                          delay:step
+                          delay:0
                         options:options
                      animations:^{
-                         self.bookImage.transform = CGAffineTransformMakeRotation(M_PI);
-                         
+                         self.bookImage.layer.transform = CATransform3DMakeRotation(M_PI/2, 1.0, 0.0, 0.0);
                      } completion:^(BOOL finished) {
-                         
+                         [UIView animateWithDuration:step
+                                               delay:0
+                                             options:options
+                                          animations:^{
+                                              self.bookImage.layer.transform = CATransform3DMakeRotation(M_PI, 1.0, 0.0, 0.0);
+                                          } completion:^(BOOL finished) {
+                                              [UIView animateWithDuration:step
+                                                                    delay:0
+                                                                  options:options
+                                                               animations:^{
+                                                                   self.bookImage.layer.transform = CATransform3DMakeRotation(3 * M_PI/2, 1.0, 0.0, 0.0);
+                                                               } completion:^(BOOL finished) {
+                                                                   [UIView animateWithDuration:step
+                                                                                         delay:0
+                                                                                       options:options
+                                                                                    animations:^{
+                                                                                        self.bookImage.layer.transform = CATransform3DMakeRotation(2 * M_PI, 1.0, 0.0, 0.0);
+                                                                                    } completion:^(BOOL finished) {
+                                                                                        if (self.shouldAnimate) {
+                                                                                            [self launchAnimation1];
+                                                                                        }else{
+                                                                                            [self launchApp];
+                                                                                        }
+                                                                                    }];
+                                                                   
+                                                               }];
+                                              
+                                          }];
                      }];
-    [UIView animateWithDuration:step
-                          delay:2*step
-                        options:options
-                     animations:^{
-                         self.bookImage.transform = CGAffineTransformMakeRotation(3*M_PI/2);
-                         
-                     } completion:^(BOOL finished) {
-                         
-                     }];
-    [UIView animateWithDuration:step
-                          delay:3*step
-                        options:options
-                     animations:^{
-                         self.bookImage.transform = CGAffineTransformMakeRotation(2*M_PI);
-                         
-                     } completion:^(BOOL finished) {
-                         if (self.shouldAnimate) {
-                             [self launchAnimation];
-                         }else{
-                             [self launchApp];
-                         }
-                     }];
+    
 }
 
 
