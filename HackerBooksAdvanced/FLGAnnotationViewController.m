@@ -51,6 +51,11 @@
     [self roundedStyled:self.creationDateView];
     [self roundedStyled:self.modificationDateView];
     [self roundedStyled:self.photoView];
+    
+    // Añado boton de compartir nota
+    UIBarButtonItem *share = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                                           target:self action:@selector(displayShareController:)];
+    self.navigationItem.rightBarButtonItem = share;
 }
 
 - (void) viewWillDisappear:(BOOL)animated{
@@ -80,6 +85,29 @@
 - (IBAction)hideKeyboard:(id)sender {
     // Le decimos a "view" que pare de editar, ella y todas sus subvistas
     [self.view endEditing:YES];
+}
+
+- (void) displayShareController: (id) sender{
+    
+    UIActivityViewController *aVC = [[UIActivityViewController alloc] initWithActivityItems:[self arrayOfItems]
+                                                                      applicationActivities:nil];
+    
+    [self presentViewController:aVC animated:YES completion:nil];
+}
+
+- (NSArray *) arrayOfItems{
+    NSMutableArray *items = [NSMutableArray array];
+    
+    if (self.model.title) {
+        [items addObject:self.model.title];
+    }
+    if (self.model.text) {
+        [items addObject:self.model.text];
+    }
+    if (self.model.photo.image) {
+        [items addObject:self.model.photo.image];
+    }
+    return items;
 }
 
 #pragma mark - UITextFieldDelegate
