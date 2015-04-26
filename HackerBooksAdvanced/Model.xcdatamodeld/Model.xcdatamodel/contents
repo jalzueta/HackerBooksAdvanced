@@ -29,8 +29,8 @@
     </entity>
     <entity name="Location" representedClassName="FLGLocation" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="latitude" attributeType="Double" syncable="YES"/>
-        <attribute name="longitude" attributeType="Double" syncable="YES"/>
+        <attribute name="latitude" attributeType="Double" indexed="YES" syncable="YES"/>
+        <attribute name="longitude" attributeType="Double" indexed="YES" syncable="YES"/>
         <relationship name="annotations" toMany="YES" deletionRule="Nullify" destinationEntity="Annotation" inverseName="location" inverseEntity="Annotation" syncable="YES"/>
     </entity>
     <entity name="Pdf" representedClassName="FLGPdf" syncable="YES">
@@ -50,7 +50,7 @@
         <element name="Author" positionX="-398" positionY="-252" width="128" height="73"/>
         <element name="Book" positionX="-765" positionY="-265" width="128" height="163"/>
         <element name="Cover" positionX="-396" positionY="-28" width="128" height="73"/>
-        <element name="Location" positionX="-126" positionY="-504" width="128" height="103"/>
+        <element name="Location" positionX="-126" positionY="-504" width="128" height="105"/>
         <element name="Pdf" positionX="-452" positionY="125" width="128" height="73"/>
         <element name="Photo" positionX="-126" positionY="-342" width="128" height="73"/>
         <element name="Tag" positionX="-504" positionY="260" width="128" height="73"/>

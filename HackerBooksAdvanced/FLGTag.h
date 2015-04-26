@@ -8,6 +8,7 @@
 
 + (instancetype) favoriteTagWithContext: (NSManagedObjectContext *) context;
 
+- (BOOL) isFavoriteTag;
 - (NSComparisonResult)compare:(FLGTag *)other;
 
 @end

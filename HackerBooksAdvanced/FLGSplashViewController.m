@@ -151,8 +151,8 @@
                                                           ascending:YES
                                                            selector:@selector(compare:)]];
     
-//    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:FLGTagAttributes.name
-//                                                          ascending:YES selector:@selector(caseInsensitiveCompare:)]];
+    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:FLGTagAttributes.name
+                                                          ascending:YES selector:@selector(caseInsensitiveCompare:)]];
     
     req.fetchBatchSize = 20;
     

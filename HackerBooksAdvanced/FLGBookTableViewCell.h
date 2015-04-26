@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleView;
 @property (weak, nonatomic) IBOutlet UILabel *authorsView;
 
+@property (nonatomic, strong) FLGBook *book;
 
 - (IBAction)favoriteDidPressed:(id)sender;
 

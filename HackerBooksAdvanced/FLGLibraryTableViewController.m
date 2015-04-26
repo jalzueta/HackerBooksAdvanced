@@ -88,57 +88,50 @@
     return 0.0;
 }
 
-- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
-{
-    return nil;
-}
-
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
     FLGTag* tag = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0
                                                                                       inSection:section]];
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30.0)];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, self.tableView.frame.size.width - 40, 30.0)];
+    
+    
+    
+    titleLabel.text = [tag.name capitalizedString];
+    titleLabel.font = [UIFont fontWithName:@"Palatino-Bold" size:18.0];
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    
+    [headerView addSubview:titleLabel];
+    
+    
     if ([tag.name isEqualToString:FAVOURITES_TAG]) {
-        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30.0)];
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, self.tableView.frame.size.width - 40, 30.0)];
-        
         headerView.backgroundColor = FAVOURITE_HEADER_COLOR;
-        
-        titleLabel.text = [tag.name capitalizedString];
-        titleLabel.font = [UIFont fontWithName:@"Palatino-Bold" size:18.0];
-        titleLabel.textColor = [UIColor whiteColor];
-        titleLabel.textAlignment = NSTextAlignmentCenter;
-        
-        [headerView addSubview:titleLabel];
-        return headerView;
+    }else{
+        headerView.backgroundColor = CATHEGORY_HEADER_COLOR;
     }
-    return nil;
+    return headerView;
 }
 
-- (UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    FLGTag* tag = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0
-                                                                    inSection:section]];
-    if ([tag.name isEqualToString:FAVOURITES_TAG]) {
-        
-        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 10.0)];
-        footerView.backgroundColor = [UIColor colorWithRed:77/255.0 green:173/255.0 blue:0/255.0 alpha:1.0];
-        return footerView;
-    }
-    return nil;
-}
+//- (UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+//    FLGTag* tag = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0
+//                                                                    inSection:section]];
+//    if ([tag.name isEqualToString:FAVOURITES_TAG]) {
+//        
+//        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 10.0)];
+//        footerView.backgroundColor = [UIColor colorWithRed:77/255.0 green:173/255.0 blue:0/255.0 alpha:1.0];
+//        return footerView;
+//    }
+//    return nil;
+//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     // Averiguar cual es el libro
-    FLGTag *tag = [self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.section];
-    
-    NSArray *results = [tag.books allObjects];
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
-    results = [results sortedArrayUsingDescriptors:@[sortDescriptor]];
-    
+    FLGBook *b = [self bookAtIndexPath:indexPath];
     FLGBookTableViewCell *cell;
-    if (results) {
-        
-        FLGBook *b = [results objectAtIndex:indexPath.row];
+    if (b) {
         
         // Crear una celda
         cell = [tableView dequeueReusableCellWithIdentifier:[FLGBookTableViewCell cellId]
@@ -166,14 +159,8 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     // Averiguar cual es el libro
-    FLGTag *tag = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section]];
-    
-    NSArray *results = [tag.books allObjects];
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
-    results = [results sortedArrayUsingDescriptors:@[sortDescriptor]];
-    
-    if (results) {
-        FLGBook *book = [results objectAtIndex:indexPath.row];
+    FLGBook *book = [self bookAtIndexPath:indexPath];
+    if (book) {
         
         self.selectedBook = book;
         
@@ -211,6 +198,31 @@
 
 #pragma mark - Notifications
 
+// BOOK_DID_CHANGE_FAVORITE_STATE_NOTIFICATION
+- (void) notifyThatFavoriteStateDidChange: (NSNotification *) aNotification{
+//    FLGBook *b = [aNotification.userInfo objectForKey:BOOK_KEY];
+    
+    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[FLGTag entityName]];
+    // Implementar el metodo "compare" que ha hecho fernando para los tags
+    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name"
+                                                          ascending:YES
+                                                           selector:@selector(compare:)]];
+    
+    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:FLGTagAttributes.name
+                                                          ascending:YES selector:@selector(caseInsensitiveCompare:)]];
+    
+    req.fetchBatchSize = 20;
+    
+    // Creamos un FetchedResultsController
+    NSFetchedResultsController *fc = [[NSFetchedResultsController alloc]
+                                      initWithFetchRequest:req
+                                      managedObjectContext:self.stack.context
+                                      sectionNameKeyPath:FLGTagAttributes.name
+                                      cacheName:nil];
+    
+    [self setFetchedResultsController:fc];
+}
+
 
 #pragma mark - UISearchResultsUpdating
 
@@ -218,30 +230,25 @@
     
 }
 
-// BOOK_DID_CHANGE_FAVORITE_STATE_NOTIFICATION
-- (void) notifyThatFavoriteStateDidChange: (NSNotification *) aNotification{
-//    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[FLGTag entityName]];
-//    // Implementar el metodo "compare" que ha hecho fernando para los tags
-//    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:FLGTagAttributes.name
-//                                                          ascending:YES selector:@selector(compare:)]];
-//    
-//    //    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:FLGTagAttributes.name
-//    //                                                          ascending:YES selector:@selector(caseInsensitiveCompare:)]];
-//    
-//    req.fetchBatchSize = 20;
-//    
-//    // Creamos un FetchedResultsController
-//    self.fetchedResultsController = [[NSFetchedResultsController alloc]
-//                                      initWithFetchRequest:req
-//                                      managedObjectContext:self.stack.context
-//                                      sectionNameKeyPath:FLGTagAttributes.name
-//                                      cacheName:nil];
-    
-    FLGBook *b = [aNotification.userInfo objectForKey:BOOK_KEY];
-    
-    
-    [self performFetch];
+
+#pragma mark - NSFetchedResultsControllerDelegate
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
+{
+//    [super controllerWillChangeContent:controller];
 }
+
+- (void)controller:(NSFetchedResultsController *)controller
+  didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
+           atIndex:(NSUInteger)sectionIndex
+     forChangeType:(NSFetchedResultsChangeType)type
+{
+//    [super controller:controller
+//     didChangeSection:sectionInfo
+//              atIndex:sectionIndex
+//        forChangeType:type];
+}
+
 
 - (void)controller:(NSFetchedResultsController *)controller
    didChangeObject:(id)anObject
@@ -249,29 +256,63 @@
      forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath
 {
-    if (!self.suspendAutomaticTrackingOfChangesInManagedObjectContext)
-    {
-        switch(type)
-        {
-            case NSFetchedResultsChangeInsert:
-                [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-                break;
-                
-            case NSFetchedResultsChangeDelete:
-                [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-                break;
-                
-            case NSFetchedResultsChangeUpdate:
-                [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-                break;
-                
-            case NSFetchedResultsChangeMove:
-                [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-                [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-                break;
-        }
-    }
+//    [super controller:controller
+//      didChangeObject:anObject
+//          atIndexPath:indexPath
+//        forChangeType:type
+//         newIndexPath:newIndexPath];
+    
+//    FLGTag *tag = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section]];
+//    
+//    if (![tag isFavoriteTag]) {
+//        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//    }else{
+//        FLGBookTableViewCell *cell = (FLGBookTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+//        FLGBook *b = [cell book];
+//        NSLog(@"IndexPath: %ld", (long)indexPath.row);
+//        NSLog(@"NewIndexPath: %ld", (long)newIndexPath.row);
+//        if (!b) {
+//            // Es el primer favorito
+//            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+//        }else{
+//            if (b.isFavourite) {
+//                [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+//            }else{
+//                [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//            }
+//        }
+//    }
 }
 
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+//    [super controllerDidChangeContent:controller];
+}
+
+//- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+//{
+//    return [super sectionIndexTitlesForTableView:tableView];
+//}
+
+
+
+#pragma mark - Utils
+
+- (FLGBook *) bookAtIndexPath: (NSIndexPath *) indexPath{
+    // Averiguar cual es el libro
+    FLGTag *tag = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section]];
+    
+    NSArray *results = [tag.books allObjects];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
+    results = [results sortedArrayUsingDescriptors:@[sortDescriptor]];
+    
+    if (results.count > 0) {
+        FLGBook *book = [results objectAtIndex:indexPath.row];
+        return book;
+    }
+    else{
+        return nil;
+    }
+}
 
 @end

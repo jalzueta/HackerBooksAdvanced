@@ -87,7 +87,7 @@
 }
 
 - (IBAction)didPressFavourite:(id)sender {
-//    [self.book setIsFavourite: ![self.book isFavourite]];
+    [self.book setIsFavourite: ![self.book isFavourite]];
     
     [self syncFavouriteValue];
 }

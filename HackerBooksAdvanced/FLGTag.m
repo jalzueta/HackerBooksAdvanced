@@ -66,6 +66,10 @@
     return norm;
 }
 
+- (BOOL) isFavoriteTag{
+    return [self.name isEqualToString: FAVOURITES_TAG];
+}
+
 #pragma mark - Comparison
 - (NSComparisonResult)compare:(FLGTag *)other{
     

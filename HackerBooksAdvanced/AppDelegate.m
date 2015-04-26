@@ -12,6 +12,8 @@
 #import "FLGBook.h"
 #import "FLGTag.h"
 #import "FLGAuthor.h"
+#import "FLGAnnotation.h"
+#import "FLGLocation.h"
 #import "FLGLibraryTableViewController.h"
 #import "UIViewController+Navigation.h"
 #import "FLGSplashViewController.h"
@@ -41,8 +43,6 @@
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    
-    
     
     // Se comprueba a ver si se ha descargado el modelo anteriormente
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
@@ -91,7 +91,7 @@
                     }
                     
                     // Creamos e insertamos en Core Data el tag "FAVOURITE"
-//                    [FLGTag favoriteTagWithContext:self.stack.context];
+                    [FLGTag favoriteTagWithContext:self.stack.context];
                     
                     // Guardamos el contexto
                     [self.stack saveWithErrorBlock:^(NSError *error) {
@@ -103,10 +103,6 @@
                     [def setObject:@"YES" forKey:IS_MODEL_DOWNLOADED];
                     [def synchronize];
                     
-                    [self fetchTags];
-                    [self fetchBooks];
-                    [self fetchAuthors];
-                    
                     // Arranco el autosave
                     [self autoSave];
                     
@@ -116,6 +112,10 @@
                             // Envio el mensaje al delegado
                             [self.delegate didFinishSavingBooksInAppDelegate:self];
                         }
+                        
+                        [self performSelector:@selector(printContextState)
+                                   withObject:nil
+                                   afterDelay:5];
                     });
                     
 //                    // Creamos un fetchRequest
@@ -150,9 +150,6 @@
             }
         });
     } else{
-        [self fetchTags];
-        [self fetchBooks];
-        [self fetchAuthors];
         
         // Arranco el autosave
         [self autoSave];
@@ -161,6 +158,10 @@
             // Envio el mensaje al delegado
             [self.delegate didFinishSavingBooksInAppDelegate:self];
         }
+        
+        [self performSelector:@selector(printContextState)
+                   withObject:nil
+                   afterDelay:5];
     }
     
     // Creamos un fetchRequest
@@ -241,49 +242,37 @@
     }
 }
 
-- (void) fetchTags{
+- (void) printContextState{
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[FLGTag entityName]];
-    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:FLGTagAttributes.name
-                                                          ascending:YES
-                                                           selector:@selector(caseInsensitiveCompare:)]];
-    req.fetchBatchSize = 20;
+    NSUInteger numberOfTags = [[self.stack executeFetchRequest:req
+                                            errorBlock:nil] count];
     
-    NSArray *results = [self.stack executeFetchRequest:req
-                                            errorBlock:^(NSError *error) {
-                                                NSLog(@"Error al buscar! %@", error);
-                                            }];
+    req = [NSFetchRequest fetchRequestWithEntityName:[FLGBook entityName]];
+    NSUInteger numberOfBooks = [[self.stack executeFetchRequest:req
+                                                    errorBlock:nil] count];
     
-    NSLog(@"Numero de tags en Core Data: %lu", (unsigned long)results.count);
-}
-
-- (void) fetchBooks{
-    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[FLGBook entityName]];
-    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:FLGBookAttributes.title
-                                                          ascending:YES
-                                                           selector:@selector(caseInsensitiveCompare:)]];
-    req.fetchBatchSize = 20;
+    req = [NSFetchRequest fetchRequestWithEntityName:[FLGAuthor entityName]];
+    NSUInteger numberOfAuthors = [[self.stack executeFetchRequest:req
+                                                     errorBlock:nil] count];
     
-    NSArray *results = [self.stack executeFetchRequest:req
-                                            errorBlock:^(NSError *error) {
-                                                NSLog(@"Error al buscar! %@", error);
-                                            }];
+    req = [NSFetchRequest fetchRequestWithEntityName:[FLGAnnotation entityName]];
+    NSUInteger numberOfAnnotations = [[self.stack executeFetchRequest:req
+                                                     errorBlock:nil] count];
     
-    NSLog(@"Numero de libros en Core Data: %lu", (unsigned long)results.count);
-}
-
-- (void) fetchAuthors{
-    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[FLGAuthor entityName]];
-    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:FLGAuthorAttributes.name
-                                                          ascending:YES
-                                                           selector:@selector(caseInsensitiveCompare:)]];
-    req.fetchBatchSize = 20;
+    req = [NSFetchRequest fetchRequestWithEntityName:[FLGLocation entityName]];
+    NSUInteger numberOfLocations = [[self.stack executeFetchRequest:req
+                                                     errorBlock:nil] count];
     
-    NSArray *results = [self.stack executeFetchRequest:req
-                                            errorBlock:^(NSError *error) {
-                                                NSLog(@"Error al buscar! %@", error);
-                                            }];
+    printf("----------------------------------------------------\n");
+    printf("Number of Tags:          %lu\n", (unsigned long)numberOfTags);
+    printf("Number of Books:         %lu\n", (unsigned long)numberOfBooks);
+    printf("Number of Authors:       %lu\n", (unsigned long)numberOfAuthors);
+    printf("Number of Annotations:   %lu\n", (unsigned long)numberOfAnnotations);
+    printf("Number of Locations:     %lu\n", (unsigned long)numberOfLocations);
     
-    NSLog(@"Numero de autores en Core Data: %lu", (unsigned long)results.count);
+    [self performSelector:@selector(printContextState)
+               withObject:nil
+               afterDelay:5];
 }
 
 - (NSComparisonResult)favouriteFirst:(NSString *)string {

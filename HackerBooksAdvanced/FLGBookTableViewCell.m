@@ -14,7 +14,6 @@
 #import "FLGPdf.h"
 
 @interface FLGBookTableViewCell()
-@property (nonatomic, strong) FLGBook *book;
 
 @end
 
@@ -135,7 +134,7 @@
 #pragma mark - Actions
 
 - (IBAction)favoriteDidPressed:(id)sender {
-//    [self.book setIsFavourite:!self.book.isFavourite];
+    [self.book setIsFavourite:!self.book.isFavourite];
 }
 
 #pragma mark - Cleanup

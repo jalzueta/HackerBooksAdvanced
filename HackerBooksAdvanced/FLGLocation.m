@@ -14,24 +14,43 @@
 + (instancetype) locationWithCLLocation: (CLLocation *) location
                           forAnnotation: (FLGAnnotation *) annotation{
     
-    FLGLocation *loc = [self insertInManagedObjectContext:annotation.managedObjectContext];
+    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[FLGLocation entityName]];
     
-    loc.latitudeValue = location.coordinate.latitude;
-    loc.longitudeValue = location.coordinate.longitude;
+    NSPredicate *latitudePred = [NSPredicate predicateWithFormat:@"abs(latitude) - abs(%lf) < 0.001", location.coordinate.latitude];
+    NSPredicate *longitudePred = [NSPredicate predicateWithFormat:@"abs(longitude) - abs(%lf) < 0.001", location.coordinate.longitude];
     
-    [loc addAnnotationsObject:annotation];
+    NSCompoundPredicate *latLongPred = [NSCompoundPredicate andPredicateWithSubpredicates:@[latitudePred, longitudePred]];
+    req.predicate = latLongPred;
     
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    [geocoder reverseGeocodeLocation:location
-                   completionHandler:^(NSArray *placemarks, NSError *error) {
-                       
-                       if (error) {
-                           NSLog(@"Error obtaining address: %@", error);
-                       }else{
-                           loc.address = ABCreateStringWithAddressDictionary([[placemarks lastObject] addressDictionary], YES);
-                       }
-                   }];
-    return loc;
+    NSError *error;
+    NSArray *results = [annotation.managedObjectContext executeFetchRequest:req
+                                                                      error:&error];
+    
+    NSAssert(results, @"Error al buscar");
+    if ([results count]) {
+        FLGLocation *found = [results lastObject];
+        [found addAnnotationsObject:annotation];
+        return found;
+    }else{
+        FLGLocation *loc = [self insertInManagedObjectContext:annotation.managedObjectContext];
+        
+        loc.latitudeValue = location.coordinate.latitude;
+        loc.longitudeValue = location.coordinate.longitude;
+        
+        [loc addAnnotationsObject:annotation];
+        
+        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+        [geocoder reverseGeocodeLocation:location
+                       completionHandler:^(NSArray *placemarks, NSError *error) {
+                           
+                           if (error) {
+                               NSLog(@"Error obtaining address: %@", error);
+                           }else{
+                               loc.address = ABCreateStringWithAddressDictionary([[placemarks lastObject] addressDictionary], YES);
+                           }
+                       }];
+        return loc;
+    }
 }
 
 @end

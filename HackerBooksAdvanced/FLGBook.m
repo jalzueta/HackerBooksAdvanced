@@ -255,16 +255,17 @@
 
 - (void) sendBookDidChangeFavoriteStateNotification{
     
-    if (self.managedObjectContext.hasChanges) {
-        [self.managedObjectContext save:nil];
-    }
-
     NSNotification *note = [NSNotification notificationWithName:BOOK_DID_CHANGE_FAVORITE_STATE_NOTIFICATION
                                                          object:self
                                                        userInfo:@{BOOK_KEY: self}];
     
     // Enviamos la notificacion
     [[NSNotificationCenter defaultCenter] postNotification:note];
+    
+    if (self.managedObjectContext.hasChanges) {
+        [self.managedObjectContext save:nil];
+    }
+
 }
 
 #pragma mark - Utils
