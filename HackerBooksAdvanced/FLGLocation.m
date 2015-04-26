@@ -46,7 +46,9 @@
                            if (error) {
                                NSLog(@"Error obtaining address: %@", error);
                            }else{
-                               loc.address = ABCreateStringWithAddressDictionary([[placemarks lastObject] addressDictionary], YES);
+                               NSDictionary *addressDict = [[placemarks lastObject] addressDictionary];
+                               loc.address = [NSString stringWithFormat:@"%@, %@ %@ (%@)", [addressDict objectForKey:@"Name"], [addressDict objectForKey:@"ZIP"], [addressDict objectForKey:@"City"], [addressDict objectForKey:@"Country"]];
+//                               loc.address = ABCreateStringWithAddressDictionary([[placemarks lastObject] addressDictionary], YES);
                            }
                        }];
         return loc;

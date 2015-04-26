@@ -91,7 +91,7 @@
                     }
                     
                     // Creamos e insertamos en Core Data el tag "FAVOURITE"
-                    [FLGTag favoriteTagWithContext:self.stack.context];
+//                    [FLGTag favoriteTagWithContext:self.stack.context];
                     
                     // Guardamos el contexto
                     [self.stack saveWithErrorBlock:^(NSError *error) {

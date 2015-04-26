@@ -48,7 +48,7 @@
     <elements>
         <element name="Annotation" positionX="-450" positionY="-442" width="128" height="150"/>
         <element name="Author" positionX="-398" positionY="-252" width="128" height="73"/>
-        <element name="Book" positionX="-765" positionY="-265" width="128" height="163"/>
+        <element name="Book" positionX="-765" positionY="-265" width="128" height="165"/>
         <element name="Cover" positionX="-396" positionY="-28" width="128" height="73"/>
         <element name="Location" positionX="-126" positionY="-504" width="128" height="105"/>
         <element name="Pdf" positionX="-452" positionY="125" width="128" height="73"/>

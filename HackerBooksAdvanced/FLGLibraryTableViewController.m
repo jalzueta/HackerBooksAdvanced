@@ -114,17 +114,22 @@
     return headerView;
 }
 
-//- (UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-//    FLGTag* tag = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0
-//                                                                    inSection:section]];
-//    if ([tag.name isEqualToString:FAVOURITES_TAG]) {
-//        
-//        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 10.0)];
-//        footerView.backgroundColor = [UIColor colorWithRed:77/255.0 green:173/255.0 blue:0/255.0 alpha:1.0];
-//        return footerView;
-//    }
-//    return nil;
-//}
+- (UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    FLGTag* tag = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0
+                                                                    inSection:section]];
+    if ([tag.name isEqualToString:FAVOURITES_TAG]) {
+        
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 10.0)];
+        footerView.backgroundColor = [UIColor colorWithRed:77/255.0 green:173/255.0 blue:0/255.0 alpha:1.0];
+        return footerView;
+    }
+    return nil;
+}
+
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+{
+    return nil;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -221,6 +226,8 @@
                                       cacheName:nil];
     
     [self setFetchedResultsController:fc];
+    
+//    [self.fetchedResultsController performFetch:nil];
 }
 
 

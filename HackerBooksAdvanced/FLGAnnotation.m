@@ -49,17 +49,6 @@
     CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
     if ([CLLocationManager locationServicesEnabled]) {
         if (status == kCLAuthorizationStatusNotDetermined) {
-            if([[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSLocationAlwaysUsageDescription"]){
-                if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
-                    [self.locationManager requestAlwaysAuthorization];
-                }
-            } else if([[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSLocationWhenInUseUsageDescription"]) {
-//                if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
-                    [self.locationManager requestWhenInUseAuthorization];
-//                }
-            } else {
-                NSLog(@"Info.plist does not contain NSLocationAlwaysUsageDescription or NSLocationWhenInUseUsageDescription");
-            }
             [self.locationManager startUpdatingLocation];
         }else if (status == kCLAuthorizationStatusAuthorizedWhenInUse){
             self.locationManager = [[CLLocationManager alloc] init];
